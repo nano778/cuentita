@@ -59,8 +59,9 @@
 
   body{
     margin:0;
+    box-sizing:border-box;   /* los paddings quedan DENTRO de la altura, sin sumar scroll extra */
     min-height:100vh;
-    min-height:100dvh;   /* usa el viewport dinamico real del navegador movil */
+    min-height:100dvh;
     background: var(--bg);
     font-family:'Inter', sans-serif;
     color: var(--ink);
@@ -68,8 +69,8 @@
     justify-content:center;
     align-items:flex-start;
     /* Respeta la isla dinamica (arriba) y la barra de gestos (abajo) del iPhone */
-    padding-top: max(28px, env(safe-area-inset-top));
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
     padding-left: max(16px, env(safe-area-inset-left));
     padding-right: max(16px, env(safe-area-inset-right));
     -webkit-font-smoothing: antialiased;
@@ -578,7 +579,7 @@
         </div>
         <div class="monto-fila">
           <span class="signo" id="signoMoneda">$</span>
-          <input type="number" id="monto" name="monto" inputmode="decimal" min="0" step="0.01" placeholder="0" required autofocus>
+          <input type="text" id="monto" name="monto" inputmode="decimal" placeholder="0" required autofocus autocomplete="off">
         </div>
         <div class="msg-error" id="errMonto" style="text-align:center; margin-top:8px;">Ingresá un monto mayor a cero</div>
       </div>
@@ -895,12 +896,39 @@ function mostrarEstado(msg, tipo){
   estadoEl.className = 'estado' + (tipo ? ' ' + tipo : '');
 }
 
+// Convierte el texto del monto a numero, aceptando coma o punto como decimal.
+// Ej: "1.234,56" -> 1234.56 ; "1234,56" -> 1234.56 ; "1234.56" -> 1234.56
+function parseMonto(txt){
+  if (txt === null || txt === undefined) return NaN;
+  let s = String(txt).trim();
+  if (!s) return NaN;
+  const tieneComa = s.indexOf(',') !== -1;
+  const tienePunto = s.indexOf('.') !== -1;
+  if (tieneComa && tienePunto){
+    // formato es-AR: el punto es separador de miles, la coma es decimal
+    s = s.replace(/\./g, '').replace(',', '.');
+  } else if (tieneComa){
+    // solo coma -> es el decimal
+    s = s.replace(',', '.');
+  } else if (tienePunto){
+    // solo punto: ambiguo. Si hay varios puntos, o uno seguido de exactamente 3
+    // digitos hasta el final, es separador de miles (ej "1.000", "1.234.567").
+    const partes = s.split('.');
+    const ultima = partes[partes.length - 1];
+    if (partes.length > 2 || (partes.length === 2 && ultima.length === 3)){
+      s = s.replace(/\./g, '');  // quitar separadores de miles
+    }
+    // si no, el punto se deja como decimal (ej "1.50", "0.99")
+  }
+  return parseFloat(s);
+}
+
 // Valida todos los campos obligatorios; marca los que fallan y devuelve true/false
 function validarFormulario(){
   let ok = true;
   let primerError = null;
 
-  const monto = parseFloat(inputMonto.value);
+  const monto = parseMonto(inputMonto.value);
   if (!inputMonto.value || isNaN(monto) || monto <= 0){
     montoHero.classList.add('error');
     errMonto.style.display = 'block';
@@ -1022,7 +1050,7 @@ form.addEventListener('submit', async (e) => {
 
   const payload = {
     fecha: inputFecha.value,
-    monto: parseFloat(inputMonto.value),
+    monto: parseMonto(inputMonto.value),
     moneda: monedaSeleccionada,
     categoria: selectCategoria.value,
     metodoPago: selectMetodo.value,
