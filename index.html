@@ -56,31 +56,27 @@
   }
 
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body{ height:100%; overflow-x:hidden; }
+  html{ overflow-x:hidden; }
 
   body{
     margin:0;
-    box-sizing:border-box;   /* los paddings quedan DENTRO de la altura, sin sumar scroll extra */
     min-height:100vh;
     min-height:100dvh;
     background: var(--bg);
     font-family:'Inter', sans-serif;
     color: var(--ink);
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
     /* Respeta la isla dinamica (arriba) y la barra de gestos (abajo) del iPhone */
-    padding-top: max(20px, env(safe-area-inset-top));
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
     padding-left: max(16px, env(safe-area-inset-left));
     padding-right: max(16px, env(safe-area-inset-right));
     -webkit-font-smoothing: antialiased;
   }
 
-  .app{ width:100%; max-width:420px; }
+  .app{ width:100%; max-width:420px; margin:0 auto; }
 
   header{
-    padding: 8px 0 26px;
+    padding: 4px 0 16px;
     text-align:center;
   }
   header .logo{
@@ -216,6 +212,42 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
   }
   input[type=date]{ color: var(--ink); }
+
+  /* Campo de fecha con formato corto DD/MM/AA controlado por la app.
+     La capa visual muestra el texto; el input date real va encima, invisible pero tocable. */
+  #campoFecha .select-wrap::after{ display:none; }  /* sin flecha de select */
+  .fecha-wrap{ position:relative; }
+  .fecha-display{
+    display:flex;
+    align-items:center;
+    width:100%;
+    min-height:45px;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background: var(--surface);
+    font-family:inherit;
+    font-weight:500;
+    font-size:16px;
+    color: var(--ink);
+    padding:12px 13px;
+    pointer-events:none;   /* los toques pasan al input de abajo */
+  }
+  .fecha-wrap input[type=date]{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    margin:0;
+    opacity:0;   /* invisible pero funcional: abre el picker nativo al tocar */
+    border:none;
+    background:transparent;
+  }
+  #campoFecha.error .fecha-display{ border-color: var(--danger); }
+  .fecha-wrap input[type=date]:focus + .fecha-display,
+  .fecha-wrap:focus-within .fecha-display{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
 
   .campo.error input,
   .campo.error select,
@@ -589,7 +621,10 @@
       <div class="fila-2">
         <div class="campo select-wrap" id="campoFecha" style="flex:0 0 42%;">
           <label for="fecha">Fecha</label>
-          <input type="date" id="fecha" name="fecha" required>
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="fechaDisplay">--/--/--</span>
+            <input type="date" id="fecha" name="fecha" required>
+          </div>
           <div class="msg-error">Elegí una fecha</div>
         </div>
         <div class="campo select-wrap" id="campoCategoria">
@@ -742,6 +777,7 @@ const inputDescripcion = document.getElementById('descripcion');
 const montoHero = document.getElementById('montoHero');
 const errMonto = document.getElementById('errMonto');
 const campoFecha = document.getElementById('campoFecha');
+const fechaDisplay = document.getElementById('fechaDisplay');
 const campoCategoria = document.getElementById('campoCategoria');
 const campoMetodo = document.getElementById('campoMetodo');
 const toast = document.getElementById('toast');
@@ -759,11 +795,21 @@ monedaToggle.addEventListener('click', (e) => {
   signoMoneda.textContent = monedaSeleccionada === 'USD' ? 'US$' : '$';
 });
 
+// Muestra la fecha del input (formato interno AAAA-MM-DD) como DD/MM/AA en la capa visual
+function actualizarFechaDisplay(){
+  const v = inputFecha.value;  // "2026-08-10" o ""
+  if (!v){ fechaDisplay.textContent = '--/--/--'; fechaDisplay.style.color = 'var(--ink-faint)'; return; }
+  const p = v.split('-');       // [aaaa, mm, dd]
+  fechaDisplay.textContent = p[2] + '/' + p[1] + '/' + p[0].slice(2);
+  fechaDisplay.style.color = 'var(--ink)';
+}
+
 inputFecha.valueAsDate = new Date();
+actualizarFechaDisplay();
 
 // Limpiar el error de un campo apenas el usuario lo corrige
 inputMonto.addEventListener('input', () => { montoHero.classList.remove('error'); errMonto.style.display = 'none'; });
-inputFecha.addEventListener('change', () => campoFecha.classList.remove('error'));
+inputFecha.addEventListener('change', () => { campoFecha.classList.remove('error'); actualizarFechaDisplay(); });
 selectCategoria.addEventListener('change', () => campoCategoria.classList.remove('error'));
 selectMetodo.addEventListener('change', () => campoMetodo.classList.remove('error'));
 
@@ -1098,6 +1144,7 @@ form.addEventListener('submit', async (e) => {
       agregarAlHistorial(payload);
       form.reset();
       inputFecha.valueAsDate = new Date();
+      actualizarFechaDisplay();
       monedaSeleccionada = 'ARS';
       monedaToggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b.dataset.moneda === 'ARS'));
       signoMoneda.textContent = '$';
