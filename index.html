@@ -1,0 +1,1252 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1b1a" media="(prefers-color-scheme: dark)">
+<title>Gastos</title>
+<link rel="icon" href="data:,">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    /* Grises calidos (piedra/papel) - modo claro por defecto */
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --surface-2: #f4f3f1;
+    --ink: #1c1b1a;
+    --ink-soft: #78716c;
+    --ink-faint: #a8a29e;
+    --line: #e7e5e4;
+    --line-strong: #d6d3d1;
+    /* Acentos tomados del logo "la cuentita" */
+    --accent: #12B8AE;       /* teal del logo */
+    --accent-deep: #0E9A91;  /* teal un poco mas oscuro para contraste sobre blanco */
+    --accent-ink: #ffffff;
+    --coral: #FF5E62;        /* coral del logo, para el monto */
+    --coral-deep: #E8484C;
+    --danger: #b4443a;
+    --ok: #12B8AE;           /* el "ok" ahora usa el teal del logo */
+    --ok-bg: #e5f7f5;
+    --shadow: 0 1px 2px rgba(28,27,26,.04), 0 8px 24px -12px rgba(28,27,26,.12);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg: #1c1b1a;
+      --surface: #262524;
+      --surface-2: #2f2e2c;
+      --ink: #f5f4f2;
+      --ink-soft: #a8a29e;
+      --ink-faint: #78716c;
+      --line: #37352f;
+      --line-strong: #454239;
+      --accent: #2DD4C8;       /* teal mas luminoso para modo oscuro */
+      --accent-deep: #2DD4C8;
+      --accent-ink: #10302e;
+      --coral: #FF7B7E;
+      --coral-deep: #FF7B7E;
+      --danger: #e07a70;
+      --ok: #2DD4C8;
+      --ok-bg: #123634;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    min-height:100dvh;   /* usa el viewport dinamico real del navegador movil */
+    background: var(--bg);
+    font-family:'Inter', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    /* Respeta la isla dinamica (arriba) y la barra de gestos (abajo) del iPhone */
+    padding-top: max(28px, env(safe-area-inset-top));
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app{ width:100%; max-width:420px; }
+
+  header{
+    padding: 8px 0 26px;
+    text-align:center;
+  }
+  header .logo{
+    width:96%;
+    max-width:400px;
+    height:auto;
+    aspect-ratio:900/300;
+    margin: 0 auto;
+    display:block;
+    border-radius:7.5%;   /* mismo redondeo relativo que el SVG horizontal (68/900) */
+    box-shadow: 0 4px 12px -4px rgba(28,27,26,.10), 0 16px 36px -16px rgba(18,184,174,.28);
+  }
+  header .eyebrow{
+    display:none;   /* subtitulo quitado: el logo ya comunica la identidad */
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.02em;
+    color: var(--ink-faint);
+    margin-top:6px;
+  }
+  h1{
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-.02em;
+    margin:0;
+  }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 8px 20px 22px;
+    box-shadow: var(--shadow);
+  }
+
+  /* Monto: protagonista, limpio */
+  .monto-hero{
+    padding: 24px 4px 22px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .moneda-toggle{
+    display:flex;
+    gap:2px;
+    background: var(--surface-2);
+    padding:3px;
+    border-radius:10px;
+    width:fit-content;
+    margin: 0 auto 16px;
+  }
+  .moneda-toggle button{
+    border:none;
+    background:transparent;
+    font-family:inherit;
+    font-weight:600;
+    font-size:12px;
+    letter-spacing:.02em;
+    padding:6px 16px;
+    border-radius:8px;
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: background .18s ease, color .18s ease;
+  }
+  .moneda-toggle button.activo{
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  @media (prefers-color-scheme: dark){
+    .moneda-toggle button.activo{ box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  }
+  .monto-fila{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+  }
+  .monto-fila .signo{
+    font-size:26px;
+    font-weight:500;
+    color: var(--coral);
+    align-self:flex-start;
+    margin-top:12px;
+  }
+  #monto{
+    font-size:52px;
+    font-weight:700;
+    letter-spacing:-.03em;
+    color: var(--coral);
+    background:transparent;
+    border:none;
+    outline:none;
+    width:100%;
+    max-width:230px;
+    text-align:center;
+    padding:0;
+    -moz-appearance:textfield;
+  }
+  #monto::-webkit-outer-spin-button,
+  #monto::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  #monto::placeholder{ color: var(--coral); opacity:.35; }
+  .monto-hero.error #monto{ color: var(--danger); }
+
+  .campo{ margin-bottom:15px; }
+  .fila-2{ display:flex; gap:12px; }
+  .fila-2 .campo{ flex:1; min-width:0; }
+
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color: var(--ink-soft);
+    margin: 0 2px 7px;
+  }
+
+  input[type=text], input[type=date], input[type=number], select{
+    width:100%;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background: var(--surface);
+    font-family:inherit;
+    font-weight:500;
+    font-size:16px;   /* 16px o mas evita el zoom automatico de iOS al enfocar */
+    color: var(--ink);
+    padding:12px 13px;
+    outline:none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+    appearance:none; -webkit-appearance:none;
+  }
+  input::placeholder{ color: var(--ink-faint); }
+  input[type=text]:focus, input[type=date]:focus, select:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  input[type=date]{ color: var(--ink); }
+
+  .campo.error input,
+  .campo.error select,
+  .campo.error .foto-btn{
+    border-color: var(--danger);
+  }
+  .msg-error{
+    display:none;
+    font-size:12px;
+    font-weight:500;
+    color: var(--danger);
+    margin: 6px 2px 0;
+  }
+  .campo.error .msg-error{ display:block; }
+  .monto-hero.error{ border-color: transparent; }
+
+  .select-wrap{ position:relative; }
+  .select-wrap::after{
+    content:"";
+    position:absolute;
+    right:14px; top:37px;
+    width:7px; height:7px;
+    border-right:1.5px solid var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    transform: rotate(45deg);
+    pointer-events:none;
+  }
+  select{ padding-right:34px; cursor:pointer; }
+
+  .foto-btn{
+    display:flex; align-items:center; gap:9px;
+    border:1px dashed var(--line-strong);
+    border-radius:11px;
+    padding:12px 13px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:500;
+    color: var(--ink-soft);
+    background: var(--surface);
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .foto-btn svg{ flex:none; }
+  .foto-btn.con-foto{
+    color: var(--ok);
+    border-color: var(--ok);
+    border-style: solid;
+    background: var(--ok-bg);
+  }
+  .preview-wrap{
+    position:relative;
+    display:none;
+    margin-top:10px;
+    width:92px;
+  }
+  .preview-wrap.mostrar{ display:block; }
+  .preview{
+    width:92px;
+    border-radius:11px;
+    border:1px solid var(--line);
+    display:block;
+  }
+  .preview-quitar{
+    position:absolute;
+    top:-7px; right:-7px;
+    width:23px; height:23px;
+    border:none;
+    border-radius:50%;
+    background: var(--ink);
+    color: var(--bg);
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  }
+  #comprobante{ display:none; }
+
+  button[type=submit]{
+    width:100%;
+    margin-top:8px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family:inherit;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition: transform .08s ease, opacity .15s ease;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+  }
+  button[type=submit]:active{ transform: scale(.99); }
+  button[type=submit]:disabled{ opacity:.6; cursor:wait; }
+
+  .spinner{
+    width:16px; height:16px;
+    border:2.5px solid color-mix(in srgb, var(--accent-ink) 35%, transparent);
+    border-top-color: var(--accent-ink);
+    border-radius:50%;
+    animation: girar .7s linear infinite;
+  }
+  @keyframes girar{ to{ transform: rotate(360deg); } }
+
+  .estado{
+    margin-top:12px;
+    font-size:13px;
+    min-height:16px;
+    text-align:center;
+    color: var(--ink-soft);
+  }
+  .estado.err{ color: var(--danger); font-weight:500; }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    transform: translateX(-50%) translateY(80px);
+    background: var(--accent-deep);
+    color:#ffffff;
+    font-weight:600;
+    font-size:14px;
+    padding:12px 20px;
+    border-radius:12px;
+    box-shadow: 0 12px 30px -8px color-mix(in srgb, var(--accent-deep) 50%, transparent);
+    display:flex; align-items:center; gap:8px;
+    opacity:0;
+    pointer-events:none;
+    transition: transform .32s cubic-bezier(.2,.9,.3,1.2), opacity .32s ease;
+    z-index:50;
+  }
+  .toast.mostrar{ transform: translateX(-50%) translateY(0); opacity:1; }
+  .toast svg{ flex:none; }
+
+  .config-warning{
+    background: var(--surface-2);
+    border:1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-size:12.5px;
+    padding:12px 14px;
+    border-radius:12px;
+    margin: 14px 0 4px;
+    line-height:1.5;
+  }
+  .config-warning code{ font-weight:600; color: var(--ink); }
+
+  .historial{
+    margin-top:26px;
+    padding-top:4px;
+  }
+  .historial h2{
+    font-size:12px;
+    font-weight:600;
+    color: var(--ink-faint);
+    margin:0 0 10px 2px;
+  }
+  .renglon{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 14px;
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:8px;
+  }
+  .renglon .chip{
+    font-size:11px;
+    font-weight:600;
+    padding:3px 9px;
+    border-radius:6px;
+    background: var(--ok-bg);
+    color: var(--accent-deep);
+    white-space:nowrap;
+  }
+  .renglon .desc{
+    font-size:13px;
+    color: var(--ink-soft);
+    flex:1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .renglon .monto{
+    font-size:15px;
+    font-weight:600;
+    color: var(--ink);
+    white-space:nowrap;
+    letter-spacing:-.01em;
+  }
+  .renglon .borrar{
+    flex:none;
+    width:36px; height:36px;
+    margin:-5px -6px -5px 0;   /* mas area de toque sin agrandar visualmente el renglon */
+    border:none;
+    border-radius:9px;
+    background:transparent;
+    color: var(--ink-faint);
+    font-size:19px;
+    line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background .15s ease, color .15s ease;
+  }
+  .renglon .borrar:hover{
+    background: color-mix(in srgb, var(--danger) 12%, transparent);
+    color: var(--danger);
+  }
+  .renglon .borrar:disabled{
+    cursor:wait;
+    opacity:.5;
+  }
+  .renglon.borrando{
+    opacity:.5;
+  }
+  .renglon.saliendo{
+    opacity:0;
+    transform: translateX(20px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+
+  /* ===== Tabs Cargar / Consultar ===== */
+  .tabs{
+    display:flex;
+    gap:4px;
+    background: var(--surface-2);
+    padding:4px;
+    border-radius:14px;
+    margin-bottom:18px;
+  }
+  .tab{
+    flex:1;
+    border:none;
+    background:transparent;
+    font-family:inherit;
+    font-weight:600;
+    font-size:14px;
+    padding:11px;
+    border-radius:10px;
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: background .18s ease, color .18s ease;
+  }
+  .tab.activo{
+    background: var(--surface);
+    color: var(--accent-deep);
+    box-shadow: 0 1px 3px rgba(28,27,26,.10);
+  }
+
+  /* Toggle de moneda a ancho completo (en consulta) */
+  .moneda-toggle.full{ width:100%; margin:0; }
+  .moneda-toggle.full button{ flex:1; }
+
+  /* ===== Resultado de consulta ===== */
+  .resultado{ margin-top:20px; }
+  .resultado-total{
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+    color:#fff;
+    border-radius:18px;
+    padding:22px;
+    text-align:center;
+    box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--accent-deep) 60%, transparent);
+    margin-bottom:16px;
+  }
+  .resultado-total .rt-label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    opacity:.85;
+  }
+  .resultado-total .rt-monto{
+    display:block;
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-.02em;
+    margin-top:4px;
+  }
+  .resultado-total .rt-cant{
+    display:block;
+    font-size:12px;
+    opacity:.85;
+    margin-top:4px;
+  }
+  .desglose{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px 18px;
+    margin-bottom:12px;
+  }
+  .desglose h3{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color: var(--ink-faint);
+    margin:0 0 12px;
+  }
+  .barra-item{ margin-bottom:12px; }
+  .barra-item:last-child{ margin-bottom:0; }
+  .barra-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    font-size:13.5px;
+    margin-bottom:5px;
+  }
+  .barra-top .bi-nombre{ color: var(--ink); font-weight:500; }
+  .barra-top .bi-monto{ color: var(--ink); font-weight:700; white-space:nowrap; }
+  .barra-track{
+    height:7px;
+    background: var(--surface-2);
+    border-radius:100px;
+    overflow:hidden;
+  }
+  .barra-fill{
+    height:100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+    border-radius:100px;
+    transition: width .5s cubic-bezier(.2,.8,.3,1);
+  }
+  .desglose-vacio{
+    font-size:13px;
+    color: var(--ink-faint);
+    text-align:center;
+    padding:8px 0;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <img class="logo" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20900%20300%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bgGradH%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2312B8AE%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23134E6F%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22accentGradH%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FF9466%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23FF5E62%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22dotHighlightH%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220.65%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220%22/%3E%0A%20%20%20%20%3C/radialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22softBlurH%22%20x%3D%22-50%25%22%20y%3D%22-50%25%22%20width%3D%22200%25%22%20height%3D%22200%25%22%3E%0A%20%20%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2226%22/%3E%0A%20%20%20%20%3C/filter%3E%0A%20%20%3C/defs%3E%0A%0A%20%20%3C%21--%20background%20card%20%28apaisada%29%20--%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22900%22%20height%3D%22300%22%20rx%3D%2268%22%20ry%3D%2268%22%20fill%3D%22url%28%23bgGradH%29%22/%3E%0A%0A%20%20%3C%21--%20glass%20sheen%20--%3E%0A%20%20%3Cellipse%20cx%3D%22230%22%20cy%3D%2260%22%20rx%3D%22320%22%20ry%3D%22120%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.12%22%20filter%3D%22url%28%23softBlurH%29%22%20transform%3D%22rotate%28-14%20230%2060%29%22/%3E%0A%0A%20%20%3C%21--%20subtle%20currency%20watermark%20for%20texture%20--%3E%0A%20%20%3Ctext%20x%3D%22175%22%20y%3D%22228%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22700%22%20font-size%3D%22150%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.05%22%3E%24%3C/text%3E%0A%0A%20%20%3C%21--%20inner%20glass%20edge%20--%3E%0A%20%20%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%22890%22%20height%3D%22290%22%20rx%3D%2264%22%20ry%3D%2264%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.16%22%20stroke-width%3D%222%22/%3E%0A%0A%20%20%3C%21--%20%3D%3D%3D%3D%3D%20IZQUIERDA%3A%20anillo%20de%20presupuesto%20%28icono%29%20%3D%3D%3D%3D%3D%20--%3E%0A%20%20%3C%21--%20ring%20track%20--%3E%0A%20%20%3Ccircle%20cx%3D%22175%22%20cy%3D%22150%22%20r%3D%2272%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22/%3E%0A%20%20%3C%21--%20budget%20used%20arc%20--%3E%0A%20%20%3Ccircle%20cx%3D%22175%22%20cy%3D%22150%22%20r%3D%2272%22%20fill%3D%22none%22%20stroke%3D%22url%28%23accentGradH%29%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%0A%20%20%20%20%20%20%20%20%20%20stroke-dasharray%3D%22280.4%20172.0%22%20transform%3D%22rotate%28-90%20175%20150%29%22/%3E%0A%20%20%3C%21--%20progress%20dot%20%28%22coin%22%29%20--%3E%0A%20%20%3Ccircle%20cx%3D%22126.2%22%20cy%3D%22202.8%22%20r%3D%2211.5%22%20fill%3D%22url%28%23accentGradH%29%22/%3E%0A%20%20%3Ccircle%20cx%3D%22126.2%22%20cy%3D%22202.8%22%20r%3D%2211.5%22%20fill%3D%22url%28%23dotHighlightH%29%22/%3E%0A%20%20%3C%21--%20peso%20sign%20en%20el%20centro%20del%20anillo%20--%3E%0A%20%20%3Ctext%20x%3D%22175%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%20font-family%3D%22Arial%2C%20sans-serif%22%0A%20%20%20%20%20%20%20%20font-weight%3D%22700%22%20font-size%3D%2270%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%3E%24%3C/text%3E%0A%0A%20%20%3C%21--%20%3D%3D%3D%3D%3D%20DERECHA%3A%20wordmark%20%3D%3D%3D%3D%3D%20--%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20dominant-baseline%3D%22central%22%20font-family%3D%22Arial%2C%20sans-serif%22%20letter-spacing%3D%22-1%22%3E%0A%20%20%20%20%3Ctspan%20font-weight%3D%22400%22%20font-size%3D%2266%22%20fill%3D%22%23ECFEFF%22%20opacity%3D%220.85%22%3Ela%20%3C/tspan%3E%3Ctspan%20font-weight%3D%22800%22%20font-size%3D%2290%22%20fill%3D%22url%28%23accentGradH%29%22%3Ecuentita%3C/tspan%3E%0A%20%20%3C/text%3E%0A%0A%20%20%3C%21--%20credit%20line%2C%20alineada%20bajo%20el%20wordmark%20--%3E%0A%20%20%3Ctext%20x%3D%22304%22%20y%3D%22212%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22500%22%0A%20%20%20%20%20%20%20%20font-size%3D%2226%22%20letter-spacing%3D%224%22%20fill%3D%22%23ECFEFF%22%20opacity%3D%220.85%22%3Eby%20nanocuriotti%3C/text%3E%0A%3C/svg%3E%0A" alt="la cuentita">
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab activo" id="tabCargar" role="tab" aria-selected="true">Cargar</button>
+    <button class="tab" id="tabConsultar" role="tab" aria-selected="false">Consultar</button>
+  </div>
+
+  <!-- ===================== SECCION CARGAR ===================== -->
+  <section id="seccionCargar">
+  <div class="card">
+    <div id="configWarning" class="config-warning" style="display:none">
+      Falta configurar la URL del Apps Script. Abrí este archivo y reemplazá
+      <code>SCRIPT_URL</code> por la URL de tu implementación (termina en <code>/exec</code>).
+    </div>
+
+    <form id="formGasto" novalidate>
+      <div class="monto-hero" id="montoHero">
+        <div class="moneda-toggle" id="monedaToggle" role="group" aria-label="Moneda">
+          <button type="button" class="activo" data-moneda="ARS">ARS</button>
+          <button type="button" data-moneda="USD">USD</button>
+        </div>
+        <div class="monto-fila">
+          <span class="signo" id="signoMoneda">$</span>
+          <input type="number" id="monto" name="monto" inputmode="decimal" min="0" step="0.01" placeholder="0" required autofocus>
+        </div>
+        <div class="msg-error" id="errMonto" style="text-align:center; margin-top:8px;">Ingresá un monto mayor a cero</div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo select-wrap" id="campoFecha" style="flex:0 0 42%;">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" name="fecha" required>
+          <div class="msg-error">Elegí una fecha</div>
+        </div>
+        <div class="campo select-wrap" id="campoCategoria">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">Cargando...</option>
+          </select>
+          <div class="msg-error">Elegí una categoría</div>
+        </div>
+      </div>
+
+      <div class="campo select-wrap" id="campoMetodo">
+        <label for="metodo">Método de pago</label>
+        <select id="metodo" name="metodo" required>
+          <option value="">Cargando...</option>
+        </select>
+        <div class="msg-error">Elegí un método de pago</div>
+      </div>
+
+      <div class="campo">
+        <label for="descripcion">Descripción (opcional)</label>
+        <input type="text" id="descripcion" name="descripcion" maxlength="80" placeholder="Ej: supermercado, nafta...">
+      </div>
+
+      <div class="campo">
+        <label for="comprobante">Comprobante (opcional)</label>
+        <label class="foto-btn" for="comprobante" id="fotoBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/>
+            <circle cx="12" cy="13" r="3.2"/>
+          </svg>
+          <span id="fotoLabel">Sacar foto o elegir imagen</span>
+        </label>
+        <input type="file" id="comprobante" name="comprobante" accept="image/*" capture="environment">
+        <div class="preview-wrap" id="previewWrap">
+          <img id="preview" class="preview" alt="Vista previa del comprobante">
+          <button type="button" class="preview-quitar" id="quitarFoto" aria-label="Quitar comprobante">&times;</button>
+        </div>
+        <div class="msg-error" id="errFoto">Esa imagen no se pudo procesar, probá con otra</div>
+      </div>
+
+      <button type="submit" id="btnGuardar">Guardar gasto</button>
+
+      <div id="estado" class="estado" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="historial" id="historial" style="display:none">
+    <h2>Cargados recién</h2>
+    <div id="listaHistorial"></div>
+  </div>
+  </section>
+
+  <!-- ===================== SECCION CONSULTAR ===================== -->
+  <section id="seccionConsultar" style="display:none">
+  <div class="card">
+    <form id="formConsulta" novalidate>
+      <div class="campo">
+        <label>Moneda</label>
+        <div class="moneda-toggle full" id="monedaToggleC" role="group" aria-label="Moneda">
+          <button type="button" class="activo" data-moneda="ARS">ARS</button>
+          <button type="button" data-moneda="USD">USD</button>
+        </div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo select-wrap">
+          <label for="cCategoria">Categoría</label>
+          <select id="cCategoria"><option value="">Todas</option></select>
+        </div>
+        <div class="campo select-wrap">
+          <label for="cMetodo">Método</label>
+          <select id="cMetodo"><option value="">Todos</option></select>
+        </div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo">
+          <label for="cDesde">Desde</label>
+          <input type="date" id="cDesde">
+        </div>
+        <div class="campo">
+          <label for="cHasta">Hasta</label>
+          <input type="date" id="cHasta">
+        </div>
+      </div>
+
+      <button type="submit" id="btnConsultar">Consultar</button>
+      <div id="estadoC" class="estado" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="resultado" id="resultado" style="display:none">
+    <div class="resultado-total">
+      <span class="rt-label">Total</span>
+      <span class="rt-monto" id="resTotal">$0</span>
+      <span class="rt-cant" id="resCantidad"></span>
+    </div>
+
+    <div class="desglose" id="desgloseCategoria">
+      <h3>Por categoría</h3>
+      <div id="listaCategoria"></div>
+    </div>
+
+    <div class="desglose" id="desgloseMes">
+      <h3>Por mes</h3>
+      <div id="listaMes"></div>
+    </div>
+  </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M20 6 9 17l-5-5"/>
+    </svg>
+    <span id="toastTexto">Gasto guardado</span>
+  </div>
+</div>
+
+<script>
+
+// ============================================================
+// CONFIGURACION: pegar aca la URL del Apps Script (termina en /exec)
+// ============================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8s7GnnGkB1eQYfTeQ0LF_N7MIavxEy5qS_a0dEmvSOMe13Cd5ot2TdsV7WNpBFd3U/exec";
+
+const CATEGORIAS_FALLBACK = ["Alquiler","Servicios","Alimentacion","Transporte",
+  "Salud","Ocio","Educacion","Indumentaria","Hogar","Otros"];
+const METODOS_FALLBACK = ["Efectivo","Tarjeta debito","Tarjeta credito",
+  "Transferencia","Billetera virtual"];
+
+const form = document.getElementById('formGasto');
+const estadoEl = document.getElementById('estado');
+const btnGuardar = document.getElementById('btnGuardar');
+const selectCategoria = document.getElementById('categoria');
+const selectMetodo = document.getElementById('metodo');
+const inputFoto = document.getElementById('comprobante');
+const fotoLabel = document.getElementById('fotoLabel');
+const fotoBtn = document.getElementById('fotoBtn');
+const preview = document.getElementById('preview');
+const previewWrap = document.getElementById('previewWrap');
+const quitarFoto = document.getElementById('quitarFoto');
+const historial = document.getElementById('historial');
+const listaHistorial = document.getElementById('listaHistorial');
+const monedaToggle = document.getElementById('monedaToggle');
+const signoMoneda = document.getElementById('signoMoneda');
+const inputMonto = document.getElementById('monto');
+const inputFecha = document.getElementById('fecha');
+const inputDescripcion = document.getElementById('descripcion');
+const montoHero = document.getElementById('montoHero');
+const errMonto = document.getElementById('errMonto');
+const campoFecha = document.getElementById('campoFecha');
+const campoCategoria = document.getElementById('campoCategoria');
+const campoMetodo = document.getElementById('campoMetodo');
+const toast = document.getElementById('toast');
+const toastTexto = document.getElementById('toastTexto');
+
+let imagenBase64 = null;
+let imagenNombre = null;
+let monedaSeleccionada = 'ARS';
+
+monedaToggle.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-moneda]');
+  if (!btn) return;
+  monedaSeleccionada = btn.dataset.moneda;
+  monedaToggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b === btn));
+  signoMoneda.textContent = monedaSeleccionada === 'USD' ? 'US$' : '$';
+});
+
+inputFecha.valueAsDate = new Date();
+
+// Limpiar el error de un campo apenas el usuario lo corrige
+inputMonto.addEventListener('input', () => { montoHero.classList.remove('error'); errMonto.style.display = 'none'; });
+inputFecha.addEventListener('change', () => campoFecha.classList.remove('error'));
+selectCategoria.addEventListener('change', () => campoCategoria.classList.remove('error'));
+selectMetodo.addEventListener('change', () => campoMetodo.classList.remove('error'));
+
+function llenarSelect(select, opciones){
+  select.innerHTML = '<option value="">Elegir...</option>' +
+    opciones.map(o => `<option value="${o}">${o}</option>`).join('');
+}
+
+function llenarSelectC(select, opciones, textoTodos){
+  select.innerHTML = `<option value="">${textoTodos}</option>` +
+    opciones.map(o => `<option value="${o}">${o}</option>`).join('');
+}
+
+async function cargarConfig(){
+  if (!SCRIPT_URL || SCRIPT_URL.includes('PEGA_AQUI')){
+    document.getElementById('configWarning').style.display = 'block';
+    llenarSelect(selectCategoria, CATEGORIAS_FALLBACK);
+    llenarSelect(selectMetodo, METODOS_FALLBACK);
+    llenarSelectC(cCategoria, CATEGORIAS_FALLBACK, 'Todas');
+    llenarSelectC(cMetodo, METODOS_FALLBACK, 'Todos');
+    return;
+  }
+  try{
+    const res = await fetch(`${SCRIPT_URL}?action=config`);
+    const data = await res.json();
+    if (data.ok){
+      const cats = data.categorias.length ? data.categorias : CATEGORIAS_FALLBACK;
+      const mets = data.metodos.length ? data.metodos : METODOS_FALLBACK;
+      llenarSelect(selectCategoria, cats);
+      llenarSelect(selectMetodo, mets);
+      llenarSelectC(cCategoria, cats, 'Todas');
+      llenarSelectC(cMetodo, mets, 'Todos');
+    } else {
+      throw new Error(data.error || 'Respuesta invalida');
+    }
+  } catch(err){
+    llenarSelect(selectCategoria, CATEGORIAS_FALLBACK);
+    llenarSelect(selectMetodo, METODOS_FALLBACK);
+    llenarSelectC(cCategoria, CATEGORIAS_FALLBACK, 'Todas');
+    llenarSelectC(cMetodo, METODOS_FALLBACK, 'Todos');
+    mostrarEstado('No se pudo cargar la config del servidor, usando valores por defecto.', 'err');
+  }
+}
+
+function procesarImagen(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 1280;
+        let { width, height } = img;
+        if (width > height && width > MAX){
+          height = Math.round(height * (MAX / width));
+          width = MAX;
+        } else if (height > MAX){
+          width = Math.round(width * (MAX / height));
+          height = MAX;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+        resolve(dataUrl.split(',')[1]);
+      };
+      img.onerror = reject;
+      img.src = reader.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+inputFoto.addEventListener('change', async () => {
+  const file = inputFoto.files[0];
+  const campoFoto = fotoBtn.closest('.campo');
+  campoFoto.classList.remove('error');
+  if (!file) return;
+
+  // Validacion de tipo y tamano antes de procesar
+  if (!file.type.startsWith('image/')){
+    campoFoto.classList.add('error');
+    document.getElementById('errFoto').textContent = 'El archivo no es una imagen';
+    inputFoto.value = '';
+    return;
+  }
+  if (file.size > 15 * 1024 * 1024){
+    campoFoto.classList.add('error');
+    document.getElementById('errFoto').textContent = 'La imagen es muy grande (max 15 MB)';
+    inputFoto.value = '';
+    return;
+  }
+
+  fotoLabel.textContent = 'Procesando imagen...';
+  try{
+    imagenBase64 = await procesarImagen(file);
+    imagenNombre = 'comprobante_' + Date.now() + '.jpg';
+    preview.src = 'data:image/jpeg;base64,' + imagenBase64;
+    previewWrap.classList.add('mostrar');
+    fotoBtn.classList.add('con-foto');
+    fotoLabel.textContent = 'Comprobante listo (tocar para cambiar)';
+  } catch(err){
+    campoFoto.classList.add('error');
+    document.getElementById('errFoto').textContent = 'Esa imagen no se pudo procesar, proba con otra';
+    fotoLabel.textContent = 'Sacar foto o elegir imagen';
+    imagenBase64 = null;
+    imagenNombre = null;
+  }
+});
+
+function limpiarFoto(){
+  imagenBase64 = null;
+  imagenNombre = null;
+  inputFoto.value = '';
+  previewWrap.classList.remove('mostrar');
+  fotoBtn.classList.remove('con-foto');
+  fotoLabel.textContent = 'Sacar foto o elegir imagen';
+  fotoBtn.closest('.campo').classList.remove('error');
+}
+
+quitarFoto.addEventListener('click', limpiarFoto);
+
+function mostrarToast(texto){
+  toastTexto.textContent = texto;
+  toast.classList.add('mostrar');
+  setTimeout(() => toast.classList.remove('mostrar'), 2600);
+}
+
+function mostrarEstado(msg, tipo){
+  estadoEl.textContent = msg;
+  estadoEl.className = 'estado' + (tipo ? ' ' + tipo : '');
+}
+
+// Valida todos los campos obligatorios; marca los que fallan y devuelve true/false
+function validarFormulario(){
+  let ok = true;
+  let primerError = null;
+
+  const monto = parseFloat(inputMonto.value);
+  if (!inputMonto.value || isNaN(monto) || monto <= 0){
+    montoHero.classList.add('error');
+    errMonto.style.display = 'block';
+    ok = false;
+    primerError = primerError || montoHero;
+  }
+  if (!inputFecha.value){
+    campoFecha.classList.add('error');
+    ok = false;
+    primerError = primerError || campoFecha;
+  }
+  if (!selectCategoria.value){
+    campoCategoria.classList.add('error');
+    ok = false;
+    primerError = primerError || campoCategoria;
+  }
+  if (!selectMetodo.value){
+    campoMetodo.classList.add('error');
+    ok = false;
+    primerError = primerError || campoMetodo;
+  }
+
+  if (primerError){
+    primerError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  return ok;
+}
+
+function agregarAlHistorial(gasto){
+  historial.style.display = 'block';
+  const div = document.createElement('div');
+  div.className = 'renglon';
+  const signo = gasto.moneda === 'USD' ? 'US$' : '$';
+
+  const chip = document.createElement('span');
+  chip.className = 'chip';
+  chip.textContent = gasto.categoria;
+
+  const desc = document.createElement('span');
+  desc.className = 'desc';
+  desc.textContent = gasto.descripcion || '';
+
+  const monto = document.createElement('span');
+  monto.className = 'monto';
+  monto.textContent = signo + Number(gasto.monto).toLocaleString('es-AR');
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'borrar';
+  btn.setAttribute('aria-label', 'Borrar este gasto');
+  btn.textContent = '\u00d7';
+  btn.addEventListener('click', () => borrarGasto(gasto.id, div, btn));
+
+  div.append(chip, desc, monto, btn);
+  listaHistorial.prepend(div);
+}
+
+async function borrarGasto(id, renglon, btn){
+  if (!id){
+    // Sin ID no se puede identificar la fila en la planilla
+    mostrarEstado('No se puede borrar este gasto (sin identificador).', 'err');
+    return;
+  }
+  if (!confirm('¿Borrar este gasto de la planilla? No se puede deshacer.')) return;
+
+  renglon.classList.add('borrando');
+  btn.disabled = true;
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'borrar', id: id }),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    const data = await res.json();
+
+    if (data.ok){
+      renglon.classList.add('saliendo');
+      setTimeout(() => {
+        renglon.remove();
+        if (!listaHistorial.children.length) historial.style.display = 'none';
+      }, 250);
+      mostrarToast('Gasto borrado');
+    } else {
+      renglon.classList.remove('borrando');
+      btn.disabled = false;
+      mostrarEstado('No se pudo borrar: ' + (data.error || 'error'), 'err');
+    }
+  } catch(err){
+    clearTimeout(timeoutId);
+    renglon.classList.remove('borrando');
+    btn.disabled = false;
+    if (err.name === 'AbortError'){
+      mostrarEstado('El servidor tardo demasiado. Proba de nuevo.', 'err');
+    } else {
+      mostrarEstado('No se pudo conectar para borrar. Revisa tu conexion.', 'err');
+    }
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  if (!SCRIPT_URL || SCRIPT_URL.includes('PEGA_AQUI')){
+    mostrarEstado('Configura primero la URL del Apps Script (ver aviso arriba).', 'err');
+    return;
+  }
+
+  // Validacion de campos antes de enviar
+  if (!validarFormulario()){
+    mostrarEstado('Revisa los campos marcados en rojo.', 'err');
+    return;
+  }
+
+  const payload = {
+    fecha: inputFecha.value,
+    monto: parseFloat(inputMonto.value),
+    moneda: monedaSeleccionada,
+    categoria: selectCategoria.value,
+    metodoPago: selectMetodo.value,
+    descripcion: inputDescripcion.value.trim(),
+  };
+  if (imagenBase64){
+    payload.imagenBase64 = imagenBase64;
+    payload.imagenNombre = imagenNombre;
+  }
+
+  btnGuardar.disabled = true;
+  btnGuardar.innerHTML = '<span class="spinner"></span> Guardando...';
+  mostrarEstado('');
+
+  // Timeout de 30s: si el servidor no responde, abortamos con mensaje claro
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
+    if (!res.ok){
+      throw new Error('El servidor respondio con codigo ' + res.status);
+    }
+
+    let data;
+    try{
+      data = await res.json();
+    } catch(parseErr){
+      throw new Error('La respuesta del servidor no es valida. Revisa que el Apps Script este bien implementado.');
+    }
+
+    if (data.ok){
+      mostrarEstado('');
+      mostrarToast('Gasto guardado');
+      payload.id = data.id;  // el servidor devuelve el ID unico de la fila creada
+      agregarAlHistorial(payload);
+      form.reset();
+      inputFecha.valueAsDate = new Date();
+      monedaSeleccionada = 'ARS';
+      monedaToggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b.dataset.moneda === 'ARS'));
+      signoMoneda.textContent = '$';
+      limpiarFoto();
+      inputMonto.focus();
+    } else {
+      mostrarEstado('No se pudo guardar: ' + (data.error || 'error desconocido'), 'err');
+    }
+  } catch(err){
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError'){
+      mostrarEstado('El servidor tardo demasiado en responder. Proba de nuevo.', 'err');
+    } else {
+      mostrarEstado('No se pudo conectar. Revisa tu conexion e intenta otra vez.', 'err');
+    }
+  } finally {
+    btnGuardar.disabled = false;
+    btnGuardar.textContent = 'Guardar gasto';
+  }
+});
+
+// ============================================================
+// SECCION CONSULTAR
+// ============================================================
+const tabCargar = document.getElementById('tabCargar');
+const tabConsultar = document.getElementById('tabConsultar');
+const seccionCargar = document.getElementById('seccionCargar');
+const seccionConsultar = document.getElementById('seccionConsultar');
+const monedaToggleC = document.getElementById('monedaToggleC');
+const cCategoria = document.getElementById('cCategoria');
+const cMetodo = document.getElementById('cMetodo');
+const cDesde = document.getElementById('cDesde');
+const cHasta = document.getElementById('cHasta');
+const formConsulta = document.getElementById('formConsulta');
+const btnConsultar = document.getElementById('btnConsultar');
+const estadoC = document.getElementById('estadoC');
+const resultado = document.getElementById('resultado');
+const resTotal = document.getElementById('resTotal');
+const resCantidad = document.getElementById('resCantidad');
+const listaCategoria = document.getElementById('listaCategoria');
+const listaMes = document.getElementById('listaMes');
+
+let monedaConsulta = 'ARS';
+
+// Cambio de tabs
+function activarTab(cual){
+  const esCargar = cual === 'cargar';
+  tabCargar.classList.toggle('activo', esCargar);
+  tabConsultar.classList.toggle('activo', !esCargar);
+  tabCargar.setAttribute('aria-selected', esCargar);
+  tabConsultar.setAttribute('aria-selected', !esCargar);
+  seccionCargar.style.display = esCargar ? 'block' : 'none';
+  seccionConsultar.style.display = esCargar ? 'none' : 'block';
+}
+tabCargar.addEventListener('click', () => activarTab('cargar'));
+tabConsultar.addEventListener('click', () => activarTab('consultar'));
+
+// Toggle de moneda en consulta
+monedaToggleC.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-moneda]');
+  if (!btn) return;
+  monedaConsulta = btn.dataset.moneda;
+  monedaToggleC.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b === btn));
+});
+
+function fmtMoneda(n, moneda){
+  const signo = moneda === 'USD' ? 'US$' : '$';
+  return signo + Number(n).toLocaleString('es-AR', { maximumFractionDigits: 0 });
+}
+
+// Nombres de mes para mostrar "2026-08" como "Ago 2026"
+const MESES_CORTOS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+function fmtMes(mesKey){
+  const partes = mesKey.split('-');
+  const idx = parseInt(partes[1], 10) - 1;
+  return (MESES_CORTOS[idx] || partes[1]) + ' ' + partes[0];
+}
+
+function renderDesglose(contenedor, items, getNombre, moneda){
+  contenedor.innerHTML = '';
+  if (!items.length){
+    contenedor.innerHTML = '<div class="desglose-vacio">Sin datos</div>';
+    return;
+  }
+  const maxVal = Math.max.apply(null, items.map(i => i.total));
+  items.forEach(item => {
+    const pct = maxVal > 0 ? Math.round((item.total / maxVal) * 100) : 0;
+    const div = document.createElement('div');
+    div.className = 'barra-item';
+    const top = document.createElement('div');
+    top.className = 'barra-top';
+    const nombre = document.createElement('span');
+    nombre.className = 'bi-nombre';
+    nombre.textContent = getNombre(item);
+    const monto = document.createElement('span');
+    monto.className = 'bi-monto';
+    monto.textContent = fmtMoneda(item.total, moneda);
+    top.append(nombre, monto);
+    const track = document.createElement('div');
+    track.className = 'barra-track';
+    const fill = document.createElement('div');
+    fill.className = 'barra-fill';
+    fill.style.width = '0%';
+    track.appendChild(fill);
+    div.append(top, track);
+    contenedor.appendChild(div);
+    // animar la barra
+    requestAnimationFrame(() => { fill.style.width = pct + '%'; });
+  });
+}
+
+formConsulta.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  if (!SCRIPT_URL || SCRIPT_URL.includes('PEGA_AQUI')){
+    estadoC.textContent = 'Configura primero la URL del Apps Script.';
+    estadoC.className = 'estado err';
+    return;
+  }
+
+  // Validar rango: si ambas fechas estan, desde <= hasta
+  if (cDesde.value && cHasta.value && cDesde.value > cHasta.value){
+    estadoC.textContent = 'La fecha "Desde" no puede ser posterior a "Hasta".';
+    estadoC.className = 'estado err';
+    return;
+  }
+
+  const payload = {
+    action: 'consultar',
+    moneda: monedaConsulta,
+    categoria: cCategoria.value,
+    metodoPago: cMetodo.value,
+    desde: cDesde.value,
+    hasta: cHasta.value,
+  };
+
+  btnConsultar.disabled = true;
+  btnConsultar.innerHTML = '<span class="spinner"></span> Consultando...';
+  estadoC.textContent = '';
+  estadoC.className = 'estado';
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    const data = await res.json();
+
+    if (data.ok){
+      resTotal.textContent = fmtMoneda(data.total, data.moneda);
+      resCantidad.textContent = data.cantidad === 1 ? '1 gasto' : data.cantidad + ' gastos';
+      renderDesglose(listaCategoria, data.porCategoria, i => i.nombre, data.moneda);
+      renderDesglose(listaMes, data.porMes, i => fmtMes(i.mes), data.moneda);
+      resultado.style.display = 'block';
+    } else {
+      estadoC.textContent = 'No se pudo consultar: ' + (data.error || 'error');
+      estadoC.className = 'estado err';
+    }
+  } catch(err){
+    clearTimeout(timeoutId);
+    if (err.name === 'AbortError'){
+      estadoC.textContent = 'El servidor tardo demasiado. Proba de nuevo.';
+    } else {
+      estadoC.textContent = 'No se pudo conectar. Revisa tu conexion.';
+    }
+    estadoC.className = 'estado err';
+  } finally {
+    btnConsultar.disabled = false;
+    btnConsultar.textContent = 'Consultar';
+  }
+});
+
+cargarConfig();
+</script>
+</body>
+</html>
