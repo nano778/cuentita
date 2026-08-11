@@ -1400,7 +1400,7 @@ monedaToggleC.addEventListener('click', (e) => {
 
 function fmtMoneda(n, moneda){
   const signo = moneda === 'USD' ? 'US$' : '$';
-  return signo + Number(n).toLocaleString('es-AR', { maximumFractionDigits: 0 });
+  return signo + Number(n).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 formConsulta.addEventListener('submit', async (e) => {
