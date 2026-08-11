@@ -76,7 +76,7 @@
   .app{ width:100%; max-width:420px; margin:0 auto; }
 
   header{
-    padding: 4px 0 16px;
+    padding: 2px 0 10px;
     text-align:center;
   }
   header .logo{
@@ -108,15 +108,15 @@
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 20px;
-    padding: 8px 20px 22px;
+    padding: 6px 20px 16px;
     box-shadow: var(--shadow);
   }
 
   /* Monto: protagonista, limpio */
   .monto-hero{
-    padding: 24px 4px 22px;
+    padding: 16px 4px 16px;
     border-bottom: 1px solid var(--line);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   .moneda-toggle{
     display:flex;
@@ -180,7 +180,7 @@
   #monto::placeholder{ color: var(--coral); opacity:.35; }
   .monto-hero.error #monto{ color: var(--danger); }
 
-  .campo{ margin-bottom:15px; }
+  .campo{ margin-bottom:13px; }
   .fila-2{ display:flex; gap:12px; }
   .fila-2 .campo{ flex:1; min-width:0; }
 
@@ -215,8 +215,19 @@
 
   /* Campo de fecha con formato corto DD/MM/AA controlado por la app.
      La capa visual muestra el texto; el input date real va encima, invisible pero tocable. */
-  #campoFecha .select-wrap::after{ display:none; }  /* sin flecha de select */
   .fecha-wrap{ position:relative; }
+  /* Flecha indicadora de calendario en todos los campos de fecha (Cargar y Consultar) */
+  .fecha-wrap::after{
+    content:"";
+    position:absolute;
+    right:14px; top:50%;
+    width:7px; height:7px;
+    border-right:1.5px solid var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events:none;
+    z-index:1;
+  }
   .fecha-display{
     display:flex;
     align-items:center;
@@ -229,7 +240,7 @@
     font-weight:500;
     font-size:16px;
     color: var(--ink);
-    padding:12px 13px;
+    padding:12px 34px 12px 13px;
     pointer-events:none;   /* los toques pasan al input de abajo */
   }
   .fecha-wrap input[type=date]{
@@ -247,6 +258,79 @@
   .fecha-wrap:focus-within .fecha-display{
     border-color: var(--accent);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  /* ===== Multi-select con checkboxes (categorias / metodos en consulta) ===== */
+  .multi{ position:relative; }
+  .multi-btn{
+    width:100%;
+    text-align:left;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background: var(--surface);
+    font-family:inherit;
+    font-weight:500;
+    font-size:16px;
+    color: var(--ink);
+    padding:12px 34px 12px 13px;
+    cursor:pointer;
+    position:relative;
+    min-height:45px;
+  }
+  .multi-btn::after{
+    content:"";
+    position:absolute;
+    right:14px; top:50%;
+    width:7px; height:7px;
+    border-right:1.5px solid var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events:none;
+  }
+  .multi.abierto .multi-btn{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .multi-label{ display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .multi-panel{
+    display:none;
+    position:absolute;
+    top:calc(100% + 6px);
+    left:0; right:0;
+    background: var(--surface);
+    border:1px solid var(--line-strong);
+    border-radius:12px;
+    box-shadow: var(--shadow);
+    padding:6px;
+    z-index:30;
+    max-height:240px;
+    overflow-y:auto;
+  }
+  .multi.abierto .multi-panel{ display:block; }
+  .multi-opt{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    color: var(--ink);
+    user-select:none;
+  }
+  .multi-opt:hover{ background: var(--surface-2); }
+  .multi-opt input{
+    width:18px; height:18px;
+    accent-color: var(--accent);
+    flex:none;
+    margin:0;
+    pointer-events:none;
+  }
+  .multi-opt.todas{
+    border-bottom:1px solid var(--line);
+    border-radius:0;
+    margin-bottom:4px;
+    font-weight:600;
   }
 
   .campo.error input,
@@ -478,7 +562,7 @@
     background: var(--surface-2);
     padding:4px;
     border-radius:14px;
-    margin-bottom:18px;
+    margin-bottom:12px;
   }
   .tab{
     flex:1;
@@ -589,7 +673,7 @@
 
 <div class="app">
   <header>
-    <img class="logo" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20900%20300%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bgGradH%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2312B8AE%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23134E6F%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22accentGradH%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FF9466%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23FF5E62%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22dotHighlightH%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220.65%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220%22/%3E%0A%20%20%20%20%3C/radialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22softBlurH%22%20x%3D%22-50%25%22%20y%3D%22-50%25%22%20width%3D%22200%25%22%20height%3D%22200%25%22%3E%0A%20%20%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2226%22/%3E%0A%20%20%20%20%3C/filter%3E%0A%20%20%3C/defs%3E%0A%0A%20%20%3C%21--%20background%20card%20%28apaisada%29%20--%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22900%22%20height%3D%22300%22%20rx%3D%2268%22%20ry%3D%2268%22%20fill%3D%22url%28%23bgGradH%29%22/%3E%0A%0A%20%20%3C%21--%20glass%20sheen%20--%3E%0A%20%20%3Cellipse%20cx%3D%22230%22%20cy%3D%2260%22%20rx%3D%22320%22%20ry%3D%22120%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.12%22%20filter%3D%22url%28%23softBlurH%29%22%20transform%3D%22rotate%28-14%20230%2060%29%22/%3E%0A%0A%20%20%3C%21--%20subtle%20currency%20watermark%20for%20texture%20--%3E%0A%20%20%3Ctext%20x%3D%22175%22%20y%3D%22228%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22700%22%20font-size%3D%22150%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.05%22%3E%24%3C/text%3E%0A%0A%20%20%3C%21--%20inner%20glass%20edge%20--%3E%0A%20%20%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%22890%22%20height%3D%22290%22%20rx%3D%2264%22%20ry%3D%2264%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.16%22%20stroke-width%3D%222%22/%3E%0A%0A%20%20%3C%21--%20%3D%3D%3D%3D%3D%20IZQUIERDA%3A%20anillo%20de%20presupuesto%20%28icono%29%20%3D%3D%3D%3D%3D%20--%3E%0A%20%20%3C%21--%20ring%20track%20--%3E%0A%20%20%3Ccircle%20cx%3D%22175%22%20cy%3D%22150%22%20r%3D%2272%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22/%3E%0A%20%20%3C%21--%20budget%20used%20arc%20--%3E%0A%20%20%3Ccircle%20cx%3D%22175%22%20cy%3D%22150%22%20r%3D%2272%22%20fill%3D%22none%22%20stroke%3D%22url%28%23accentGradH%29%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%0A%20%20%20%20%20%20%20%20%20%20stroke-dasharray%3D%22280.4%20172.0%22%20transform%3D%22rotate%28-90%20175%20150%29%22/%3E%0A%20%20%3C%21--%20progress%20dot%20%28%22coin%22%29%20--%3E%0A%20%20%3Ccircle%20cx%3D%22126.2%22%20cy%3D%22202.8%22%20r%3D%2211.5%22%20fill%3D%22url%28%23accentGradH%29%22/%3E%0A%20%20%3Ccircle%20cx%3D%22126.2%22%20cy%3D%22202.8%22%20r%3D%2211.5%22%20fill%3D%22url%28%23dotHighlightH%29%22/%3E%0A%20%20%3C%21--%20peso%20sign%20en%20el%20centro%20del%20anillo%20--%3E%0A%20%20%3Ctext%20x%3D%22175%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%20font-family%3D%22Arial%2C%20sans-serif%22%0A%20%20%20%20%20%20%20%20font-weight%3D%22700%22%20font-size%3D%2270%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%3E%24%3C/text%3E%0A%0A%20%20%3C%21--%20%3D%3D%3D%3D%3D%20DERECHA%3A%20wordmark%20%3D%3D%3D%3D%3D%20--%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20dominant-baseline%3D%22central%22%20font-family%3D%22Arial%2C%20sans-serif%22%20letter-spacing%3D%22-1%22%3E%0A%20%20%20%20%3Ctspan%20font-weight%3D%22400%22%20font-size%3D%2266%22%20fill%3D%22%23ECFEFF%22%20opacity%3D%220.85%22%3Ela%20%3C/tspan%3E%3Ctspan%20font-weight%3D%22800%22%20font-size%3D%2290%22%20fill%3D%22url%28%23accentGradH%29%22%3Ecuentita%3C/tspan%3E%0A%20%20%3C/text%3E%0A%0A%20%20%3C%21--%20credit%20line%2C%20alineada%20bajo%20el%20wordmark%20--%3E%0A%20%20%3Ctext%20x%3D%22304%22%20y%3D%22212%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22500%22%0A%20%20%20%20%20%20%20%20font-size%3D%2226%22%20letter-spacing%3D%224%22%20fill%3D%22%23ECFEFF%22%20opacity%3D%220.85%22%3Eby%20nanocuriotti%3C/text%3E%0A%3C/svg%3E%0A" alt="la cuentita">
+    <img class="logo" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20900%20300%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bgGradH%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2312B8AE%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23134E6F%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22accentGradH%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FF9466%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23FF5E62%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22dotHighlightH%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220.65%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220%22/%3E%0A%20%20%20%20%3C/radialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22softBlurH%22%20x%3D%22-50%25%22%20y%3D%22-50%25%22%20width%3D%22200%25%22%20height%3D%22200%25%22%3E%0A%20%20%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2226%22/%3E%0A%20%20%20%20%3C/filter%3E%0A%20%20%3C/defs%3E%0A%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22900%22%20height%3D%22300%22%20rx%3D%2268%22%20ry%3D%2268%22%20fill%3D%22url%28%23bgGradH%29%22/%3E%0A%20%20%3Cellipse%20cx%3D%22230%22%20cy%3D%2260%22%20rx%3D%22320%22%20ry%3D%22120%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.12%22%20filter%3D%22url%28%23softBlurH%29%22%20transform%3D%22rotate%28-14%20230%2060%29%22/%3E%0A%20%20%3Ctext%20x%3D%22160%22%20y%3D%22228%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22700%22%20font-size%3D%22150%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.05%22%3E%24%3C/text%3E%0A%20%20%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%22890%22%20height%3D%22290%22%20rx%3D%2264%22%20ry%3D%2264%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.16%22%20stroke-width%3D%222%22/%3E%0A%0A%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22150%22%20r%3D%2268%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%2219%22%20stroke-linecap%3D%22round%22/%3E%0A%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22150%22%20r%3D%2268%22%20fill%3D%22none%22%20stroke%3D%22url%28%23accentGradH%29%22%20stroke-width%3D%2219%22%20stroke-linecap%3D%22round%22%0A%20%20%20%20%20%20%20%20%20%20stroke-dasharray%3D%22264.8%20162.4%22%20transform%3D%22rotate%28-90%20160%20150%29%22/%3E%0A%20%20%3Ccircle%20cx%3D%22114%22%20cy%3D%22200%22%20r%3D%2211%22%20fill%3D%22url%28%23accentGradH%29%22/%3E%0A%20%20%3Ccircle%20cx%3D%22114%22%20cy%3D%22200%22%20r%3D%2211%22%20fill%3D%22url%28%23dotHighlightH%29%22/%3E%0A%20%20%3Ctext%20x%3D%22160%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%20font-family%3D%22Arial%2C%20sans-serif%22%0A%20%20%20%20%20%20%20%20font-weight%3D%22700%22%20font-size%3D%2266%22%20fill%3D%22%23FFFFFF%22%20opacity%3D%220.92%22%3E%24%3C/text%3E%0A%0A%20%20%3Ctext%20x%3D%22268%22%20y%3D%22139%22%20dominant-baseline%3D%22central%22%20font-family%3D%22Arial%2C%20sans-serif%22%20letter-spacing%3D%22-1.5%22%3E%0A%20%20%20%20%3Ctspan%20font-weight%3D%22400%22%20font-size%3D%2286%22%20fill%3D%22%23ECFEFF%22%20opacity%3D%220.85%22%3Ela%20%3C/tspan%3E%3Ctspan%20font-weight%3D%22800%22%20font-size%3D%22118%22%20fill%3D%22url%28%23accentGradH%29%22%3Ecuentita%3C/tspan%3E%0A%20%20%3C/text%3E%0A%0A%20%20%3Ctext%20x%3D%22274%22%20y%3D%22219%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-weight%3D%22500%22%0A%20%20%20%20%20%20%20%20font-size%3D%2240%22%20letter-spacing%3D%225%22%20fill%3D%22%23ECFEFF%22%20opacity%3D%220.85%22%3Eby%20nanocuriotti%3C/text%3E%0A%3C/svg%3E%0A" alt="la cuentita">
   </header>
 
   <div class="tabs" role="tablist">
@@ -619,7 +703,7 @@
       </div>
 
       <div class="fila-2">
-        <div class="campo select-wrap" id="campoFecha" style="flex:0 0 42%;">
+        <div class="campo" id="campoFecha" style="flex:0 0 42%;">
           <label for="fecha">Fecha</label>
           <div class="fecha-wrap">
             <span class="fecha-display" id="fechaDisplay">--/--/--</span>
@@ -691,24 +775,40 @@
       </div>
 
       <div class="fila-2">
-        <div class="campo select-wrap">
-          <label for="cCategoria">Categoría</label>
-          <select id="cCategoria"><option value="">Todas</option></select>
+        <div class="campo">
+          <label>Categorías</label>
+          <div class="multi" id="multiCategoria">
+            <button type="button" class="multi-btn" id="multiCategoriaBtn" aria-haspopup="true" aria-expanded="false">
+              <span class="multi-label" id="multiCategoriaLabel">Todas</span>
+            </button>
+            <div class="multi-panel" id="multiCategoriaPanel" role="menu"></div>
+          </div>
         </div>
-        <div class="campo select-wrap">
-          <label for="cMetodo">Método</label>
-          <select id="cMetodo"><option value="">Todos</option></select>
+        <div class="campo">
+          <label>Métodos</label>
+          <div class="multi" id="multiMetodo">
+            <button type="button" class="multi-btn" id="multiMetodoBtn" aria-haspopup="true" aria-expanded="false">
+              <span class="multi-label" id="multiMetodoLabel">Todos</span>
+            </button>
+            <div class="multi-panel" id="multiMetodoPanel" role="menu"></div>
+          </div>
         </div>
       </div>
 
       <div class="fila-2">
         <div class="campo">
           <label for="cDesde">Desde</label>
-          <input type="date" id="cDesde">
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="cDesdeDisplay">--/--/--</span>
+            <input type="date" id="cDesde">
+          </div>
         </div>
         <div class="campo">
           <label for="cHasta">Hasta</label>
-          <input type="date" id="cHasta">
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="cHastaDisplay">--/--/--</span>
+            <input type="date" id="cHasta">
+          </div>
         </div>
       </div>
 
@@ -722,16 +822,6 @@
       <span class="rt-label">Total</span>
       <span class="rt-monto" id="resTotal">$0</span>
       <span class="rt-cant" id="resCantidad"></span>
-    </div>
-
-    <div class="desglose" id="desgloseCategoria">
-      <h3>Por categoría</h3>
-      <div id="listaCategoria"></div>
-    </div>
-
-    <div class="desglose" id="desgloseMes">
-      <h3>Por mes</h3>
-      <div id="listaMes"></div>
     </div>
   </div>
   </section>
@@ -818,18 +908,107 @@ function llenarSelect(select, opciones){
     opciones.map(o => `<option value="${o}">${o}</option>`).join('');
 }
 
-function llenarSelectC(select, opciones, textoTodos){
-  select.innerHTML = `<option value="">${textoTodos}</option>` +
-    opciones.map(o => `<option value="${o}">${o}</option>`).join('');
+// ===== Multi-select con checkboxes =====
+// Maneja un desplegable de casillas con opcion "Todas". Devuelve [] cuando esta "Todas"
+// (= sin filtro), o el array de seleccionados.
+function crearMultiSelect(idBase, textoTodas){
+  const cont = document.getElementById('multi' + idBase);
+  const btn = document.getElementById('multi' + idBase + 'Btn');
+  const panel = document.getElementById('multi' + idBase + 'Panel');
+  const label = document.getElementById('multi' + idBase + 'Label');
+  let opciones = [];
+  let seleccionadas = new Set();  // vacio = todas
+
+  function actualizarLabel(){
+    if (seleccionadas.size === 0){
+      label.textContent = textoTodas;
+      label.style.color = 'var(--ink-faint)';
+    } else if (seleccionadas.size === 1){
+      label.textContent = [...seleccionadas][0];
+      label.style.color = 'var(--ink)';
+    } else {
+      label.textContent = seleccionadas.size + ' seleccionadas';
+      label.style.color = 'var(--ink)';
+    }
+    // marcar/desmarcar la casilla "Todas"
+    const chkTodas = panel.querySelector('.multi-opt.todas input');
+    if (chkTodas) chkTodas.checked = seleccionadas.size === 0;
+  }
+
+  function render(){
+    panel.innerHTML = '';
+    // opcion "Todas"
+    const todas = document.createElement('label');
+    todas.className = 'multi-opt todas';
+    const chkT = document.createElement('input');
+    chkT.type = 'checkbox';
+    chkT.checked = seleccionadas.size === 0;
+    todas.appendChild(chkT);
+    const spanT = document.createElement('span');
+    spanT.textContent = textoTodas;
+    todas.appendChild(spanT);
+    todas.addEventListener('click', (e) => {
+      e.preventDefault();
+      seleccionadas.clear();  // "Todas" = limpiar seleccion
+      render();
+    });
+    panel.appendChild(todas);
+    // opciones
+    opciones.forEach(op => {
+      const lbl = document.createElement('label');
+      lbl.className = 'multi-opt';
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.checked = seleccionadas.has(op);
+      lbl.appendChild(chk);
+      const sp = document.createElement('span');
+      sp.textContent = op;
+      lbl.appendChild(sp);
+      lbl.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (seleccionadas.has(op)) seleccionadas.delete(op);
+        else seleccionadas.add(op);
+        render();
+      });
+      panel.appendChild(lbl);
+    });
+    actualizarLabel();
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const abierto = cont.classList.toggle('abierto');
+    btn.setAttribute('aria-expanded', abierto);
+    // cerrar el otro multi si esta abierto
+    document.querySelectorAll('.multi.abierto').forEach(m => {
+      if (m !== cont){ m.classList.remove('abierto'); }
+    });
+  });
+
+  return {
+    setOpciones(ops){ opciones = ops; seleccionadas.clear(); render(); },
+    getSeleccionadas(){ return [...seleccionadas]; },
+    cerrar(){ cont.classList.remove('abierto'); btn.setAttribute('aria-expanded', false); }
+  };
 }
+
+const msCategoria = crearMultiSelect('Categoria', 'Todas');
+const msMetodo = crearMultiSelect('Metodo', 'Todos');
+
+// Cerrar los paneles al tocar fuera
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.multi.abierto').forEach(m => {
+    if (!m.contains(e.target)) m.classList.remove('abierto');
+  });
+});
 
 async function cargarConfig(){
   if (!SCRIPT_URL || SCRIPT_URL.includes('PEGA_AQUI')){
     document.getElementById('configWarning').style.display = 'block';
     llenarSelect(selectCategoria, CATEGORIAS_FALLBACK);
     llenarSelect(selectMetodo, METODOS_FALLBACK);
-    llenarSelectC(cCategoria, CATEGORIAS_FALLBACK, 'Todas');
-    llenarSelectC(cMetodo, METODOS_FALLBACK, 'Todos');
+    msCategoria.setOpciones(CATEGORIAS_FALLBACK);
+    msMetodo.setOpciones(METODOS_FALLBACK);
     return;
   }
   try{
@@ -840,16 +1019,16 @@ async function cargarConfig(){
       const mets = data.metodos.length ? data.metodos : METODOS_FALLBACK;
       llenarSelect(selectCategoria, cats);
       llenarSelect(selectMetodo, mets);
-      llenarSelectC(cCategoria, cats, 'Todas');
-      llenarSelectC(cMetodo, mets, 'Todos');
+      msCategoria.setOpciones(cats);
+      msMetodo.setOpciones(mets);
     } else {
       throw new Error(data.error || 'Respuesta invalida');
     }
   } catch(err){
     llenarSelect(selectCategoria, CATEGORIAS_FALLBACK);
     llenarSelect(selectMetodo, METODOS_FALLBACK);
-    llenarSelectC(cCategoria, CATEGORIAS_FALLBACK, 'Todas');
-    llenarSelectC(cMetodo, METODOS_FALLBACK, 'Todos');
+    msCategoria.setOpciones(CATEGORIAS_FALLBACK);
+    msMetodo.setOpciones(METODOS_FALLBACK);
     mostrarEstado('No se pudo cargar la config del servidor, usando valores por defecto.', 'err');
   }
 }
@@ -1174,18 +1353,27 @@ const tabConsultar = document.getElementById('tabConsultar');
 const seccionCargar = document.getElementById('seccionCargar');
 const seccionConsultar = document.getElementById('seccionConsultar');
 const monedaToggleC = document.getElementById('monedaToggleC');
-const cCategoria = document.getElementById('cCategoria');
-const cMetodo = document.getElementById('cMetodo');
 const cDesde = document.getElementById('cDesde');
 const cHasta = document.getElementById('cHasta');
+const cDesdeDisplay = document.getElementById('cDesdeDisplay');
+const cHastaDisplay = document.getElementById('cHastaDisplay');
+
+// Muestra la fecha (AAAA-MM-DD) como DD/MM/AA en la capa visual; vacio = "--/--/--"
+function actualizarFechaConsulta(input, display){
+  const v = input.value;
+  if (!v){ display.textContent = '--/--/--'; display.style.color = 'var(--ink-faint)'; return; }
+  const p = v.split('-');
+  display.textContent = p[2] + '/' + p[1] + '/' + p[0].slice(2);
+  display.style.color = 'var(--ink)';
+}
+cDesde.addEventListener('change', () => actualizarFechaConsulta(cDesde, cDesdeDisplay));
+cHasta.addEventListener('change', () => actualizarFechaConsulta(cHasta, cHastaDisplay));
 const formConsulta = document.getElementById('formConsulta');
 const btnConsultar = document.getElementById('btnConsultar');
 const estadoC = document.getElementById('estadoC');
 const resultado = document.getElementById('resultado');
 const resTotal = document.getElementById('resTotal');
 const resCantidad = document.getElementById('resCantidad');
-const listaCategoria = document.getElementById('listaCategoria');
-const listaMes = document.getElementById('listaMes');
 
 let monedaConsulta = 'ARS';
 
@@ -1215,47 +1403,6 @@ function fmtMoneda(n, moneda){
   return signo + Number(n).toLocaleString('es-AR', { maximumFractionDigits: 0 });
 }
 
-// Nombres de mes para mostrar "2026-08" como "Ago 2026"
-const MESES_CORTOS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-function fmtMes(mesKey){
-  const partes = mesKey.split('-');
-  const idx = parseInt(partes[1], 10) - 1;
-  return (MESES_CORTOS[idx] || partes[1]) + ' ' + partes[0];
-}
-
-function renderDesglose(contenedor, items, getNombre, moneda){
-  contenedor.innerHTML = '';
-  if (!items.length){
-    contenedor.innerHTML = '<div class="desglose-vacio">Sin datos</div>';
-    return;
-  }
-  const maxVal = Math.max.apply(null, items.map(i => i.total));
-  items.forEach(item => {
-    const pct = maxVal > 0 ? Math.round((item.total / maxVal) * 100) : 0;
-    const div = document.createElement('div');
-    div.className = 'barra-item';
-    const top = document.createElement('div');
-    top.className = 'barra-top';
-    const nombre = document.createElement('span');
-    nombre.className = 'bi-nombre';
-    nombre.textContent = getNombre(item);
-    const monto = document.createElement('span');
-    monto.className = 'bi-monto';
-    monto.textContent = fmtMoneda(item.total, moneda);
-    top.append(nombre, monto);
-    const track = document.createElement('div');
-    track.className = 'barra-track';
-    const fill = document.createElement('div');
-    fill.className = 'barra-fill';
-    fill.style.width = '0%';
-    track.appendChild(fill);
-    div.append(top, track);
-    contenedor.appendChild(div);
-    // animar la barra
-    requestAnimationFrame(() => { fill.style.width = pct + '%'; });
-  });
-}
-
 formConsulta.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -1275,8 +1422,8 @@ formConsulta.addEventListener('submit', async (e) => {
   const payload = {
     action: 'consultar',
     moneda: monedaConsulta,
-    categoria: cCategoria.value,
-    metodoPago: cMetodo.value,
+    categorias: msCategoria.getSeleccionadas(),
+    metodos: msMetodo.getSeleccionadas(),
     desde: cDesde.value,
     hasta: cHasta.value,
   };
@@ -1302,8 +1449,6 @@ formConsulta.addEventListener('submit', async (e) => {
     if (data.ok){
       resTotal.textContent = fmtMoneda(data.total, data.moneda);
       resCantidad.textContent = data.cantidad === 1 ? '1 gasto' : data.cantidad + ' gastos';
-      renderDesglose(listaCategoria, data.porCategoria, i => i.nombre, data.moneda);
-      renderDesglose(listaMes, data.porMes, i => fmtMes(i.mes), data.moneda);
       resultado.style.display = 'block';
     } else {
       estadoC.textContent = 'No se pudo consultar: ' + (data.error || 'error');
