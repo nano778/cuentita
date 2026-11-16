@@ -1,0 +1,2357 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1917" media="(prefers-color-scheme: dark)">
+<title>Gastos</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    /* A + salvia — modo claro (papel calido, acento verde salvia) */
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --surface-2: #efede8;
+    --ink: #23211d;
+    --ink-soft: #6f6b64;
+    --ink-faint: #a8a39a;
+    --line: #e7e4de;
+    --line-strong: #d9d5cd;
+    /* Acento unico: verde salvia */
+    --accent: #6f8165;       /* salvia (contrasta con texto blanco) */
+    --accent-deep: #5f7156;  /* salvia mas profundo para degradados/hover */
+    --accent-ink: #ffffff;
+    --coral: #6f8165;        /* el signo $ toma el acento salvia (el numero va en tinta) */
+    --coral-deep: #5f7156;
+    --danger: #b4443a;
+    --ok: #6f8165;
+    --ok-bg: #eaeee6;        /* tinte salvia muy claro (chips, comprobante listo) */
+    --shadow: 0 1px 2px rgba(28,27,26,.04), 0 8px 24px -12px rgba(28,27,26,.12);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      /* A + salvia — modo oscuro (carbon calido, acento verde salvia luminoso) */
+      --bg: #1a1917;
+      --surface: #242220;
+      --surface-2: #302d28;
+      --ink: #f2f0ec;
+      --ink-soft: #a8a49c;
+      --ink-faint: #74706a;
+      --line: #333029;
+      --line-strong: #3b382f;
+      --accent: #8fa085;       /* salvia mas luminoso para fondo oscuro */
+      --accent-deep: #7d8f73;
+      --accent-ink: #161815;
+      --coral: #8fa085;
+      --coral-deep: #7d8f73;
+      --danger: #e07a70;
+      --ok: #8fa085;
+      --ok-bg: #2a3026;        /* tinte salvia oscuro */
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html{ overflow-x:hidden; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    min-height:100dvh;
+    background: var(--bg);
+    font-family:'Inter', sans-serif;
+    color: var(--ink);
+    /* Respeta la isla dinamica (arriba) y la barra de gestos (abajo) del iPhone */
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app{ width:100%; max-width:420px; margin:0 auto; }
+
+  header{
+    padding: 2px 0 10px;
+    text-align:center;
+  }
+  header .logo{
+    width:86%;
+    max-width:350px;
+    margin: 2px auto 0;
+    color: var(--ink);    /* el SVG mono hereda este color (cambia en claro/oscuro) */
+    line-height:0;
+  }
+  header .logo svg{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  /* Selector de perfil (Mariano / Nati) */
+  .perfil-wrap{
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    margin-top:10px;
+  }
+  .perfil-lbl{ font-size:11px; font-weight:600; letter-spacing:.03em; color: var(--ink-faint); text-transform:uppercase; }
+  .perfil-pill{ position:relative; }
+  .perfil-pill select{
+    appearance:none; -webkit-appearance:none;
+    border:1px solid var(--line-strong); background: var(--surface);
+    color: var(--ink); font-family:inherit; font-weight:600; font-size:13px;
+    padding:6px 28px 6px 12px; border-radius:100px; cursor:pointer; outline:none;
+  }
+  .perfil-pill::after{
+    content:""; position:absolute; right:12px; top:50%;
+    width:6px; height:6px; border-right:1.5px solid var(--ink-soft); border-bottom:1.5px solid var(--ink-soft);
+    transform: translateY(-70%) rotate(45deg); pointer-events:none;
+  }
+
+  /* Alternancia de perfil: por defecto Mariano; Nati oculta lo suyo */
+  #cardNati{ display:none; }
+  body.perfil-nati #cardMariano{ display:none; }
+  body.perfil-nati #cardNati{ display:block; }
+
+  /* Toggle Gasto de casa / Retiro (carga de Nati) */
+  .tipo-nati{
+    display:flex; gap:3px; width:100%;
+    background: var(--surface-2); padding:3px; border-radius:10px; margin-bottom:14px;
+  }
+  .tipo-nati button{
+    flex:1; border:none; background:transparent; font-family:inherit;
+    font-weight:600; font-size:13px; padding:9px; border-radius:8px;
+    color: var(--ink-soft); cursor:pointer; transition: background .18s ease, color .18s ease;
+  }
+  .tipo-nati button.activo{ background: var(--accent); color: var(--accent-ink); }
+  /* Monto de Nati (mismo estilo que el de Mariano) */
+  #nMonto{
+    font-size:52px; font-weight:700; letter-spacing:-.03em; color: var(--ink);
+    background:transparent; border:none; outline:none; width:100%; max-width:230px;
+    text-align:center; padding:0;
+  }
+  #nMonto::placeholder{ color: var(--ink-faint); opacity:.5; }
+  #nMontoHero .signo{ color: var(--accent); }
+  #nMontoHero.error #nMonto{ color: var(--danger); }
+  #nMontoHero{ padding: 12px 4px 12px; border-bottom:1px solid var(--line); margin-bottom:14px; }
+  #nMontoHero .monto-fila{ display:flex; align-items:center; justify-content:center; gap:6px; }
+  #nMontoHero .signo{ font-size:26px; font-weight:600; align-self:flex-start; margin-top:12px; }
+  /* En modo Retiro se oculta la categoría y la fecha ocupa toda la fila */
+  #formNati.modo-retiro #nMonedaToggle{ display:none; }
+  #formNati.modo-retiro #nCampoCategoria{ display:none; }
+  #formNati.modo-retiro #nCampoMetodoCuotas{ display:none; }
+  #formNati.modo-retiro #nCampoComprobante{ display:none; }
+  #nComprobante{ display:none; }
+
+  /* Modo Retiro en el perfil Mariano: se ocultan los campos que no aplican */
+  #formGasto.modo-retiro #monedaToggle{ display:none; }
+  #formGasto.modo-retiro #campoCategoria{ display:none; }
+  #formGasto.modo-retiro #filaMetodoCuotas{ display:none; }
+  #formGasto.modo-retiro #campoComprobante{ display:none; }
+  #formGasto.modo-retiro #campoFecha{ flex:1 1 100% !important; }
+  #formNati.modo-retiro #nCampoFecha{ flex:1 1 100% !important; }
+
+  /* En la consulta "Fondo de Nati" se ocultan los filtros que no usa (moneda, quién, categorías, métodos) */
+  body.consulta-fondo .solo-mariano-filtro{ display:none; }
+
+  /* Card "Fondo de Nati" / Mi fondo */
+  .fondo-card{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px 18px;
+    margin-bottom:12px;
+  }
+  .fondo-card h3{
+    font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color: var(--ink-faint); margin:0 0 12px;
+  }
+  .fondo-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:9px 0; font-size:14.5px; border-bottom:1px solid var(--line);
+  }
+  .fondo-row span:first-child{ color: var(--ink-soft); }
+  .fondo-row span:last-child{ color: var(--ink); font-weight:600; white-space:nowrap; }
+  .fondo-row.total{ border-bottom:none; padding-bottom:0; padding-top:12px; }
+  .fondo-row.total span:first-child{ color: var(--ink); font-weight:700; }
+  .fondo-row.total span:last-child{ color: var(--accent-deep); font-weight:800; font-size:17px; }
+  h1{
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-.02em;
+    margin:0;
+  }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 20px 16px;
+    box-shadow: var(--shadow);
+  }
+
+  /* Monto: protagonista, limpio */
+  .monto-hero{
+    padding: 12px 4px 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .moneda-toggle{
+    display:flex;
+    gap:2px;
+    background: var(--surface-2);
+    padding:3px;
+    border-radius:10px;
+    width:fit-content;
+    margin: 0 auto 12px;
+  }
+  .moneda-toggle button{
+    border:none;
+    background:transparent;
+    font-family:inherit;
+    font-weight:600;
+    font-size:12px;
+    letter-spacing:.02em;
+    padding:6px 16px;
+    border-radius:8px;
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: background .18s ease, color .18s ease;
+  }
+  .moneda-toggle button.activo{
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  @media (prefers-color-scheme: dark){
+    .moneda-toggle button.activo{ box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  }
+  .monto-fila{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+  }
+  .monto-fila .signo{
+    font-size:26px;
+    font-weight:500;
+    color: var(--coral);
+    align-self:flex-start;
+    margin-top:12px;
+  }
+  #monto{
+    font-size:52px;
+    font-weight:700;
+    letter-spacing:-.03em;
+    color: var(--ink);           /* el numero en tinta (manda por tamaño) */
+    background:transparent;
+    border:none;
+    outline:none;
+    width:100%;
+    max-width:230px;
+    text-align:center;
+    padding:0;
+    -moz-appearance:textfield;
+  }
+  #monto::-webkit-outer-spin-button,
+  #monto::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  #monto::placeholder{ color: var(--ink-faint); opacity:.5; }
+  .monto-hero.error #monto{ color: var(--danger); }
+
+  .campo{ margin-bottom:13px; }
+  .fila-2{ display:flex; gap:12px; }
+  .fila-2 .campo{ flex:1; min-width:0; }
+
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color: var(--ink-soft);
+    margin: 0 2px 7px;
+  }
+
+  input[type=text], input[type=date], input[type=number], select{
+    width:100%;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background: var(--surface);
+    font-family:inherit;
+    font-weight:500;
+    font-size:16px;   /* 16px o mas evita el zoom automatico de iOS al enfocar */
+    color: var(--ink);
+    padding:12px 13px;
+    outline:none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+    appearance:none; -webkit-appearance:none;
+  }
+  input::placeholder{ color: var(--ink-faint); }
+  input[type=text]:focus, input[type=date]:focus, select:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  input[type=date]{ color: var(--ink); }
+
+  /* Campo de fecha con formato corto DD/MM/AA controlado por la app.
+     La capa visual muestra el texto; el input date real va encima, invisible pero tocable. */
+  .fecha-wrap{ position:relative; }
+  /* Flecha indicadora de calendario en todos los campos de fecha (Cargar y Consultar) */
+  .fecha-wrap::after{
+    content:"";
+    position:absolute;
+    right:14px; top:50%;
+    width:7px; height:7px;
+    border-right:1.5px solid var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events:none;
+    z-index:1;
+  }
+  .fecha-display{
+    display:flex;
+    align-items:center;
+    width:100%;
+    min-height:45px;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background: var(--surface);
+    font-family:inherit;
+    font-weight:500;
+    font-size:16px;
+    color: var(--ink);
+    padding:12px 34px 12px 13px;
+    pointer-events:none;   /* los toques pasan al input de abajo */
+  }
+  .fecha-wrap input[type=date]{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    margin:0;
+    opacity:0;   /* invisible pero funcional: abre el picker nativo al tocar */
+    border:none;
+    background:transparent;
+  }
+  #campoFecha.error .fecha-display{ border-color: var(--danger); }
+  .fecha-wrap input[type=date]:focus + .fecha-display,
+  .fecha-wrap:focus-within .fecha-display{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  /* ===== Multi-select con checkboxes (categorias / metodos en consulta) ===== */
+  .multi{ position:relative; }
+  .multi-btn{
+    width:100%;
+    text-align:left;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background: var(--surface);
+    font-family:inherit;
+    font-weight:500;
+    font-size:16px;
+    color: var(--ink);
+    padding:12px 34px 12px 13px;
+    cursor:pointer;
+    position:relative;
+    min-height:45px;
+  }
+  .multi-btn::after{
+    content:"";
+    position:absolute;
+    right:14px; top:50%;
+    width:7px; height:7px;
+    border-right:1.5px solid var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events:none;
+  }
+  .multi.abierto .multi-btn{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .multi-label{ display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .multi-panel{
+    display:none;
+    position:absolute;
+    top:calc(100% + 6px);
+    left:0; right:0;
+    background: var(--surface);
+    border:1px solid var(--line-strong);
+    border-radius:12px;
+    box-shadow: var(--shadow);
+    padding:6px;
+    z-index:30;
+    max-height:240px;
+    overflow-y:auto;
+  }
+  .multi.abierto .multi-panel{ display:block; }
+  .multi-opt{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    color: var(--ink);
+    user-select:none;
+  }
+  .multi-opt:hover{ background: var(--surface-2); }
+  .multi-opt input{
+    width:18px; height:18px;
+    accent-color: var(--accent);
+    flex:none;
+    margin:0;
+    pointer-events:none;
+  }
+  .multi-opt.todas{
+    border-bottom:1px solid var(--line);
+    border-radius:0;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .campo.error input,
+  .campo.error select,
+  .campo.error .foto-btn{
+    border-color: var(--danger);
+  }
+  .msg-error{
+    display:none;
+    font-size:12px;
+    font-weight:500;
+    color: var(--danger);
+    margin: 6px 2px 0;
+  }
+  .campo.error .msg-error{ display:block; }
+  .monto-hero.error{ border-color: transparent; }
+
+  .select-wrap{ position:relative; }
+  .select-wrap::after{
+    content:"";
+    position:absolute;
+    right:14px; top:37px;
+    width:7px; height:7px;
+    border-right:1.5px solid var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    transform: rotate(45deg);
+    pointer-events:none;
+  }
+  select{ padding-right:34px; cursor:pointer; }
+
+  .foto-btn{
+    display:flex; align-items:center; gap:9px;
+    border:1px dashed var(--line-strong);
+    border-radius:11px;
+    padding:12px 13px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:500;
+    color: var(--ink-soft);
+    background: var(--surface);
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .foto-btn svg{ flex:none; }
+  .foto-btn.con-foto{
+    color: var(--ok);
+    border-color: var(--ok);
+    border-style: solid;
+    background: var(--ok-bg);
+  }
+  .preview-wrap{
+    position:relative;
+    display:none;
+    margin-top:10px;
+    width:92px;
+  }
+  .preview-wrap.mostrar{ display:block; }
+  .preview{
+    width:92px;
+    border-radius:11px;
+    border:1px solid var(--line);
+    display:block;
+  }
+  .preview-quitar{
+    position:absolute;
+    top:-7px; right:-7px;
+    width:23px; height:23px;
+    border:none;
+    border-radius:50%;
+    background: var(--ink);
+    color: var(--bg);
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  }
+  #comprobante{ display:none; }
+
+  button[type=submit]{
+    width:100%;
+    margin-top:8px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family:inherit;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition: transform .08s ease, opacity .15s ease;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+  }
+  button[type=submit]:active{ transform: scale(.99); }
+  button[type=submit]:disabled{ opacity:.6; cursor:wait; }
+
+  .spinner{
+    width:16px; height:16px;
+    border:2.5px solid color-mix(in srgb, var(--accent-ink) 35%, transparent);
+    border-top-color: var(--accent-ink);
+    border-radius:50%;
+    animation: girar .7s linear infinite;
+  }
+  @keyframes girar{ to{ transform: rotate(360deg); } }
+
+  .estado{
+    margin-top:12px;
+    font-size:13px;
+    min-height:16px;
+    text-align:center;
+    color: var(--ink-soft);
+  }
+  .estado.err{ color: var(--danger); font-weight:500; }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    transform: translateX(-50%) translateY(80px);
+    background: var(--accent-deep);
+    color:#ffffff;
+    font-weight:600;
+    font-size:14px;
+    padding:12px 20px;
+    border-radius:12px;
+    box-shadow: 0 12px 30px -8px color-mix(in srgb, var(--accent-deep) 50%, transparent);
+    display:flex; align-items:center; gap:8px;
+    opacity:0;
+    visibility:hidden;   /* oculto no ocupa ni genera scroll fuera de pantalla */
+    pointer-events:none;
+    transition: transform .32s cubic-bezier(.2,.9,.3,1.2), opacity .32s ease, visibility .32s;
+    z-index:50;
+  }
+  .toast.mostrar{ transform: translateX(-50%) translateY(0); opacity:1; visibility:visible; }
+  .toast svg{ flex:none; }
+
+  .config-warning{
+    background: var(--surface-2);
+    border:1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-size:12.5px;
+    padding:12px 14px;
+    border-radius:12px;
+    margin: 14px 0 4px;
+    line-height:1.5;
+  }
+  .config-warning code{ font-weight:600; color: var(--ink); }
+
+  .historial{
+    margin-top:26px;
+    padding-top:4px;
+  }
+  .historial h2{
+    font-size:12px;
+    font-weight:600;
+    color: var(--ink-faint);
+    margin:0 0 10px 2px;
+  }
+  .renglon{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 14px;
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:8px;
+  }
+  .renglon .chip{
+    font-size:11px;
+    font-weight:600;
+    padding:3px 9px;
+    border-radius:6px;
+    background: var(--ok-bg);
+    color: var(--accent-deep);
+    white-space:nowrap;
+  }
+  .renglon .desc{
+    font-size:13px;
+    color: var(--ink-soft);
+    flex:1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .renglon .monto{
+    font-size:15px;
+    font-weight:600;
+    color: var(--ink);
+    white-space:nowrap;
+    letter-spacing:-.01em;
+  }
+  .renglon .borrar{
+    flex:none;
+    width:36px; height:36px;
+    margin:-5px -6px -5px 0;   /* mas area de toque sin agrandar visualmente el renglon */
+    border:none;
+    border-radius:9px;
+    background:transparent;
+    color: var(--ink-faint);
+    font-size:19px;
+    line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background .15s ease, color .15s ease;
+  }
+  .renglon .borrar:hover{
+    background: color-mix(in srgb, var(--danger) 12%, transparent);
+    color: var(--danger);
+  }
+  .renglon .borrar:disabled{
+    cursor:wait;
+    opacity:.5;
+  }
+  .renglon.borrando{
+    opacity:.5;
+  }
+  .renglon.saliendo{
+    opacity:0;
+    transform: translateX(20px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  /* Boton editar (lapiz), mismo tamaño de toque que borrar */
+  .renglon .editar{
+    flex:none;
+    width:36px; height:36px;
+    margin:-5px 0 -5px -2px;
+    border:none;
+    border-radius:9px;
+    background:transparent;
+    color: var(--ink-faint);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background .15s ease, color .15s ease;
+  }
+  .renglon .editar:hover{
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent-deep);
+  }
+  .renglon .editar svg{ width:17px; height:17px; }
+  .renglon .acciones{ display:flex; align-items:center; flex:none; }
+
+  /* ===== Listado de movimientos (consulta) ===== */
+  .movimientos{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px 18px;
+    margin-bottom:12px;
+  }
+  .movimientos h3{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color: var(--ink-faint);
+    margin:0 0 12px;
+  }
+  .mov{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .mov:last-child{ border-bottom:none; padding-bottom:0; }
+  .mov-info{ flex:1; min-width:0; }
+  .mov-top{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    font-size:14px;
+  }
+  .mov-fecha{ color: var(--ink-faint); font-size:12px; font-weight:600; white-space:nowrap; }
+  .mov-cat{ color: var(--ink); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mov-sub{ font-size:12px; color: var(--ink-soft); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mov-monto{
+    font-size:15px; font-weight:700; color: var(--ink);
+    white-space:nowrap; letter-spacing:-.01em; flex:none;
+  }
+  /* Linea del Saldo Nati Personal: mismo formato que los movimientos, solo en otro color */
+  .mov.mov-saldo .mov-cat,
+  .mov.mov-saldo .mov-sub,
+  .mov.mov-saldo .mov-monto{ color: var(--accent, #6f8165); }
+  .mov .acciones{ display:flex; align-items:center; flex:none; }
+  .mov .editar, .mov .borrar{
+    flex:none;
+    width:34px; height:34px;
+    border:none; border-radius:8px;
+    background:transparent;
+    color: var(--ink-faint);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background .15s ease, color .15s ease;
+  }
+  .mov .editar svg{ width:16px; height:16px; }
+  .mov .borrar{ font-size:18px; line-height:1; }
+  .mov .editar:hover{ background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-deep); }
+  .mov .borrar:hover{ background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); }
+  .mov .editar:disabled, .mov .borrar:disabled{ cursor:wait; opacity:.5; }
+  .mov.borrando{ opacity:.5; }
+  .mov.saliendo{ opacity:0; transform: translateX(20px); transition: opacity .25s ease, transform .25s ease; }
+  .movimientos-vacio{ font-size:13px; color: var(--ink-faint); text-align:center; padding:8px 0; }
+
+  /* ===== Modal de edicion ===== */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background: color-mix(in srgb, #000 45%, transparent);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:100;
+    padding: env(safe-area-inset-top) 0 0;
+  }
+  .modal-overlay.abierto{ display:flex; }
+  .modal{
+    background: var(--bg);
+    width:100%;
+    max-width:440px;
+    max-height:92vh;
+    overflow-y:auto;
+    border-radius:20px 20px 0 0;
+    padding:18px 18px calc(18px + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 40px -12px rgba(0,0,0,.4);
+    animation: subir .28s cubic-bezier(.2,.8,.3,1);
+  }
+  @keyframes subir{ from{ transform: translateY(100%); } to{ transform: translateY(0); } }
+  .modal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .modal-head h2{ font-size:18px; font-weight:700; margin:0; color: var(--ink); }
+  .modal-cerrar{
+    border:none; background:transparent; color: var(--ink-soft);
+    font-size:26px; line-height:1; cursor:pointer;
+    width:36px; height:36px; border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .modal-cerrar:hover{ background: var(--surface-2); }
+  .modal-acciones{ display:flex; gap:10px; margin-top:6px; }
+  .btn-sec{
+    flex:1; padding:14px; border-radius:12px;
+    border:1px solid var(--line-strong); background: var(--surface);
+    font-family:inherit; font-weight:600; font-size:15px; color: var(--ink-soft);
+    cursor:pointer;
+  }
+  .btn-sec:active{ transform: scale(.99); }
+  .btn-pri{
+    flex:2; padding:14px; border-radius:12px; border:none;
+    background: var(--accent); color: var(--accent-ink);
+    font-family:inherit; font-weight:600; font-size:15px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+  }
+  .btn-pri:active{ transform: scale(.99); }
+  .btn-pri:disabled{ opacity:.6; cursor:wait; }
+  #eMonto{
+    width:100%; border:1px solid var(--line-strong); border-radius:11px;
+    background: var(--surface); font-family:inherit; font-weight:600;
+    font-size:22px; color: var(--ink); padding:12px 13px; outline:none;
+    text-align:center; letter-spacing:-.01em;
+  }
+  #eCampoMonto.error #eMonto{ border-color: var(--danger); }
+  /* Editar un retiro: solo monto, fecha y descripción (sin moneda/categoría/método) */
+  #modalEditar.modo-retiro #eCampoMoneda,
+  #modalEditar.modo-retiro #eCampoCategoria,
+  #modalEditar.modo-retiro #eCampoMetodo{ display: none; }
+  #modalEditar.modo-retiro #eCampoFecha{ flex: 1 1 100% !important; }
+
+  /* ===== Tabs Cargar / Consultar ===== */
+  .tabs{
+    display:flex;
+    gap:4px;
+    background: var(--surface-2);
+    padding:4px;
+    border-radius:14px;
+    margin-bottom:12px;
+  }
+  .tab{
+    flex:1;
+    border:none;
+    background:transparent;
+    font-family:inherit;
+    font-weight:600;
+    font-size:14px;
+    padding:11px;
+    border-radius:10px;
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: background .18s ease, color .18s ease;
+  }
+  .tab.activo{
+    background: var(--surface);
+    color: var(--accent-deep);
+    box-shadow: 0 1px 3px rgba(28,27,26,.10);
+  }
+
+  /* Toggle de moneda a ancho completo (en consulta) */
+  .moneda-toggle.full{ width:100%; margin:0; }
+  .moneda-toggle.full button{ flex:1; }
+
+  /* ===== Resultado de consulta ===== */
+  .resultado{ margin-top:20px; }
+  .resultado-total{
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+    color:#fff;
+    border-radius:18px;
+    padding:22px;
+    text-align:center;
+    box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--accent-deep) 60%, transparent);
+    margin-bottom:16px;
+  }
+  .resultado-total .rt-label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    opacity:.85;
+  }
+  .resultado-total .rt-monto{
+    display:block;
+    font-size:40px;
+    font-weight:700;
+    letter-spacing:-.02em;
+    margin-top:4px;
+  }
+  .resultado-total .rt-cant{
+    display:block;
+    font-size:12px;
+    opacity:.85;
+    margin-top:4px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="logo" role="img" aria-label="la cuentita">
+      <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="160" cy="150" r="68" fill="none" stroke="currentColor" stroke-opacity="0.18" stroke-width="19" stroke-linecap="round"/>
+        <circle cx="160" cy="150" r="68" fill="none" stroke="currentColor" stroke-width="19" stroke-linecap="round"
+                stroke-dasharray="264.8 162.4" transform="rotate(-90 160 150)"/>
+        <circle cx="114" cy="200" r="11" fill="currentColor"/>
+        <text x="160" y="150" text-anchor="middle" dominant-baseline="central" font-family="Arial, sans-serif"
+              font-weight="700" font-size="66" fill="currentColor">$</text>
+        <text x="268" y="139" dominant-baseline="central" font-family="Arial, sans-serif" letter-spacing="-1.5">
+          <tspan font-weight="400" font-size="86" fill="currentColor" opacity="0.6">la </tspan><tspan font-weight="800" font-size="118" fill="currentColor">cuentita</tspan>
+        </text>
+        <text x="274" y="219" font-family="Arial, sans-serif" font-weight="500"
+              font-size="40" letter-spacing="5" fill="currentColor" opacity="0.45">by nanocuriotti</text>
+      </svg>
+    </div>
+    <div class="perfil-wrap">
+      <span class="perfil-lbl">Perfil</span>
+      <div class="perfil-pill">
+        <select id="perfilSelect" aria-label="Perfil">
+          <option value="mariano">Mariano</option>
+          <option value="nati">Nati</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab activo" id="tabCargar" role="tab" aria-selected="true">Cargar</button>
+    <button class="tab" id="tabConsultar" role="tab" aria-selected="false">Consultar</button>
+  </div>
+
+  <!-- ===================== SECCION CARGAR ===================== -->
+  <section id="seccionCargar">
+  <div class="card" id="cardMariano">
+    <div id="configWarning" class="config-warning" style="display:none">
+      Falta configurar la URL del Apps Script. Abrí este archivo y reemplazá
+      <code>SCRIPT_URL</code> por la URL de tu implementación (termina en <code>/exec</code>).
+    </div>
+
+    <form id="formGasto" novalidate>
+      <div class="tipo-nati" id="tipoMarianoToggle" role="group" aria-label="Tipo">
+        <button type="button" class="activo" data-tipo="gasto">Gasto</button>
+        <button type="button" data-tipo="retiro">Retiro (fondo Nati)</button>
+      </div>
+
+      <div class="monto-hero" id="montoHero">
+        <div class="moneda-toggle" id="monedaToggle" role="group" aria-label="Moneda">
+          <button type="button" class="activo" data-moneda="ARS">ARS</button>
+          <button type="button" data-moneda="USD">USD</button>
+        </div>
+        <div class="monto-fila">
+          <span class="signo" id="signoMoneda">$</span>
+          <input type="text" id="monto" name="monto" inputmode="decimal" placeholder="0" required autofocus autocomplete="off">
+        </div>
+        <div class="msg-error" id="errMonto" style="text-align:center; margin-top:8px;">Ingresá un monto mayor a cero</div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo" id="campoFecha" style="flex:0 0 42%;">
+          <label for="fecha">Fecha</label>
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="fechaDisplay">--/--/--</span>
+            <input type="date" id="fecha" name="fecha" required>
+          </div>
+          <div class="msg-error">Elegí una fecha</div>
+        </div>
+        <div class="campo select-wrap" id="campoCategoria">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">Cargando...</option>
+          </select>
+          <div class="msg-error">Elegí una categoría</div>
+        </div>
+      </div>
+
+      <div class="fila-2" id="filaMetodoCuotas">
+        <div class="campo select-wrap" id="campoMetodo">
+          <label for="metodo">Método de pago</label>
+          <select id="metodo" name="metodo" required>
+            <option value="">Cargando...</option>
+          </select>
+          <div class="msg-error">Elegí un método de pago</div>
+        </div>
+        <div class="campo select-wrap" id="campoCuotas" style="flex:0 0 32%;">
+          <label for="cuotas">Cuotas</label>
+          <select id="cuotas" name="cuotas">
+            <option value="1" selected>1</option>
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="9">9</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="24">24</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="descripcion" id="descLabel">Descripción (opcional)</label>
+        <input type="text" id="descripcion" name="descripcion" maxlength="80" placeholder="Ej: supermercado, nafta...">
+      </div>
+
+      <div class="campo" id="campoComprobante">
+        <label for="comprobante">Comprobante (opcional)</label>
+        <label class="foto-btn" for="comprobante" id="fotoBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/>
+            <circle cx="12" cy="13" r="3.2"/>
+          </svg>
+          <span id="fotoLabel">Sacar foto o elegir imagen</span>
+        </label>
+        <input type="file" id="comprobante" name="comprobante" accept="image/*" capture="environment">
+        <div class="preview-wrap" id="previewWrap">
+          <img id="preview" class="preview" alt="Vista previa del comprobante">
+          <button type="button" class="preview-quitar" id="quitarFoto" aria-label="Quitar comprobante">&times;</button>
+        </div>
+        <div class="msg-error" id="errFoto">Esa imagen no se pudo procesar, probá con otra</div>
+      </div>
+
+      <button type="submit" id="btnGuardar">Guardar gasto</button>
+
+      <div id="estado" class="estado" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <!-- ===== Tarjeta de carga de NATI (retiro / gasto de casa) ===== -->
+  <div class="card" id="cardNati">
+    <form id="formNati" novalidate>
+      <div class="tipo-nati" id="tipoNatiToggle" role="group" aria-label="Tipo">
+        <button type="button" class="activo" data-tipo="gasto">Gasto de casa</button>
+        <button type="button" data-tipo="retiro">Retiro</button>
+      </div>
+
+      <div class="monto-hero" id="nMontoHero">
+        <div class="moneda-toggle" id="nMonedaToggle" role="group" aria-label="Moneda">
+          <button type="button" class="activo" data-moneda="ARS">ARS</button>
+          <button type="button" data-moneda="USD">USD</button>
+        </div>
+        <div class="monto-fila">
+          <span class="signo" id="nSignoMoneda">$</span>
+          <input type="text" id="nMonto" inputmode="decimal" placeholder="0" required autocomplete="off">
+        </div>
+        <div class="msg-error" id="nErrMonto" style="text-align:center; margin-top:8px;">Ingresá un monto mayor a cero</div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo" id="nCampoFecha" style="flex:0 0 42%;">
+          <label for="nFecha">Fecha</label>
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="nFechaDisplay">--/--/--</span>
+            <input type="date" id="nFecha" required>
+          </div>
+          <div class="msg-error">Elegí una fecha</div>
+        </div>
+        <div class="campo select-wrap" id="nCampoCategoria">
+          <label for="nCategoria">Categoría</label>
+          <select id="nCategoria"></select>
+          <div class="msg-error">Elegí una categoría</div>
+        </div>
+      </div>
+
+      <div class="fila-2" id="nCampoMetodoCuotas">
+        <div class="campo select-wrap" id="nCampoMetodo">
+          <label for="nMetodo">Método de pago</label>
+          <select id="nMetodo"></select>
+        </div>
+        <div class="campo select-wrap" id="nCampoCuotas" style="flex:0 0 32%;">
+          <label for="nCuotas">Cuotas</label>
+          <select id="nCuotas">
+            <option value="1" selected>1</option>
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="9">9</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="24">24</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="campo" id="nCampoDesc">
+        <label for="nDesc" id="nDescLabel">Descripción (opcional)</label>
+        <input type="text" id="nDesc" maxlength="80" placeholder="Ej: supermercado, farmacia...">
+      </div>
+
+      <div class="campo" id="nCampoComprobante">
+        <label for="nComprobante">Comprobante (opcional)</label>
+        <label class="foto-btn" for="nComprobante" id="nFotoBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/>
+            <circle cx="12" cy="13" r="3.2"/>
+          </svg>
+          <span id="nFotoLabel">Sacar foto o elegir imagen</span>
+        </label>
+        <input type="file" id="nComprobante" accept="image/*" capture="environment">
+        <div class="preview-wrap" id="nPreviewWrap">
+          <img id="nPreview" class="preview" alt="Vista previa del comprobante">
+          <button type="button" class="preview-quitar" id="nQuitarFoto" aria-label="Quitar comprobante">&times;</button>
+        </div>
+        <div class="msg-error" id="nErrFoto">Esa imagen no se pudo procesar, probá con otra</div>
+      </div>
+
+      <button type="submit" id="btnGuardarNati">Guardar gasto</button>
+      <div id="nEstado" class="estado" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="historial" id="historial" style="display:none">
+    <h2>Cargados recién</h2>
+    <div id="listaHistorial"></div>
+  </div>
+  </section>
+
+  <!-- ===================== SECCION CONSULTAR ===================== -->
+  <section id="seccionConsultar" style="display:none">
+  <div class="card">
+    <form id="formConsulta" novalidate>
+      <div class="tipo-nati" id="consultaModeToggle" role="group" aria-label="Tipo de consulta">
+        <button type="button" class="activo" data-cmode="gastos">Gastos</button>
+        <button type="button" data-cmode="fondo">Fondo de Nati</button>
+      </div>
+
+      <div class="campo solo-mariano-filtro">
+        <label>Moneda</label>
+        <div class="moneda-toggle full" id="monedaToggleC" role="group" aria-label="Moneda">
+          <button type="button" class="activo" data-moneda="ARS">ARS</button>
+          <button type="button" data-moneda="USD">USD</button>
+        </div>
+      </div>
+
+      <div class="campo select-wrap solo-mariano-filtro" id="campoQuien">
+        <label for="cQuien">Quién cargó</label>
+        <select id="cQuien">
+          <option value="">Todos</option>
+          <option value="Mariano">Mariano</option>
+          <option value="Nati">Nati</option>
+        </select>
+      </div>
+
+      <div class="fila-2 solo-mariano-filtro">
+        <div class="campo">
+          <label>Categorías</label>
+          <div class="multi" id="multiCategoria">
+            <button type="button" class="multi-btn" id="multiCategoriaBtn" aria-haspopup="true" aria-expanded="false">
+              <span class="multi-label" id="multiCategoriaLabel">Todas</span>
+            </button>
+            <div class="multi-panel" id="multiCategoriaPanel" role="menu"></div>
+          </div>
+        </div>
+        <div class="campo">
+          <label>Métodos</label>
+          <div class="multi" id="multiMetodo">
+            <button type="button" class="multi-btn" id="multiMetodoBtn" aria-haspopup="true" aria-expanded="false">
+              <span class="multi-label" id="multiMetodoLabel">Todos</span>
+            </button>
+            <div class="multi-panel" id="multiMetodoPanel" role="menu"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fila-2">
+        <div class="campo">
+          <label for="cDesde">Desde</label>
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="cDesdeDisplay">--/--/--</span>
+            <input type="date" id="cDesde">
+          </div>
+        </div>
+        <div class="campo">
+          <label for="cHasta">Hasta</label>
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="cHastaDisplay">--/--/--</span>
+            <input type="date" id="cHasta">
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" id="btnConsultar">Consultar</button>
+      <div id="estadoC" class="estado" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="resultado" id="resultado" style="display:none">
+    <div class="resultado-total" id="totalCard">
+      <span class="rt-label" id="rtLabel">Total</span>
+      <span class="rt-monto" id="resTotal">$0</span>
+      <span class="rt-cant" id="resCantidad"></span>
+    </div>
+
+    <div class="fondo-card" id="fondoCard" style="display:none">
+      <h3 id="fondoTitulo">Fondo de Nati</h3>
+      <div class="fondo-row"><span>Retirado del fondo</span><span id="fRetirado">$0</span></div>
+      <div class="fondo-row"><span>Gastos registrados</span><span id="fGastos">$0</span></div>
+      <div class="fondo-row total"><span>Saldo Nati Personal</span><span id="fPersonal">$0</span></div>
+    </div>
+
+    <div class="movimientos" id="movimientos">
+      <h3 id="movTitulo">Movimientos</h3>
+      <div id="listaMovimientos"></div>
+    </div>
+  </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M20 6 9 17l-5-5"/>
+    </svg>
+    <span id="toastTexto">Gasto guardado</span>
+  </div>
+</div>
+
+<!-- ===================== MODAL DE EDICION ===================== -->
+<div class="modal-overlay" id="modalEditar" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-head">
+      <h2 id="modalTitulo">Editar gasto</h2>
+      <button type="button" class="modal-cerrar" id="modalCerrar" aria-label="Cerrar">&times;</button>
+    </div>
+    <form id="formEditar" novalidate>
+      <div class="campo" id="eCampoMoneda">
+        <label>Moneda</label>
+        <div class="moneda-toggle full" id="eMonedaToggle" role="group" aria-label="Moneda">
+          <button type="button" class="activo" data-moneda="ARS">ARS</button>
+          <button type="button" data-moneda="USD">USD</button>
+        </div>
+      </div>
+      <div class="campo" id="eCampoMonto">
+        <label for="eMonto">Monto</label>
+        <input type="text" id="eMonto" inputmode="decimal" placeholder="0" autocomplete="off">
+        <div class="msg-error">Ingresá un monto mayor a cero</div>
+      </div>
+      <div class="fila-2">
+        <div class="campo" id="eCampoFecha" style="flex:0 0 42%;">
+          <label for="eFecha">Fecha</label>
+          <div class="fecha-wrap">
+            <span class="fecha-display" id="eFechaDisplay">--/--/--</span>
+            <input type="date" id="eFecha">
+          </div>
+          <div class="msg-error">Elegí una fecha</div>
+        </div>
+        <div class="campo select-wrap" id="eCampoCategoria">
+          <label for="eCategoria">Categoría</label>
+          <select id="eCategoria"></select>
+          <div class="msg-error">Elegí una categoría</div>
+        </div>
+      </div>
+      <div class="campo select-wrap" id="eCampoMetodo">
+        <label for="eMetodo">Método de pago</label>
+        <select id="eMetodo"></select>
+        <div class="msg-error">Elegí un método</div>
+      </div>
+      <div class="campo">
+        <label for="eDescripcion">Descripción (opcional)</label>
+        <input type="text" id="eDescripcion" maxlength="80" placeholder="Ej: supermercado, nafta...">
+      </div>
+      <div class="modal-acciones">
+        <button type="button" class="btn-sec" id="eCancelar">Cancelar</button>
+        <button type="submit" class="btn-pri" id="eGuardar">Guardar cambios</button>
+      </div>
+      <div id="eEstado" class="estado" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+
+// ============================================================
+// CONFIGURACION: pegar aca la URL del Apps Script (termina en /exec)
+// ============================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8s7GnnGkB1eQYfTeQ0LF_N7MIavxEy5qS_a0dEmvSOMe13Cd5ot2TdsV7WNpBFd3U/exec";
+
+const CATEGORIAS_FALLBACK = ["Alquiler","Servicios","Alimentacion","Transporte",
+  "Salud","Ocio","Educacion","Indumentaria","Hogar","Otros"];
+const METODOS_FALLBACK = ["Efectivo","Tarjeta debito","Tarjeta credito",
+  "Transferencia","Billetera virtual"];
+
+const form = document.getElementById('formGasto');
+const estadoEl = document.getElementById('estado');
+const btnGuardar = document.getElementById('btnGuardar');
+const tipoMarianoToggle = document.getElementById('tipoMarianoToggle');
+const descLabel = document.getElementById('descLabel');
+let tipoMariano = 'gasto';   // 'gasto' | 'retiro' (el retiro va a nombre de Nati)
+const selectCategoria = document.getElementById('categoria');
+const selectMetodo = document.getElementById('metodo');
+const selectCuotas = document.getElementById('cuotas');
+const inputFoto = document.getElementById('comprobante');
+const fotoLabel = document.getElementById('fotoLabel');
+const fotoBtn = document.getElementById('fotoBtn');
+const preview = document.getElementById('preview');
+const previewWrap = document.getElementById('previewWrap');
+const quitarFoto = document.getElementById('quitarFoto');
+const historial = document.getElementById('historial');
+const listaHistorial = document.getElementById('listaHistorial');
+const monedaToggle = document.getElementById('monedaToggle');
+const signoMoneda = document.getElementById('signoMoneda');
+const inputMonto = document.getElementById('monto');
+const inputFecha = document.getElementById('fecha');
+const inputDescripcion = document.getElementById('descripcion');
+const montoHero = document.getElementById('montoHero');
+const errMonto = document.getElementById('errMonto');
+const campoFecha = document.getElementById('campoFecha');
+const fechaDisplay = document.getElementById('fechaDisplay');
+const campoCategoria = document.getElementById('campoCategoria');
+const campoMetodo = document.getElementById('campoMetodo');
+const toast = document.getElementById('toast');
+const toastTexto = document.getElementById('toastTexto');
+
+let monedaSeleccionada = 'ARS';
+
+const sinUrl = () => !SCRIPT_URL || SCRIPT_URL.indexOf('PEGA_AQUI') !== -1;
+
+// ============================================================
+// UTILIDADES COMPARTIDAS
+// ============================================================
+// Unica salida al servidor: POST con timeout de 30s. Devuelve la respuesta ya validada;
+// si el servidor contesta ok:false lanza un error con su mensaje (err.servidor = true).
+async function api(payload){
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+  try{
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.ok){
+      const e = new Error(data.error || 'error desconocido');
+      e.servidor = true;
+      throw e;
+    }
+    return data;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+// Mensaje para mostrar segun el tipo de falla (timeout, rechazo del servidor o sin conexion)
+function msgError(err, prefijo){
+  if (err.name === 'AbortError') return 'El servidor tardó demasiado. Probá de nuevo.';
+  if (err.servidor) return (prefijo || 'No se pudo completar') + ': ' + err.message;
+  return 'No se pudo conectar. Revisá tu conexión.';
+}
+
+// Crea un elemento con clase y texto
+function el(tag, clase, texto){
+  const e = document.createElement(tag);
+  if (clase) e.className = clase;
+  if (texto != null) e.textContent = texto;
+  return e;
+}
+const SVG_LAPIZ = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+function boton(clase, ariaLabel, onClick){
+  const b = el('button', clase);
+  b.type = 'button';
+  b.setAttribute('aria-label', ariaLabel);
+  b.addEventListener('click', onClick);
+  return b;
+}
+function botonEditar(onClick){ const b = boton('editar', 'Editar', onClick); b.innerHTML = SVG_LAPIZ; return b; }
+function botonBorrar(ariaLabel, onClick){ const b = boton('borrar', ariaLabel, onClick); b.textContent = '×'; return b; }
+function ponerCargando(btn, texto){
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> ' + texto;
+}
+
+// Formatos
+const fmtNum = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function signoDe(moneda){ return moneda === 'USD' ? 'US$' : '$'; }
+function fmtMoneda(n, moneda){ return signoDe(moneda) + fmtNum.format(Number(n)); }
+// AAAA-MM-DD -> DD/MM/AA
+function fmtFechaCorta(v){
+  if (!v) return '';
+  const p = v.split('-');
+  return p[2] + '/' + p[1] + '/' + p[0].slice(2);
+}
+// Muestra la fecha de un input date como DD/MM/AA en su capa visual; vacio = "--/--/--"
+function pintarFecha(input, display){
+  const v = input.value;
+  display.textContent = v ? fmtFechaCorta(v) : '--/--/--';
+  display.style.color = v ? 'var(--ink)' : 'var(--ink-faint)';
+}
+
+// Toggles ARS / USD (carga de Mariano, carga de Nati, consulta y editor)
+function marcarMoneda(toggle, moneda){
+  toggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b.dataset.moneda === moneda));
+}
+function conectarMoneda(toggle, onCambio){
+  toggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-moneda]');
+    if (!btn) return;
+    marcarMoneda(toggle, btn.dataset.moneda);
+    onCambio(btn.dataset.moneda);
+  });
+}
+conectarMoneda(monedaToggle, m => { monedaSeleccionada = m; signoMoneda.textContent = signoDe(m); });
+
+// Toggle Gasto / Retiro en el perfil Mariano. El retiro siempre se registra a nombre de Nati.
+function setTipoMariano(t){
+  tipoMariano = (t === 'retiro') ? 'retiro' : 'gasto';
+  form.classList.toggle('modo-retiro', tipoMariano === 'retiro');
+  tipoMarianoToggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b.dataset.tipo === tipoMariano));
+  btnGuardar.textContent = (tipoMariano === 'retiro') ? 'Guardar retiro' : 'Guardar gasto';
+  descLabel.textContent = (tipoMariano === 'retiro') ? 'Nota (opcional)' : 'Descripción (opcional)';
+  inputDescripcion.placeholder = (tipoMariano === 'retiro') ? 'Ej: retiro del cajero' : 'Ej: supermercado, nafta...';
+  if (tipoMariano === 'retiro'){
+    // El retiro es efectivo en ARS: forzar moneda ARS
+    monedaSeleccionada = 'ARS';
+    marcarMoneda(monedaToggle, 'ARS');
+    signoMoneda.textContent = '$';
+    campoCategoria.classList.remove('error');
+    campoMetodo.classList.remove('error');
+  }
+}
+tipoMarianoToggle.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tipo]');
+  if (btn) setTipoMariano(btn.dataset.tipo);
+});
+
+inputFecha.valueAsDate = new Date();
+pintarFecha(inputFecha, fechaDisplay);
+
+// Limpiar el error de un campo apenas el usuario lo corrige
+inputMonto.addEventListener('input', () => { montoHero.classList.remove('error'); errMonto.style.display = 'none'; });
+inputFecha.addEventListener('change', () => { campoFecha.classList.remove('error'); pintarFecha(inputFecha, fechaDisplay); });
+selectCategoria.addEventListener('change', () => campoCategoria.classList.remove('error'));
+selectMetodo.addEventListener('change', () => campoMetodo.classList.remove('error'));
+
+// Llena un <select> con las opciones dadas (conserva la seleccion actual si sigue existiendo)
+function llenarSelect(select, opciones){
+  const actual = select.value;
+  select.replaceChildren(...opciones.map(o => new Option(o, o)));
+  if (actual && opciones.indexOf(actual) !== -1) select.value = actual;
+}
+// Agrega una opcion al select si todavia no esta (ej. categoria vieja que ya no figura en Config)
+function asegurarOpcion(select, valor){
+  if (valor && !Array.from(select.options).some(o => o.value === valor)) select.add(new Option(valor, valor));
+}
+
+// ===== Multi-select con checkboxes =====
+// Maneja un desplegable de casillas con opcion "Todas". Devuelve [] cuando esta "Todas"
+// (= sin filtro), o el array de seleccionados.
+function crearMultiSelect(idBase, textoTodas){
+  const cont = document.getElementById('multi' + idBase);
+  const btn = document.getElementById('multi' + idBase + 'Btn');
+  const panel = document.getElementById('multi' + idBase + 'Panel');
+  const label = document.getElementById('multi' + idBase + 'Label');
+  let opciones = [];
+  let seleccionadas = new Set();  // vacio = todas
+
+  function actualizarLabel(){
+    if (seleccionadas.size === 0){
+      label.textContent = textoTodas;
+      label.style.color = 'var(--ink-faint)';
+    } else if (seleccionadas.size === 1){
+      label.textContent = [...seleccionadas][0];
+      label.style.color = 'var(--ink)';
+    } else {
+      label.textContent = seleccionadas.size + ' seleccionadas';
+      label.style.color = 'var(--ink)';
+    }
+    // marcar/desmarcar la casilla "Todas"
+    const chkTodas = panel.querySelector('.multi-opt.todas input');
+    if (chkTodas) chkTodas.checked = seleccionadas.size === 0;
+  }
+
+  function render(){
+    panel.innerHTML = '';
+    // opcion "Todas"
+    const todas = document.createElement('label');
+    todas.className = 'multi-opt todas';
+    const chkT = document.createElement('input');
+    chkT.type = 'checkbox';
+    chkT.checked = seleccionadas.size === 0;
+    todas.appendChild(chkT);
+    const spanT = document.createElement('span');
+    spanT.textContent = textoTodas;
+    todas.appendChild(spanT);
+    todas.addEventListener('click', (e) => {
+      e.preventDefault();
+      seleccionadas.clear();  // "Todas" = limpiar seleccion
+      render();
+    });
+    panel.appendChild(todas);
+    // opciones
+    opciones.forEach(op => {
+      const lbl = document.createElement('label');
+      lbl.className = 'multi-opt';
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.checked = seleccionadas.has(op);
+      lbl.appendChild(chk);
+      const sp = document.createElement('span');
+      sp.textContent = op;
+      lbl.appendChild(sp);
+      lbl.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (seleccionadas.has(op)) seleccionadas.delete(op);
+        else seleccionadas.add(op);
+        render();
+      });
+      panel.appendChild(lbl);
+    });
+    actualizarLabel();
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const abierto = cont.classList.toggle('abierto');
+    btn.setAttribute('aria-expanded', abierto);
+    // cerrar el otro multi si esta abierto
+    document.querySelectorAll('.multi.abierto').forEach(m => {
+      if (m !== cont){ m.classList.remove('abierto'); }
+    });
+  });
+
+  return {
+    setOpciones(ops){ opciones = ops; seleccionadas.clear(); render(); },
+    getSeleccionadas(){ return [...seleccionadas]; },
+    cerrar(){ cont.classList.remove('abierto'); btn.setAttribute('aria-expanded', false); }
+  };
+}
+
+const msCategoria = crearMultiSelect('Categoria', 'Todas');
+const msMetodo = crearMultiSelect('Metodo', 'Todos');
+
+// Cerrar los paneles al tocar fuera
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.multi.abierto').forEach(m => {
+    if (!m.contains(e.target)) m.classList.remove('abierto');
+  });
+});
+
+// Listas disponibles (las usa tambien el editor para poblar sus selects)
+let catsDisponibles = CATEGORIAS_FALLBACK.slice();
+let metsDisponibles = METODOS_FALLBACK.slice();
+
+// Carga categorias/metodos. Pinta al instante con la ultima config guardada en el telefono
+// y despues la refresca desde el servidor (solo re-dibuja si cambio algo).
+const CONFIG_CACHE_KEY = 'cuentita_config';
+async function cargarConfig(){
+  if (sinUrl()){
+    document.getElementById('configWarning').style.display = 'block';
+    aplicarConfig(CATEGORIAS_FALLBACK, METODOS_FALLBACK);
+    return;
+  }
+  let cacheTxt = null, cache = null;
+  try { cacheTxt = localStorage.getItem(CONFIG_CACHE_KEY); cache = JSON.parse(cacheTxt); } catch(e){ cache = null; }
+  if (cache && Array.isArray(cache.categorias) && Array.isArray(cache.metodos)){
+    aplicarConfig(cache.categorias, cache.metodos, cache.categoriasPerfil, cache.metodosPerfil);
+  } else {
+    cache = null;
+  }
+  try{
+    const res = await fetch(`${SCRIPT_URL}?action=config`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Respuesta invalida');
+    const usarCats = data.categorias && data.categorias.length;
+    const usarMets = data.metodos && data.metodos.length;
+    const cfg = {
+      categorias: usarCats ? data.categorias : CATEGORIAS_FALLBACK,
+      metodos: usarMets ? data.metodos : METODOS_FALLBACK,
+      categoriasPerfil: usarCats ? (data.categoriasPerfil || []) : [],
+      metodosPerfil: usarMets ? (data.metodosPerfil || []) : []
+    };
+    const txt = JSON.stringify(cfg);
+    if (txt !== cacheTxt){
+      aplicarConfig(cfg.categorias, cfg.metodos, cfg.categoriasPerfil, cfg.metodosPerfil);
+      try { localStorage.setItem(CONFIG_CACHE_KEY, txt); } catch(e){}
+    }
+  } catch(err){
+    if (!cache){
+      aplicarConfig(CATEGORIAS_FALLBACK, METODOS_FALLBACK);
+      mostrarEstado('No se pudo cargar la config del servidor, usando valores por defecto.', 'err');
+    }
+  }
+}
+
+// Filtra una lista de opciones segun el perfil marcado en Config (col D/E).
+// Perfil vacio, "ambos" o "todos" => visible en los dos perfiles.
+function filtrarPorPerfil(items, perfiles, perfilActual){
+  if (!perfiles || !perfiles.length) return items.slice();
+  return items.filter(function(it, i){
+    const p = String(perfiles[i] || '').trim().toLowerCase();
+    return p === '' || p === 'ambos' || p === 'todos' || p === 'los dos' || p === perfilActual;
+  });
+}
+
+function aplicarConfig(cats, mets, catsPerfil, metsPerfil){
+  catsDisponibles = cats;
+  metsDisponibles = mets;
+  // Desplegables de CARGA filtrados por perfil (segun columnas D/E de Config)
+  llenarSelect(selectCategoria, filtrarPorPerfil(cats, catsPerfil, 'mariano'));
+  llenarSelect(selectMetodo, filtrarPorPerfil(mets, metsPerfil, 'mariano'));
+  llenarSelect(nCategoria, filtrarPorPerfil(cats, catsPerfil, 'nati'));
+  llenarSelect(nMetodo, filtrarPorPerfil(mets, metsPerfil, 'nati'));
+  // La consulta y el editor muestran TODAS las opciones (para poder ver/editar cualquier gasto)
+  msCategoria.setOpciones(cats);
+  msMetodo.setOpciones(mets);
+  llenarSelect(eCategoria, cats);
+  llenarSelect(eMetodo, mets);
+}
+
+// Achica la imagen a 1280px de lado maximo y la devuelve como JPEG en base64
+function procesarImagen(file){
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const k = Math.min(1, 1280 / Math.max(img.width, img.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.width * k);
+      canvas.height = Math.round(img.height * k);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg', 0.75).split(',')[1]);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('imagen invalida')); };
+    img.src = url;
+  });
+}
+
+// Maneja un campo de comprobante (foto): valida, comprime y previsualiza.
+// Lo usan los dos formularios de carga (Mariano y Nati).
+function crearFoto({ input, btn, label, preview, wrap, quitar, err }){
+  const campo = btn.closest('.campo');
+  let base64 = null, nombre = null;
+
+  function limpiar(){
+    base64 = null; nombre = null;
+    input.value = '';
+    wrap.classList.remove('mostrar');
+    btn.classList.remove('con-foto');
+    label.textContent = 'Sacar foto o elegir imagen';
+    campo.classList.remove('error');
+  }
+  function rechazar(msg){
+    campo.classList.add('error');
+    err.textContent = msg;
+    input.value = '';
+  }
+
+  input.addEventListener('change', async () => {
+    const file = input.files[0];
+    campo.classList.remove('error');
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return rechazar('El archivo no es una imagen');
+    if (file.size > 15 * 1024 * 1024) return rechazar('La imagen es muy grande (max 15 MB)');
+    label.textContent = 'Procesando imagen...';
+    try{
+      base64 = await procesarImagen(file);
+      nombre = 'comprobante_' + Date.now() + '.jpg';
+      preview.src = 'data:image/jpeg;base64,' + base64;
+      wrap.classList.add('mostrar');
+      btn.classList.add('con-foto');
+      label.textContent = 'Comprobante listo (tocar para cambiar)';
+    } catch(e){
+      limpiar();
+      rechazar('Esa imagen no se pudo procesar, probá con otra');
+    }
+  });
+  quitar.addEventListener('click', limpiar);
+
+  return {
+    limpiar,
+    // Suma la foto (si hay) al payload que se manda al servidor
+    adjuntarA(payload){
+      if (base64){ payload.imagenBase64 = base64; payload.imagenNombre = nombre; }
+    }
+  };
+}
+const fotoMariano = crearFoto({
+  input: inputFoto, btn: fotoBtn, label: fotoLabel, preview: preview,
+  wrap: previewWrap, quitar: quitarFoto, err: document.getElementById('errFoto')
+});
+
+let toastTimer = null;
+function mostrarToast(texto){
+  toastTexto.textContent = texto;
+  toast.classList.add('mostrar');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('mostrar'), 2600);
+}
+
+function mostrarEstado(msg, tipo){
+  estadoEl.textContent = msg;
+  estadoEl.className = 'estado' + (tipo ? ' ' + tipo : '');
+}
+
+// Convierte el texto del monto a numero, aceptando coma o punto como decimal.
+// Ej: "1.234,56" -> 1234.56 ; "1234,56" -> 1234.56 ; "1234.56" -> 1234.56
+function parseMonto(txt){
+  if (txt === null || txt === undefined) return NaN;
+  let s = String(txt).trim();
+  if (!s) return NaN;
+  const tieneComa = s.indexOf(',') !== -1;
+  const tienePunto = s.indexOf('.') !== -1;
+  if (tieneComa && tienePunto){
+    // formato es-AR: el punto es separador de miles, la coma es decimal
+    s = s.replace(/\./g, '').replace(',', '.');
+  } else if (tieneComa){
+    // solo coma -> es el decimal
+    s = s.replace(',', '.');
+  } else if (tienePunto){
+    // solo punto: ambiguo. Si hay varios puntos, o uno seguido de exactamente 3
+    // digitos hasta el final, es separador de miles (ej "1.000", "1.234.567").
+    const partes = s.split('.');
+    const ultima = partes[partes.length - 1];
+    if (partes.length > 2 || (partes.length === 2 && ultima.length === 3)){
+      s = s.replace(/\./g, '');  // quitar separadores de miles
+    }
+    // si no, el punto se deja como decimal (ej "1.50", "0.99")
+  }
+  return parseFloat(s);
+}
+
+// Valida todos los campos obligatorios; marca los que fallan y devuelve true/false
+function validarFormulario(){
+  let ok = true;
+  let primerError = null;
+
+  const monto = parseMonto(inputMonto.value);
+  if (!inputMonto.value || isNaN(monto) || monto <= 0){
+    montoHero.classList.add('error');
+    errMonto.style.display = 'block';
+    ok = false;
+    primerError = primerError || montoHero;
+  }
+  if (!inputFecha.value){
+    campoFecha.classList.add('error');
+    ok = false;
+    primerError = primerError || campoFecha;
+  }
+  // En modo Retiro no hay categoria ni metodo (va a nombre de Nati)
+  if (tipoMariano !== 'retiro'){
+    if (!selectCategoria.value){
+      campoCategoria.classList.add('error');
+      ok = false;
+      primerError = primerError || campoCategoria;
+    }
+    if (!selectMetodo.value){
+      campoMetodo.classList.add('error');
+      ok = false;
+      primerError = primerError || campoMetodo;
+    }
+  }
+
+  if (primerError){
+    primerError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  return ok;
+}
+
+// ===== Historial de "recien cargados" =====
+function agregarRenglon(){
+  historial.style.display = 'block';
+  const r = {
+    div: el('div', 'renglon'), chip: el('span', 'chip'), desc: el('span', 'desc'),
+    monto: el('span', 'monto'), acciones: el('div', 'acciones')
+  };
+  r.div.append(r.chip, r.desc, r.monto, r.acciones);
+  listaHistorial.prepend(r.div);
+  return r;
+}
+
+// Borra en el servidor y saca el renglon del historial. Sirve para un movimiento suelto
+// (action "borrar") o para todas las cuotas de una compra (action "borrarVarios").
+async function borrarDelHistorial(payload, renglon, btn, pregunta, okMsg){
+  if (!confirm(pregunta)) return;
+  renglon.classList.add('borrando');
+  btn.disabled = true;
+  try{
+    await api(payload);
+    renglon.classList.add('saliendo');
+    setTimeout(() => {
+      renglon.remove();
+      if (!listaHistorial.children.length) historial.style.display = 'none';
+    }, 250);
+    mostrarToast(okMsg);
+  } catch(err){
+    renglon.classList.remove('borrando');
+    btn.disabled = false;
+    mostrarToast(msgError(err, 'No se pudo borrar'));
+  }
+}
+
+// Renglon resumen para una compra en cuotas (agrupa todas las cuotas creadas)
+function agregarResumenCuotas(gasto, movimientos){
+  const n = movimientos.length;
+  const r = agregarRenglon();
+  r.chip.textContent = gasto.categoria;
+  r.desc.textContent = n + ' cuotas' + (gasto.descripcion ? ' · ' + gasto.descripcion : '');
+  r.monto.textContent = fmtMoneda(gasto.monto, gasto.moneda);
+  const btn = botonBorrar('Borrar las ' + n + ' cuotas', () => borrarDelHistorial(
+    { action: 'borrarVarios', ids: movimientos.map(m => m.id) }, r.div, btn,
+    '¿Borrar las ' + n + ' cuotas de esta compra? No se puede deshacer.', 'Cuotas borradas'));
+  r.acciones.append(btn);
+}
+
+// Renglon de un gasto o retiro recien cargado, con editar y borrar
+function agregarAlHistorial(gasto){
+  const esRetiro = (gasto.tipo === 'Retiro');
+  // copia mutable de los datos (se actualiza si se edita)
+  const datos = {
+    id: gasto.id, tipo: esRetiro ? 'Retiro' : 'Gasto', moneda: gasto.moneda, monto: gasto.monto,
+    fecha: gasto.fecha, categoria: gasto.categoria,
+    descripcion: gasto.descripcion || '', metodoPago: gasto.metodoPago
+  };
+  const r = agregarRenglon();
+  function pintar(){
+    r.chip.textContent = esRetiro ? 'Retiro' : datos.categoria;
+    r.desc.textContent = datos.descripcion || '';
+    r.monto.textContent = (esRetiro ? '+ ' : '') + fmtMoneda(datos.monto, datos.moneda);
+  }
+  pintar();
+
+  const btnBorrar = botonBorrar('Borrar', () => {
+    if (!datos.id){ mostrarToast('No se puede borrar (sin identificador).'); return; }
+    borrarDelHistorial({ action: 'borrar', id: datos.id }, r.div, btnBorrar,
+      '¿Borrar este ' + (esRetiro ? 'retiro' : 'gasto') + ' de la planilla? No se puede deshacer.',
+      esRetiro ? 'Retiro borrado' : 'Gasto borrado');
+  });
+  r.acciones.append(
+    botonEditar(() => abrirEditor(datos, (editado) => {
+      ['moneda', 'monto', 'fecha', 'categoria', 'descripcion', 'metodoPago'].forEach(k => { datos[k] = editado[k]; });
+      pintar();
+    })),
+    btnBorrar
+  );
+}
+
+// Tras guardar OK: toast + renglon en el historial (uno por movimiento, o un resumen si fue en cuotas)
+function registrarGuardado(payload, data, okMsg){
+  if (data.cuotas > 1 && Array.isArray(data.movimientos)){
+    mostrarToast(data.cuotas + ' cuotas guardadas');
+    agregarResumenCuotas(payload, data.movimientos);
+    return;
+  }
+  mostrarToast(okMsg);
+  const esRetiro = (payload.tipo === 'Retiro');
+  agregarAlHistorial({
+    id: data.id,   // el servidor devuelve el ID unico de la fila creada
+    tipo: esRetiro ? 'Retiro' : 'Gasto',
+    moneda: payload.moneda, monto: payload.monto, fecha: payload.fecha,
+    categoria: esRetiro ? 'Retiro' : payload.categoria,
+    metodoPago: esRetiro ? 'Efectivo' : payload.metodoPago,
+    descripcion: payload.descripcion
+  });
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  if (sinUrl()){
+    mostrarEstado('Configura primero la URL del Apps Script (ver aviso arriba).', 'err');
+    return;
+  }
+  if (!validarFormulario()){
+    mostrarEstado('Revisa los campos marcados en rojo.', 'err');
+    return;
+  }
+
+  const esRetiro = (tipoMariano === 'retiro');
+  const base = {
+    fecha: inputFecha.value,
+    monto: parseMonto(inputMonto.value),
+    descripcion: inputDescripcion.value.trim(),
+  };
+  // Retiro del fondo: SIEMPRE a nombre de Nati, aunque lo cargue Mariano. Efectivo, ARS.
+  const payload = esRetiro
+    ? { ...base, tipo: 'Retiro', persona: 'Nati', moneda: 'ARS' }
+    : { ...base, moneda: monedaSeleccionada, categoria: selectCategoria.value,
+        metodoPago: selectMetodo.value, cuotas: parseInt(selectCuotas.value, 10) || 1 };
+  if (!esRetiro) fotoMariano.adjuntarA(payload);
+
+  ponerCargando(btnGuardar, 'Guardando...');
+  mostrarEstado('');
+  try{
+    const data = await api(payload);
+    registrarGuardado(payload, data, esRetiro ? 'Retiro guardado (a nombre de Nati)' : 'Gasto guardado');
+    form.reset();
+    selectCuotas.value = '1';
+    inputFecha.valueAsDate = new Date();
+    pintarFecha(inputFecha, fechaDisplay);
+    monedaSeleccionada = 'ARS';
+    marcarMoneda(monedaToggle, 'ARS');
+    signoMoneda.textContent = '$';
+    fotoMariano.limpiar();
+    inputMonto.focus();
+  } catch(err){
+    mostrarEstado(msgError(err, 'No se pudo guardar'), 'err');
+  } finally {
+    btnGuardar.disabled = false;
+    btnGuardar.textContent = esRetiro ? 'Guardar retiro' : 'Guardar gasto';
+  }
+});
+
+// ============================================================
+// SECCION CONSULTAR
+// ============================================================
+const tabCargar = document.getElementById('tabCargar');
+const tabConsultar = document.getElementById('tabConsultar');
+const seccionCargar = document.getElementById('seccionCargar');
+const seccionConsultar = document.getElementById('seccionConsultar');
+const monedaToggleC = document.getElementById('monedaToggleC');
+const cDesde = document.getElementById('cDesde');
+const cHasta = document.getElementById('cHasta');
+const cDesdeDisplay = document.getElementById('cDesdeDisplay');
+const cHastaDisplay = document.getElementById('cHastaDisplay');
+
+cDesde.addEventListener('change', () => pintarFecha(cDesde, cDesdeDisplay));
+cHasta.addEventListener('change', () => pintarFecha(cHasta, cHastaDisplay));
+
+// Por defecto, el rango es el mes corriente (primer y ultimo dia)
+function inicializarRangoMesActual(){
+  const hoy = new Date();
+  const y = hoy.getFullYear();
+  const m = hoy.getMonth();                 // 0-based
+  const mm = String(m + 1).padStart(2, '0');
+  const ultimo = new Date(y, m + 1, 0).getDate();  // ultimo dia del mes actual
+  cDesde.value = `${y}-${mm}-01`;
+  cHasta.value = `${y}-${mm}-${String(ultimo).padStart(2, '0')}`;
+  pintarFecha(cDesde, cDesdeDisplay);
+  pintarFecha(cHasta, cHastaDisplay);
+}
+inicializarRangoMesActual();
+const formConsulta = document.getElementById('formConsulta');
+const btnConsultar = document.getElementById('btnConsultar');
+const consultaModeToggle = document.getElementById('consultaModeToggle');
+let consultaMode = 'gastos';   // 'gastos' (consulta completa) | 'fondo' (Fondo de Nati)
+const estadoC = document.getElementById('estadoC');
+const resultado = document.getElementById('resultado');
+const resTotal = document.getElementById('resTotal');
+const resCantidad = document.getElementById('resCantidad');
+const listaMovimientos = document.getElementById('listaMovimientos');
+
+let monedaConsulta = 'ARS';
+let ultimaConsulta = null;  // guarda el payload para re-consultar tras editar/borrar
+
+// Cambio de tabs
+function activarTab(cual){
+  const esCargar = cual === 'cargar';
+  tabCargar.classList.toggle('activo', esCargar);
+  tabConsultar.classList.toggle('activo', !esCargar);
+  tabCargar.setAttribute('aria-selected', esCargar);
+  tabConsultar.setAttribute('aria-selected', !esCargar);
+  seccionCargar.style.display = esCargar ? 'block' : 'none';
+  seccionConsultar.style.display = esCargar ? 'none' : 'block';
+}
+tabCargar.addEventListener('click', () => activarTab('cargar'));
+tabConsultar.addEventListener('click', () => activarTab('consultar'));
+
+// Toggle de moneda en consulta
+conectarMoneda(monedaToggleC, m => { monedaConsulta = m; });
+
+// Referencias extra de consulta (filtro persona + card de fondo)
+const cQuien = document.getElementById('cQuien');
+const totalCard = document.getElementById('totalCard');
+const fondoCard = document.getElementById('fondoCard');
+const fondoTitulo = document.getElementById('fondoTitulo');
+const fRetirado = document.getElementById('fRetirado');
+const fGastos = document.getElementById('fGastos');
+const fPersonal = document.getElementById('fPersonal');
+const movTitulo = document.getElementById('movTitulo');
+
+// Arma una fila del listado: fecha + titulo, linea secundaria y monto
+function filaMovimiento(fecha, titulo, sub, monto){
+  const fila = el('div', 'mov');
+  const top = el('div', 'mov-top');
+  if (fecha) top.append(el('span', 'mov-fecha', fecha));
+  top.append(el('span', 'mov-cat', titulo));
+  const info = el('div', 'mov-info');
+  info.append(top, el('div', 'mov-sub', sub));
+  fila.append(info, el('span', 'mov-monto', monto));
+  return fila;
+}
+
+// Dibuja el listado de movimientos con botones editar (lapiz) y borrar (X).
+// saldoPersonal (opcional): agrega al final la linea del Saldo Nati Personal.
+function renderMovimientos(movs, saldoPersonal){
+  movs = movs || [];
+  listaMovimientos.innerHTML = '';
+  if (!movs.length && !saldoPersonal){
+    listaMovimientos.innerHTML = '<div class="movimientos-vacio">Sin movimientos para este filtro</div>';
+    return;
+  }
+  // Mostrar quién cargó solo cuando Mariano ve "Todos" (para distinguir)
+  const mostrarPersona = (perfil === 'mariano' && cQuien.value === '');
+  const frag = document.createDocumentFragment();
+
+  movs.forEach(m => {
+    const esRetiro = (m.tipo === 'Retiro');
+    let sub = esRetiro ? (m.descripcion || 'Efectivo')
+                       : (m.descripcion ? (m.metodoPago + ' · ' + m.descripcion) : m.metodoPago);
+    if (mostrarPersona && m.persona) sub += '  ·  ' + m.persona;
+    const fila = filaMovimiento(fmtFechaCorta(m.fecha), esRetiro ? 'Retiro de efectivo' : m.categoria,
+                                sub, (esRetiro ? '+ ' : '') + fmtMoneda(m.monto, m.moneda));
+    const acciones = el('div', 'acciones');
+    acciones.append(
+      botonEditar(() => abrirEditor(m)),
+      botonBorrar('Borrar', () => borrarMovimiento(m, fila))
+    );
+    fila.append(acciones);
+    frag.append(fila);
+  });
+
+  // Linea del Saldo Nati Personal (lo retirado que no se registro como gasto)
+  if (saldoPersonal){
+    const fila = filaMovimiento('', 'Saldo Nati Personal', 'Retirado no registrado como gasto',
+                                fmtMoneda(saldoPersonal, 'ARS'));
+    fila.classList.add('mov-saldo');
+    frag.append(fila);
+  }
+  listaMovimientos.append(frag);
+}
+
+// Borra un movimiento desde el listado de consulta y vuelve a consultar
+async function borrarMovimiento(m, fila){
+  const que = (m.tipo === 'Retiro') ? 'retiro' : 'gasto';
+  if (!confirm('¿Borrar este ' + que + ' de la planilla? No se puede deshacer.')) return;
+  const botones = fila.querySelectorAll('button');
+  fila.classList.add('borrando');
+  botones.forEach(b => { b.disabled = true; });
+  try{
+    await api({ action: 'borrar', id: m.id });
+    fila.classList.add('saliendo');
+    setTimeout(() => { if (ultimaConsulta) ejecutarConsulta(ultimaConsulta); }, 260);
+    mostrarToast(que === 'retiro' ? 'Retiro borrado' : 'Gasto borrado');
+  } catch(err){
+    fila.classList.remove('borrando');
+    botones.forEach(b => { b.disabled = false; });
+    mostrarToast(msgError(err, 'No se pudo borrar'));
+  }
+}
+
+formConsulta.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  if (sinUrl()){
+    estadoC.textContent = 'Configura primero la URL del Apps Script.';
+    estadoC.className = 'estado err';
+    return;
+  }
+
+  // Validar rango: si ambas fechas estan, desde <= hasta
+  if (cDesde.value && cHasta.value && cDesde.value > cHasta.value){
+    estadoC.textContent = 'La fecha "Desde" no puede ser posterior a "Hasta".';
+    estadoC.className = 'estado err';
+    return;
+  }
+
+  let payload;
+  if (consultaMode === 'fondo'){
+    // Vista "Fondo de Nati": siempre ARS, persona Nati, incluye retiros
+    payload = {
+      action: 'consultar', moneda: 'ARS', persona: 'Nati', incluirRetiros: true,
+      desde: cDesde.value, hasta: cHasta.value,
+    };
+  } else {
+    payload = {
+      action: 'consultar',
+      moneda: monedaConsulta,
+      categorias: msCategoria.getSeleccionadas(),
+      metodos: msMetodo.getSeleccionadas(),
+      persona: cQuien.value,
+      desde: cDesde.value,
+      hasta: cHasta.value,
+    };
+  }
+  ejecutarConsulta(payload);
+});
+
+// Ejecuta la consulta y pinta total + listado. Reutilizable tras editar/borrar.
+async function ejecutarConsulta(payload){
+  ultimaConsulta = payload;
+  const esFondo = !!payload.incluirRetiros;   // vista "Fondo de Nati"
+  ponerCargando(btnConsultar, 'Consultando...');
+  estadoC.textContent = '';
+  estadoC.className = 'estado';
+
+  try{
+    const data = await api(payload);
+    totalCard.style.display = esFondo ? 'none' : 'block';
+    fondoCard.style.display = esFondo ? 'block' : 'none';
+    if (esFondo){
+      // La card del fondo es la protagonista; sin total de gastos
+      const fondo = data.fondoNati || { retirado: 0, gastosCasa: 0, personal: 0 };
+      fondoTitulo.textContent = (perfil === 'nati') ? 'Mi fondo del período' : 'Fondo de Nati (período)';
+      movTitulo.textContent = (perfil === 'nati') ? 'Mis movimientos' : 'Movimientos de Nati';
+      fRetirado.textContent = fmtMoneda(fondo.retirado, 'ARS');
+      fGastos.textContent = fmtMoneda(fondo.gastosCasa, 'ARS');
+      fPersonal.textContent = fmtMoneda(fondo.personal, 'ARS');
+    } else {
+      // Consulta de Gastos: solo total y movimientos
+      resTotal.textContent = fmtMoneda(data.total, data.moneda);
+      resCantidad.textContent = data.cantidad === 1 ? '1 gasto' : data.cantidad + ' gastos';
+      movTitulo.textContent = 'Movimientos';
+    }
+    // En Gastos, el Saldo Nati Personal que se sumo al total va como linea aparte al final
+    let saldo = (!esFondo && data.totalGastos != null) ? (data.total - data.totalGastos) : 0;
+    if (Math.abs(saldo) < 0.005) saldo = 0;
+    renderMovimientos(data.movimientos, saldo);
+    resultado.style.display = 'block';
+  } catch(err){
+    estadoC.textContent = msgError(err, 'No se pudo consultar');
+    estadoC.className = 'estado err';
+  } finally {
+    btnConsultar.disabled = false;
+    btnConsultar.textContent = (consultaMode === 'fondo') ? 'Ver fondo de Nati' : 'Consultar';
+  }
+}
+
+// Toggle de la consulta: "Gastos" (consulta completa) | "Fondo de Nati"
+function setConsultaMode(m){
+  consultaMode = (m === 'fondo') ? 'fondo' : 'gastos';
+  document.body.classList.toggle('consulta-fondo', consultaMode === 'fondo');
+  consultaModeToggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b.dataset.cmode === consultaMode));
+  btnConsultar.textContent = (consultaMode === 'fondo') ? 'Ver fondo de Nati' : 'Consultar';
+  resultado.style.display = 'none';
+}
+consultaModeToggle.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-cmode]');
+  if (btn) setConsultaMode(btn.dataset.cmode);
+});
+
+// ============================================================
+// MODAL DE EDICION
+// ============================================================
+const modalEditar = document.getElementById('modalEditar');
+const formEditar = document.getElementById('formEditar');
+const eMonedaToggle = document.getElementById('eMonedaToggle');
+const eMonto = document.getElementById('eMonto');
+const eFecha = document.getElementById('eFecha');
+const eFechaDisplay = document.getElementById('eFechaDisplay');
+const eCategoria = document.getElementById('eCategoria');
+const eMetodo = document.getElementById('eMetodo');
+const eDescripcion = document.getElementById('eDescripcion');
+const eGuardar = document.getElementById('eGuardar');
+const eEstado = document.getElementById('eEstado');
+const eCampoMonto = document.getElementById('eCampoMonto');
+const eCampoFecha = document.getElementById('eCampoFecha');
+const eCampoCategoria = document.getElementById('eCampoCategoria');
+const eCampoMetodo = document.getElementById('eCampoMetodo');
+
+let eMonedaSel = 'ARS';
+let eGastoId = null;
+let eEsRetiro = false;   // true cuando se está editando un retiro de efectivo
+let eOnGuardado = null;  // callback tras guardar OK (re-consultar o actualizar historial)
+
+eFecha.addEventListener('change', () => { eCampoFecha.classList.remove('error'); pintarFecha(eFecha, eFechaDisplay); });
+conectarMoneda(eMonedaToggle, m => { eMonedaSel = m; });
+eMonto.addEventListener('input', () => eCampoMonto.classList.remove('error'));
+eCategoria.addEventListener('change', () => eCampoCategoria.classList.remove('error'));
+eMetodo.addEventListener('change', () => eCampoMetodo.classList.remove('error'));
+
+// Abre el editor cargado con los datos de un gasto. onGuardado se llama tras guardar OK.
+function abrirEditor(gasto, onGuardado){
+  eGastoId = gasto.id;
+  eOnGuardado = onGuardado || (() => { if (ultimaConsulta) ejecutarConsulta(ultimaConsulta); });
+
+  // Un retiro se edita distinto: solo monto, fecha y descripción (siempre ARS, efectivo)
+  eEsRetiro = (gasto.tipo === 'Retiro');
+  modalEditar.classList.toggle('modo-retiro', eEsRetiro);
+  document.getElementById('modalTitulo').textContent = eEsRetiro ? 'Editar retiro' : 'Editar gasto';
+
+  // asegurar que la categoria/metodo del gasto esten en los selects (por si cambio la config)
+  asegurarOpcion(eCategoria, gasto.categoria);
+  asegurarOpcion(eMetodo, gasto.metodoPago);
+
+  eMonedaSel = gasto.moneda || 'ARS';
+  marcarMoneda(eMonedaToggle, eMonedaSel);
+  eMonto.value = String(gasto.monto).replace('.', ',');
+  eFecha.value = gasto.fecha || '';
+  pintarFecha(eFecha, eFechaDisplay);
+  eCategoria.value = gasto.categoria || '';
+  eMetodo.value = gasto.metodoPago || '';
+  eDescripcion.value = gasto.descripcion || '';
+
+  eEstado.textContent = ''; eEstado.className = 'estado';
+  [eCampoMonto, eCampoFecha, eCampoCategoria, eCampoMetodo].forEach(c => c.classList.remove('error'));
+
+  modalEditar.classList.add('abierto');
+  modalEditar.setAttribute('aria-hidden', 'false');
+}
+
+function cerrarEditor(){
+  modalEditar.classList.remove('abierto');
+  modalEditar.setAttribute('aria-hidden', 'true');
+  eGastoId = null;
+}
+document.getElementById('modalCerrar').addEventListener('click', cerrarEditor);
+document.getElementById('eCancelar').addEventListener('click', cerrarEditor);
+modalEditar.addEventListener('click', (e) => { if (e.target === modalEditar) cerrarEditor(); });
+
+formEditar.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (sinUrl()){
+    eEstado.textContent = 'Configura primero la URL del Apps Script.';
+    eEstado.className = 'estado err';
+    return;
+  }
+
+  // Validacion
+  let ok = true;
+  const monto = parseMonto(eMonto.value);
+  if (!eMonto.value || isNaN(monto) || monto <= 0){ eCampoMonto.classList.add('error'); ok = false; }
+  if (!eFecha.value){ eCampoFecha.classList.add('error'); ok = false; }
+  // Los retiros no llevan categoría ni método (siempre Retiro / Efectivo)
+  if (!eEsRetiro){
+    if (!eCategoria.value){ eCampoCategoria.classList.add('error'); ok = false; }
+    if (!eMetodo.value){ eCampoMetodo.classList.add('error'); ok = false; }
+  }
+  if (!ok){ eEstado.textContent = 'Revisá los campos marcados.'; eEstado.className = 'estado err'; return; }
+
+  const payload = {
+    action: 'editar',
+    id: eGastoId,
+    monto: monto,
+    moneda: eEsRetiro ? 'ARS' : eMonedaSel,
+    fecha: eFecha.value,
+    categoria: eEsRetiro ? 'Retiro' : eCategoria.value,
+    metodoPago: eEsRetiro ? 'Efectivo' : eMetodo.value,
+    descripcion: eDescripcion.value.trim(),
+  };
+
+  ponerCargando(eGuardar, 'Guardando...');
+  eEstado.textContent = ''; eEstado.className = 'estado';
+  try{
+    await api(payload);
+    mostrarToast('Cambios guardados');
+    const cb = eOnGuardado;
+    cerrarEditor();
+    if (cb) cb({ ...payload });
+  } catch(err){
+    eEstado.textContent = msgError(err, 'No se pudo guardar');
+    eEstado.className = 'estado err';
+  } finally {
+    eGuardar.disabled = false;
+    eGuardar.textContent = 'Guardar cambios';
+  }
+});
+
+// ============================================================
+// PERFIL (Mariano / Nati) + CARGA DE NATI
+// ============================================================
+const perfilSelect = document.getElementById('perfilSelect');
+const formNati = document.getElementById('formNati');
+const tipoNatiToggle = document.getElementById('tipoNatiToggle');
+const nMonto = document.getElementById('nMonto');
+const nMontoHero = document.getElementById('nMontoHero');
+const nErrMonto = document.getElementById('nErrMonto');
+const nFecha = document.getElementById('nFecha');
+const nFechaDisplay = document.getElementById('nFechaDisplay');
+const nCampoFecha = document.getElementById('nCampoFecha');
+const nCategoria = document.getElementById('nCategoria');
+const nCampoCategoria = document.getElementById('nCampoCategoria');
+const nMonedaToggle = document.getElementById('nMonedaToggle');
+const nSignoMoneda = document.getElementById('nSignoMoneda');
+let nMonedaSeleccionada = 'ARS';
+const nMetodo = document.getElementById('nMetodo');
+const nCuotas = document.getElementById('nCuotas');
+const nComprobante = document.getElementById('nComprobante');
+const nFotoBtn = document.getElementById('nFotoBtn');
+const nFotoLabel = document.getElementById('nFotoLabel');
+const nPreview = document.getElementById('nPreview');
+const nPreviewWrap = document.getElementById('nPreviewWrap');
+const nQuitarFoto = document.getElementById('nQuitarFoto');
+const nErrFoto = document.getElementById('nErrFoto');
+const nDesc = document.getElementById('nDesc');
+const nDescLabel = document.getElementById('nDescLabel');
+const btnGuardarNati = document.getElementById('btnGuardarNati');
+const nEstado = document.getElementById('nEstado');
+
+let perfil = 'mariano';
+let tipoNati = 'gasto';   // 'gasto' | 'retiro'
+
+function getPerfil(){
+  try { return localStorage.getItem('cuentita_perfil') || 'mariano'; } catch(e){ return 'mariano'; }
+}
+function setPerfilStorage(p){
+  try { localStorage.setItem('cuentita_perfil', p); } catch(e){}
+}
+
+// Cambia toda la UI segun el perfil elegido
+function aplicarPerfil(p){
+  perfil = (p === 'nati') ? 'nati' : 'mariano';
+  document.body.classList.toggle('perfil-nati', perfil === 'nati');
+  document.body.classList.toggle('perfil-mariano', perfil === 'mariano');
+  perfilSelect.value = perfil;
+  // La pestaña se llama "Consultar" en ambos perfiles (adentro tiene Gastos y Fondo de Nati).
+  tabConsultar.textContent = 'Consultar';
+  // Modo por defecto segun el perfil, pero ambos pueden cambiarlo con el toggle.
+  setConsultaMode(perfil === 'nati' ? 'fondo' : 'gastos');
+  // Ocultar resultados viejos al cambiar de perfil
+  resultado.style.display = 'none';
+  // Volver siempre a la pestaña Cargar al cambiar de perfil
+  activarTab('cargar');
+  if (perfil === 'nati'){
+    nFecha.valueAsDate = new Date();
+    pintarFecha(nFecha, nFechaDisplay);
+    setTipoNati('gasto');
+  } else {
+    setTipoMariano('gasto');
+  }
+}
+
+perfilSelect.addEventListener('change', () => {
+  aplicarPerfil(perfilSelect.value);
+  setPerfilStorage(perfil);
+});
+
+// Toggle Gasto / Retiro
+function setTipoNati(t){
+  tipoNati = (t === 'retiro') ? 'retiro' : 'gasto';
+  formNati.classList.toggle('modo-retiro', tipoNati === 'retiro');
+  tipoNatiToggle.querySelectorAll('button').forEach(b => b.classList.toggle('activo', b.dataset.tipo === tipoNati));
+  btnGuardarNati.textContent = (tipoNati === 'retiro') ? 'Guardar retiro' : 'Guardar gasto';
+  nDescLabel.textContent = (tipoNati === 'retiro') ? 'Nota (opcional)' : 'Descripción (opcional)';
+  nDesc.placeholder = (tipoNati === 'retiro') ? 'Ej: retiro del cajero' : 'Ej: supermercado, farmacia...';
+  nCampoCategoria.classList.remove('error');
+  if (tipoNati === 'retiro'){
+    // El retiro es efectivo en ARS
+    nMonedaSeleccionada = 'ARS';
+    marcarMoneda(nMonedaToggle, 'ARS');
+    nSignoMoneda.textContent = '$';
+  }
+}
+tipoNatiToggle.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tipo]');
+  if (btn) setTipoNati(btn.dataset.tipo);
+});
+
+// Moneda ARS / USD en el gasto de Nati (en USD es solo un gasto; el fondo es efectivo en ARS)
+conectarMoneda(nMonedaToggle, m => { nMonedaSeleccionada = m; nSignoMoneda.textContent = signoDe(m); });
+
+// Comprobante (foto) del form de Nati: mismo manejo que el de Mariano
+const fotoNati = crearFoto({
+  input: nComprobante, btn: nFotoBtn, label: nFotoLabel, preview: nPreview,
+  wrap: nPreviewWrap, quitar: nQuitarFoto, err: nErrFoto
+});
+
+nFecha.addEventListener('change', () => { nCampoFecha.classList.remove('error'); pintarFecha(nFecha, nFechaDisplay); });
+nMonto.addEventListener('input', () => { nMontoHero.classList.remove('error'); nErrMonto.style.display = 'none'; });
+nCategoria.addEventListener('change', () => nCampoCategoria.classList.remove('error'));
+
+formNati.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (sinUrl()){
+    nEstado.textContent = 'Falta configurar la URL del Apps Script.'; nEstado.className = 'estado err'; return;
+  }
+  let ok = true;
+  const monto = parseMonto(nMonto.value);
+  if (!nMonto.value || isNaN(monto) || monto <= 0){ nMontoHero.classList.add('error'); nErrMonto.style.display = 'block'; ok = false; }
+  if (!nFecha.value){ nCampoFecha.classList.add('error'); ok = false; }
+  if (tipoNati === 'gasto' && !nCategoria.value){ nCampoCategoria.classList.add('error'); ok = false; }
+  if (!ok){ nEstado.textContent = 'Revisá los campos marcados.'; nEstado.className = 'estado err'; return; }
+
+  const esRetiro = (tipoNati === 'retiro');
+  const payload = esRetiro
+    ? { tipo: 'Retiro', persona: 'Nati', monto: monto, moneda: 'ARS', fecha: nFecha.value, descripcion: nDesc.value.trim() }
+    : { persona: 'Nati', monto: monto, moneda: nMonedaSeleccionada, fecha: nFecha.value,
+        categoria: nCategoria.value, metodoPago: nMetodo.value || 'Efectivo',
+        cuotas: parseInt(nCuotas.value, 10) || 1, descripcion: nDesc.value.trim() };
+  if (!esRetiro) fotoNati.adjuntarA(payload);
+
+  ponerCargando(btnGuardarNati, 'Guardando...');
+  nEstado.textContent = ''; nEstado.className = 'estado';
+  try{
+    const data = await api(payload);
+    registrarGuardado(payload, data, esRetiro ? 'Retiro guardado' : 'Gasto guardado');
+    formNati.reset();
+    nCuotas.value = '1';
+    nMonedaSeleccionada = 'ARS';
+    marcarMoneda(nMonedaToggle, 'ARS');
+    nSignoMoneda.textContent = '$';
+    fotoNati.limpiar();
+    nFecha.valueAsDate = new Date();
+    pintarFecha(nFecha, nFechaDisplay);
+    nMonto.focus();
+  } catch(err){
+    nEstado.textContent = msgError(err, 'No se pudo guardar');
+    nEstado.className = 'estado err';
+  } finally {
+    btnGuardarNati.disabled = false;
+    btnGuardarNati.textContent = esRetiro ? 'Guardar retiro' : 'Guardar gasto';
+  }
+});
+
+// Inicializar perfil guardado
+aplicarPerfil(getPerfil());
+
+cargarConfig();
+</script>
+</body>
+</html>
