@@ -154,6 +154,7 @@
   /* En modo Retiro se oculta la categoría y la fecha ocupa toda la fila */
   #formNati.modo-retiro #nMonedaToggle{ display:none; }
   #formNati.modo-retiro #nCampoCategoria{ display:none; }
+  #formNati.modo-retiro #nCampoParaQuien{ display:none; }
   #formNati.modo-retiro #nCampoMetodoCuotas{ display:none; }
   #formNati.modo-retiro #nCampoComprobante{ display:none; }
   #nComprobante{ display:none; }
@@ -161,6 +162,7 @@
   /* Modo Retiro en el perfil Mariano: se ocultan los campos que no aplican */
   #formGasto.modo-retiro #monedaToggle{ display:none; }
   #formGasto.modo-retiro #campoCategoria{ display:none; }
+  #formGasto.modo-retiro #campoParaQuien{ display:none; }
   #formGasto.modo-retiro #filaMetodoCuotas{ display:none; }
   #formGasto.modo-retiro #campoComprobante{ display:none; }
   #formGasto.modo-retiro #campoFecha{ flex:1 1 100% !important; }
@@ -800,6 +802,7 @@
   /* Editar un retiro: solo monto, fecha y descripción (sin moneda/categoría/método) */
   #modalEditar.modo-retiro #eCampoMoneda,
   #modalEditar.modo-retiro #eCampoCategoria,
+  #modalEditar.modo-retiro #eCampoParaQuien,
   #modalEditar.modo-retiro #eCampoMetodo{ display: none; }
   #modalEditar.modo-retiro #eCampoFecha{ flex: 1 1 100% !important; }
 
@@ -956,6 +959,11 @@
         </div>
       </div>
 
+      <div class="campo select-wrap" id="campoParaQuien">
+        <label for="paraQuien">Para quién</label>
+        <select id="paraQuien"></select>
+      </div>
+
       <div class="fila-2" id="filaMetodoCuotas">
         <div class="campo select-wrap" id="campoMetodo">
           <label for="metodo">Método de pago</label>
@@ -1042,6 +1050,11 @@
           <select id="nCategoria"></select>
           <div class="msg-error">Elegí una categoría</div>
         </div>
+      </div>
+
+      <div class="campo select-wrap" id="nCampoParaQuien">
+        <label for="nParaQuien">Para quién</label>
+        <select id="nParaQuien"></select>
       </div>
 
       <div class="fila-2" id="nCampoMetodoCuotas">
@@ -1231,6 +1244,10 @@
           <div class="msg-error">Elegí una categoría</div>
         </div>
       </div>
+      <div class="campo select-wrap" id="eCampoParaQuien">
+        <label for="eParaQuien">Para quién</label>
+        <select id="eParaQuien"></select>
+      </div>
       <div class="campo select-wrap" id="eCampoMetodo">
         <label for="eMetodo">Método de pago</label>
         <select id="eMetodo"></select>
@@ -1256,8 +1273,13 @@
 // ============================================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8s7GnnGkB1eQYfTeQ0LF_N7MIavxEy5qS_a0dEmvSOMe13Cd5ot2TdsV7WNpBFd3U/exec";
 
-const CATEGORIAS_FALLBACK = ["Alquiler","Servicios","Alimentacion","Transporte",
-  "Salud","Ocio","Educacion","Indumentaria","Hogar","Otros"];
+const CATEGORIAS_FALLBACK = ["Supermercado y almacén","Comida afuera / delivery","Hogar / equipamiento",
+  "Servicios casa (luz/gas/agua)","Personal doméstico (Daiana)","Mascotas","Auto - combustible",
+  "Auto - estacionamiento y otros","Salud - farmacia","Salud - otros","Educación","Cuidado personal",
+  "Club / deportes","Ropa","Regalos","Viajes","Casa NNT / inmuebles","Honorarios profesionales",
+  "Impuestos inmobiliarios/municipales","Otros"];
+// Para quién es el gasto (columna N de Gastos). El primero es el valor por defecto.
+const PARA_QUIEN_FALLBACK = ["Familia","Nano","Nati","Tomi"];
 const METODOS_FALLBACK = ["Efectivo","Tarjeta debito","Tarjeta credito",
   "Transferencia","Billetera virtual"];
 
@@ -1270,6 +1292,7 @@ let tipoMariano = 'gasto';   // 'gasto' | 'retiro' (el retiro va a nombre de Nat
 const selectCategoria = document.getElementById('categoria');
 const selectMetodo = document.getElementById('metodo');
 const selectCuotas = document.getElementById('cuotas');
+const selectParaQuien = document.getElementById('paraQuien');
 const inputFoto = document.getElementById('comprobante');
 const fotoLabel = document.getElementById('fotoLabel');
 const fotoBtn = document.getElementById('fotoBtn');
@@ -1536,7 +1559,7 @@ async function cargarConfig(){
   let cacheTxt = null, cache = null;
   try { cacheTxt = localStorage.getItem(CONFIG_CACHE_KEY); cache = JSON.parse(cacheTxt); } catch(e){ cache = null; }
   if (cache && Array.isArray(cache.categorias) && Array.isArray(cache.metodos)){
-    aplicarConfig(cache.categorias, cache.metodos, cache.categoriasPerfil, cache.metodosPerfil);
+    aplicarConfig(cache.categorias, cache.metodos, cache.categoriasPerfil, cache.metodosPerfil, cache.paraQuien);
   } else {
     cache = null;
   }
@@ -1550,11 +1573,12 @@ async function cargarConfig(){
       categorias: usarCats ? data.categorias : CATEGORIAS_FALLBACK,
       metodos: usarMets ? data.metodos : METODOS_FALLBACK,
       categoriasPerfil: usarCats ? (data.categoriasPerfil || []) : [],
-      metodosPerfil: usarMets ? (data.metodosPerfil || []) : []
+      metodosPerfil: usarMets ? (data.metodosPerfil || []) : [],
+      paraQuien: (data.paraQuien && data.paraQuien.length) ? data.paraQuien : PARA_QUIEN_FALLBACK
     };
     const txt = JSON.stringify(cfg);
     if (txt !== cacheTxt){
-      aplicarConfig(cfg.categorias, cfg.metodos, cfg.categoriasPerfil, cfg.metodosPerfil);
+      aplicarConfig(cfg.categorias, cfg.metodos, cfg.categoriasPerfil, cfg.metodosPerfil, cfg.paraQuien);
       try { localStorage.setItem(CONFIG_CACHE_KEY, txt); } catch(e){}
     }
   } catch(err){
@@ -1575,9 +1599,16 @@ function filtrarPorPerfil(items, perfiles, perfilActual){
   });
 }
 
-function aplicarConfig(cats, mets, catsPerfil, metsPerfil){
+function aplicarConfig(cats, mets, catsPerfil, metsPerfil, paraQuien){
   catsDisponibles = cats;
   metsDisponibles = mets;
+  const pq = (paraQuien && paraQuien.length) ? paraQuien : PARA_QUIEN_FALLBACK;
+  [selectParaQuien, nParaQuien, eParaQuien].forEach(sel => {
+    llenarSelect(sel, pq);
+    // form.reset() vuelve a la opcion marcada por defecto: la primera (Familia)
+    Array.from(sel.options).forEach((o, i) => { o.defaultSelected = (i === 0); });
+    if (!sel.value) sel.value = pq[0];
+  });
   // Desplegables de CARGA filtrados por perfil (segun columnas D/E de Config)
   llenarSelect(selectCategoria, filtrarPorPerfil(cats, catsPerfil, 'mariano'));
   llenarSelect(selectMetodo, filtrarPorPerfil(mets, metsPerfil, 'mariano'));
@@ -1792,7 +1823,7 @@ function agregarAlHistorial(gasto){
   // copia mutable de los datos (se actualiza si se edita)
   const datos = {
     id: gasto.id, tipo: esRetiro ? 'Retiro' : 'Gasto', moneda: gasto.moneda, monto: gasto.monto,
-    fecha: gasto.fecha, categoria: gasto.categoria,
+    fecha: gasto.fecha, categoria: gasto.categoria, paraQuien: gasto.paraQuien || '',
     descripcion: gasto.descripcion || '', metodoPago: gasto.metodoPago
   };
   const r = agregarRenglon();
@@ -1811,7 +1842,7 @@ function agregarAlHistorial(gasto){
   });
   r.acciones.append(
     botonEditar(() => abrirEditor(datos, (editado) => {
-      ['moneda', 'monto', 'fecha', 'categoria', 'descripcion', 'metodoPago'].forEach(k => { datos[k] = editado[k]; });
+      ['moneda', 'monto', 'fecha', 'categoria', 'paraQuien', 'descripcion', 'metodoPago'].forEach(k => { datos[k] = editado[k]; });
       pintar();
     })),
     btnBorrar
@@ -1832,6 +1863,7 @@ function registrarGuardado(payload, data, okMsg){
     tipo: esRetiro ? 'Retiro' : 'Gasto',
     moneda: payload.moneda, monto: payload.monto, fecha: payload.fecha,
     categoria: esRetiro ? 'Retiro' : payload.categoria,
+    paraQuien: esRetiro ? '' : payload.paraQuien,
     metodoPago: esRetiro ? 'Efectivo' : payload.metodoPago,
     descripcion: payload.descripcion
   });
@@ -1859,6 +1891,7 @@ form.addEventListener('submit', async (e) => {
   const payload = esRetiro
     ? { ...base, tipo: 'Retiro', persona: 'Nati', moneda: 'ARS' }
     : { ...base, moneda: monedaSeleccionada, categoria: selectCategoria.value,
+        paraQuien: selectParaQuien.value || 'Familia',
         metodoPago: selectMetodo.value, cuotas: parseInt(selectCuotas.value, 10) || 1 };
   if (!esRetiro) fotoMariano.adjuntarA(payload);
 
@@ -1981,6 +2014,7 @@ function renderMovimientos(movs, saldoPersonal){
     const esRetiro = (m.tipo === 'Retiro');
     let sub = esRetiro ? (m.descripcion || 'Efectivo')
                        : (m.descripcion ? (m.metodoPago + ' · ' + m.descripcion) : m.metodoPago);
+    if (m.paraQuien) sub += '  ·  para ' + m.paraQuien;
     if (mostrarPersona && m.persona) sub += '  ·  ' + m.persona;
     const fila = filaMovimiento(fmtFechaCorta(m.fecha), esRetiro ? 'Retiro de efectivo' : m.categoria,
                                 sub, (esRetiro ? '+ ' : '') + fmtMoneda(m.monto, m.moneda));
@@ -2122,6 +2156,7 @@ const eMonto = document.getElementById('eMonto');
 const eFecha = document.getElementById('eFecha');
 const eFechaDisplay = document.getElementById('eFechaDisplay');
 const eCategoria = document.getElementById('eCategoria');
+const eParaQuien = document.getElementById('eParaQuien');
 const eMetodo = document.getElementById('eMetodo');
 const eDescripcion = document.getElementById('eDescripcion');
 const eGuardar = document.getElementById('eGuardar');
@@ -2162,6 +2197,8 @@ function abrirEditor(gasto, onGuardado){
   eFecha.value = gasto.fecha || '';
   pintarFecha(eFecha, eFechaDisplay);
   eCategoria.value = gasto.categoria || '';
+  asegurarOpcion(eParaQuien, gasto.paraQuien);
+  eParaQuien.value = gasto.paraQuien || eParaQuien.options[0]?.value || '';
   eMetodo.value = gasto.metodoPago || '';
   eDescripcion.value = gasto.descripcion || '';
 
@@ -2208,6 +2245,7 @@ formEditar.addEventListener('submit', async (e) => {
     moneda: eEsRetiro ? 'ARS' : eMonedaSel,
     fecha: eFecha.value,
     categoria: eEsRetiro ? 'Retiro' : eCategoria.value,
+    paraQuien: eEsRetiro ? '' : eParaQuien.value,
     metodoPago: eEsRetiro ? 'Efectivo' : eMetodo.value,
     descripcion: eDescripcion.value.trim(),
   };
@@ -2242,6 +2280,7 @@ const nFecha = document.getElementById('nFecha');
 const nFechaDisplay = document.getElementById('nFechaDisplay');
 const nCampoFecha = document.getElementById('nCampoFecha');
 const nCategoria = document.getElementById('nCategoria');
+const nParaQuien = document.getElementById('nParaQuien');
 const nCampoCategoria = document.getElementById('nCampoCategoria');
 const nMonedaToggle = document.getElementById('nMonedaToggle');
 const nSignoMoneda = document.getElementById('nSignoMoneda');
@@ -2348,7 +2387,8 @@ formNati.addEventListener('submit', async (e) => {
   const payload = esRetiro
     ? { tipo: 'Retiro', persona: 'Nati', monto: monto, moneda: 'ARS', fecha: nFecha.value, descripcion: nDesc.value.trim() }
     : { persona: 'Nati', monto: monto, moneda: nMonedaSeleccionada, fecha: nFecha.value,
-        categoria: nCategoria.value, metodoPago: nMetodo.value || 'Efectivo',
+        categoria: nCategoria.value, paraQuien: nParaQuien.value || 'Familia',
+        metodoPago: nMetodo.value || 'Efectivo',
         cuotas: parseInt(nCuotas.value, 10) || 1, descripcion: nDesc.value.trim() };
   if (!esRetiro) fotoNati.adjuntarA(payload);
 
