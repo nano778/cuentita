@@ -163,6 +163,8 @@
   #formGasto.modo-retiro #monedaToggle{ display:none; }
   #formGasto.modo-retiro #campoCategoria{ display:none; }
   #formGasto.modo-retiro #campoParaQuien{ display:none; }
+  /* Por ahora todo es efectivo y sin cuotas: se ocultan metodo de pago y cuotas */
+  #filaMetodoCuotas, #nCampoMetodoCuotas, #eCampoMetodo, #campoFiltroMetodo{ display:none !important; }
   #formGasto.modo-retiro #filaMetodoCuotas{ display:none; }
   #formGasto.modo-retiro #campoComprobante{ display:none; }
   #formGasto.modo-retiro #campoFecha{ flex:1 1 100% !important; }
@@ -1147,7 +1149,7 @@
             <div class="multi-panel" id="multiCategoriaPanel" role="menu"></div>
           </div>
         </div>
-        <div class="campo">
+        <div class="campo" id="campoFiltroMetodo">
           <label>Métodos</label>
           <div class="multi" id="multiMetodo">
             <button type="button" class="multi-btn" id="multiMetodoBtn" aria-haspopup="true" aria-expanded="false">
@@ -1758,11 +1760,6 @@ function validarFormulario(){
       ok = false;
       primerError = primerError || campoCategoria;
     }
-    if (!selectMetodo.value){
-      campoMetodo.classList.add('error');
-      ok = false;
-      primerError = primerError || campoMetodo;
-    }
   }
 
   if (primerError){
@@ -1892,7 +1889,7 @@ form.addEventListener('submit', async (e) => {
     ? { ...base, tipo: 'Retiro', persona: 'Nati', moneda: 'ARS' }
     : { ...base, moneda: monedaSeleccionada, categoria: selectCategoria.value,
         paraQuien: selectParaQuien.value || 'Familia',
-        metodoPago: selectMetodo.value, cuotas: parseInt(selectCuotas.value, 10) || 1 };
+        metodoPago: 'Efectivo', cuotas: 1 };
   if (!esRetiro) fotoMariano.adjuntarA(payload);
 
   ponerCargando(btnGuardar, 'Guardando...');
@@ -2234,7 +2231,7 @@ formEditar.addEventListener('submit', async (e) => {
   // Los retiros no llevan categoría ni método (siempre Retiro / Efectivo)
   if (!eEsRetiro){
     if (!eCategoria.value){ eCampoCategoria.classList.add('error'); ok = false; }
-    if (!eMetodo.value){ eCampoMetodo.classList.add('error'); ok = false; }
+
   }
   if (!ok){ eEstado.textContent = 'Revisá los campos marcados.'; eEstado.className = 'estado err'; return; }
 
@@ -2246,7 +2243,7 @@ formEditar.addEventListener('submit', async (e) => {
     fecha: eFecha.value,
     categoria: eEsRetiro ? 'Retiro' : eCategoria.value,
     paraQuien: eEsRetiro ? '' : eParaQuien.value,
-    metodoPago: eEsRetiro ? 'Efectivo' : eMetodo.value,
+    metodoPago: eEsRetiro ? 'Efectivo' : (eMetodo.value || 'Efectivo'),
     descripcion: eDescripcion.value.trim(),
   };
 
@@ -2388,8 +2385,7 @@ formNati.addEventListener('submit', async (e) => {
     ? { tipo: 'Retiro', persona: 'Nati', monto: monto, moneda: 'ARS', fecha: nFecha.value, descripcion: nDesc.value.trim() }
     : { persona: 'Nati', monto: monto, moneda: nMonedaSeleccionada, fecha: nFecha.value,
         categoria: nCategoria.value, paraQuien: nParaQuien.value || 'Familia',
-        metodoPago: nMetodo.value || 'Efectivo',
-        cuotas: parseInt(nCuotas.value, 10) || 1, descripcion: nDesc.value.trim() };
+        metodoPago: 'Efectivo', cuotas: 1, descripcion: nDesc.value.trim() };
   if (!esRetiro) fotoNati.adjuntarA(payload);
 
   ponerCargando(btnGuardarNati, 'Guardando...');
