@@ -154,7 +154,7 @@
   /* En modo Retiro se oculta la categoría y la fecha ocupa toda la fila */
   #formNati.modo-retiro #nMonedaToggle{ display:none; }
   #formNati.modo-retiro #nCampoCategoria{ display:none; }
-  #formNati.modo-retiro #nCampoParaQuien{ display:none; }
+  #formNati.modo-retiro #nFilaSubPara{ display:none; }
   #formNati.modo-retiro #nCampoMetodoCuotas{ display:none; }
   #formNati.modo-retiro #nCampoComprobante{ display:none; }
   #nComprobante{ display:none; }
@@ -162,7 +162,7 @@
   /* Modo Retiro en el perfil Mariano: se ocultan los campos que no aplican */
   #formGasto.modo-retiro #monedaToggle{ display:none; }
   #formGasto.modo-retiro #campoCategoria{ display:none; }
-  #formGasto.modo-retiro #campoParaQuien{ display:none; }
+  #formGasto.modo-retiro #filaSubPara{ display:none; }
   /* Por ahora todo es efectivo y sin cuotas: se ocultan metodo de pago y cuotas */
   #filaMetodoCuotas, #nCampoMetodoCuotas, #eCampoMetodo, #campoFiltroMetodo{ display:none !important; }
   #formGasto.modo-retiro #filaMetodoCuotas{ display:none; }
@@ -804,7 +804,7 @@
   /* Editar un retiro: solo monto, fecha y descripción (sin moneda/categoría/método) */
   #modalEditar.modo-retiro #eCampoMoneda,
   #modalEditar.modo-retiro #eCampoCategoria,
-  #modalEditar.modo-retiro #eCampoParaQuien,
+  #modalEditar.modo-retiro #eFilaSubPara,
   #modalEditar.modo-retiro #eCampoMetodo{ display: none; }
   #modalEditar.modo-retiro #eCampoFecha{ flex: 1 1 100% !important; }
 
@@ -961,9 +961,16 @@
         </div>
       </div>
 
-      <div class="campo select-wrap" id="campoParaQuien">
-        <label for="paraQuien">Para quién</label>
-        <select id="paraQuien"></select>
+      <div class="fila-2" id="filaSubPara">
+        <div class="campo select-wrap" id="campoSubcategoria">
+          <label for="subcategoria">Subcategoría</label>
+          <select id="subcategoria"></select>
+          <div class="msg-error">Elegí una subcategoría</div>
+        </div>
+        <div class="campo select-wrap" id="campoParaQuien" style="flex:0 0 38%;">
+          <label for="paraQuien">Para quién</label>
+          <select id="paraQuien"></select>
+        </div>
       </div>
 
       <div class="fila-2" id="filaMetodoCuotas">
@@ -1054,9 +1061,16 @@
         </div>
       </div>
 
-      <div class="campo select-wrap" id="nCampoParaQuien">
-        <label for="nParaQuien">Para quién</label>
-        <select id="nParaQuien"></select>
+      <div class="fila-2" id="nFilaSubPara">
+        <div class="campo select-wrap" id="nCampoSubcategoria">
+          <label for="nSubcategoria">Subcategoría</label>
+          <select id="nSubcategoria"></select>
+          <div class="msg-error">Elegí una subcategoría</div>
+        </div>
+        <div class="campo select-wrap" id="nCampoParaQuien" style="flex:0 0 38%;">
+          <label for="nParaQuien">Para quién</label>
+          <select id="nParaQuien"></select>
+        </div>
       </div>
 
       <div class="fila-2" id="nCampoMetodoCuotas">
@@ -1246,9 +1260,16 @@
           <div class="msg-error">Elegí una categoría</div>
         </div>
       </div>
-      <div class="campo select-wrap" id="eCampoParaQuien">
-        <label for="eParaQuien">Para quién</label>
-        <select id="eParaQuien"></select>
+      <div class="fila-2" id="eFilaSubPara">
+        <div class="campo select-wrap" id="eCampoSubcategoria">
+          <label for="eSubcategoria">Subcategoría</label>
+          <select id="eSubcategoria"></select>
+          <div class="msg-error">Elegí una subcategoría</div>
+        </div>
+        <div class="campo select-wrap" id="eCampoParaQuien" style="flex:0 0 38%;">
+          <label for="eParaQuien">Para quién</label>
+          <select id="eParaQuien"></select>
+        </div>
       </div>
       <div class="campo select-wrap" id="eCampoMetodo">
         <label for="eMetodo">Método de pago</label>
@@ -1282,6 +1303,16 @@ const CATEGORIAS_FALLBACK = ["Supermercado y almacén","Comida afuera / delivery
   "Impuestos inmobiliarios/municipales","Otros"];
 // Para quién es el gasto (columna N de Gastos). El primero es el valor por defecto.
 const PARA_QUIEN_FALLBACK = ["Familia","Nano","Nati","Tomi"];
+// Subcategorias por categoria (vienen de Config!H4 en la planilla)
+let subcatsPorCat = {};
+// Llena el select de subcategoria segun la categoria elegida. Si la categoria no tiene subcategorias, lo deja vacio.
+function llenarSubcats(selCat, selSub, valor){
+  const subs = subcatsPorCat[selCat.value] || [];
+  selSub.replaceChildren(new Option(subs.length ? 'Elegí...' : '—', ''), ...subs.map(o => new Option(o, o)));
+  if (valor && subs.indexOf(valor) === -1) selSub.add(new Option(valor, valor));
+  selSub.value = valor || '';
+  selSub.disabled = !subs.length && !valor;
+}
 const METODOS_FALLBACK = ["Efectivo","Tarjeta debito","Tarjeta credito",
   "Transferencia","Billetera virtual"];
 
@@ -1295,6 +1326,8 @@ const selectCategoria = document.getElementById('categoria');
 const selectMetodo = document.getElementById('metodo');
 const selectCuotas = document.getElementById('cuotas');
 const selectParaQuien = document.getElementById('paraQuien');
+const selectSubcategoria = document.getElementById('subcategoria');
+const campoSubcategoria = document.getElementById('campoSubcategoria');
 const inputFoto = document.getElementById('comprobante');
 const fotoLabel = document.getElementById('fotoLabel');
 const fotoBtn = document.getElementById('fotoBtn');
@@ -1437,7 +1470,8 @@ pintarFecha(inputFecha, fechaDisplay);
 // Limpiar el error de un campo apenas el usuario lo corrige
 inputMonto.addEventListener('input', () => { montoHero.classList.remove('error'); errMonto.style.display = 'none'; });
 inputFecha.addEventListener('change', () => { campoFecha.classList.remove('error'); pintarFecha(inputFecha, fechaDisplay); });
-selectCategoria.addEventListener('change', () => campoCategoria.classList.remove('error'));
+selectCategoria.addEventListener('change', () => { campoCategoria.classList.remove('error'); llenarSubcats(selectCategoria, selectSubcategoria, ''); });
+selectSubcategoria.addEventListener('change', () => campoSubcategoria.classList.remove('error'));
 selectMetodo.addEventListener('change', () => campoMetodo.classList.remove('error'));
 
 // Llena un <select> con las opciones dadas (conserva la seleccion actual si sigue existiendo)
@@ -1561,7 +1595,7 @@ async function cargarConfig(){
   let cacheTxt = null, cache = null;
   try { cacheTxt = localStorage.getItem(CONFIG_CACHE_KEY); cache = JSON.parse(cacheTxt); } catch(e){ cache = null; }
   if (cache && Array.isArray(cache.categorias) && Array.isArray(cache.metodos)){
-    aplicarConfig(cache.categorias, cache.metodos, cache.categoriasPerfil, cache.metodosPerfil, cache.paraQuien);
+    aplicarConfig(cache.categorias, cache.metodos, cache.categoriasPerfil, cache.metodosPerfil, cache.paraQuien, cache.subcategorias);
   } else {
     cache = null;
   }
@@ -1576,11 +1610,12 @@ async function cargarConfig(){
       metodos: usarMets ? data.metodos : METODOS_FALLBACK,
       categoriasPerfil: usarCats ? (data.categoriasPerfil || []) : [],
       metodosPerfil: usarMets ? (data.metodosPerfil || []) : [],
-      paraQuien: (data.paraQuien && data.paraQuien.length) ? data.paraQuien : PARA_QUIEN_FALLBACK
+      paraQuien: (data.paraQuien && data.paraQuien.length) ? data.paraQuien : PARA_QUIEN_FALLBACK,
+      subcategorias: data.subcategorias || {}
     };
     const txt = JSON.stringify(cfg);
     if (txt !== cacheTxt){
-      aplicarConfig(cfg.categorias, cfg.metodos, cfg.categoriasPerfil, cfg.metodosPerfil, cfg.paraQuien);
+      aplicarConfig(cfg.categorias, cfg.metodos, cfg.categoriasPerfil, cfg.metodosPerfil, cfg.paraQuien, cfg.subcategorias);
       try { localStorage.setItem(CONFIG_CACHE_KEY, txt); } catch(e){}
     }
   } catch(err){
@@ -1601,7 +1636,8 @@ function filtrarPorPerfil(items, perfiles, perfilActual){
   });
 }
 
-function aplicarConfig(cats, mets, catsPerfil, metsPerfil, paraQuien){
+function aplicarConfig(cats, mets, catsPerfil, metsPerfil, paraQuien, subcats){
+  subcatsPorCat = subcats || {};
   catsDisponibles = cats;
   metsDisponibles = mets;
   const pq = (paraQuien && paraQuien.length) ? paraQuien : PARA_QUIEN_FALLBACK;
@@ -1621,6 +1657,8 @@ function aplicarConfig(cats, mets, catsPerfil, metsPerfil, paraQuien){
   msMetodo.setOpciones(mets);
   llenarSelect(eCategoria, cats);
   llenarSelect(eMetodo, mets);
+  llenarSubcats(selectCategoria, selectSubcategoria, selectSubcategoria.value);
+  llenarSubcats(nCategoria, nSubcategoria, nSubcategoria.value);
 }
 
 // Achica la imagen a 1280px de lado maximo y la devuelve como JPEG en base64
@@ -1759,6 +1797,10 @@ function validarFormulario(){
       campoCategoria.classList.add('error');
       ok = false;
       primerError = primerError || campoCategoria;
+    } else if (!selectSubcategoria.disabled && !selectSubcategoria.value){
+      campoSubcategoria.classList.add('error');
+      ok = false;
+      primerError = primerError || campoSubcategoria;
     }
   }
 
@@ -1820,12 +1862,12 @@ function agregarAlHistorial(gasto){
   // copia mutable de los datos (se actualiza si se edita)
   const datos = {
     id: gasto.id, tipo: esRetiro ? 'Retiro' : 'Gasto', moneda: gasto.moneda, monto: gasto.monto,
-    fecha: gasto.fecha, categoria: gasto.categoria, paraQuien: gasto.paraQuien || '',
+    fecha: gasto.fecha, categoria: gasto.categoria, subcategoria: gasto.subcategoria || '', paraQuien: gasto.paraQuien || '',
     descripcion: gasto.descripcion || '', metodoPago: gasto.metodoPago
   };
   const r = agregarRenglon();
   function pintar(){
-    r.chip.textContent = esRetiro ? 'Retiro' : datos.categoria;
+    r.chip.textContent = esRetiro ? 'Retiro' : (datos.subcategoria || datos.categoria);
     r.desc.textContent = datos.descripcion || '';
     r.monto.textContent = (esRetiro ? '+ ' : '') + fmtMoneda(datos.monto, datos.moneda);
   }
@@ -1839,7 +1881,7 @@ function agregarAlHistorial(gasto){
   });
   r.acciones.append(
     botonEditar(() => abrirEditor(datos, (editado) => {
-      ['moneda', 'monto', 'fecha', 'categoria', 'paraQuien', 'descripcion', 'metodoPago'].forEach(k => { datos[k] = editado[k]; });
+      ['moneda', 'monto', 'fecha', 'categoria', 'subcategoria', 'paraQuien', 'descripcion', 'metodoPago'].forEach(k => { datos[k] = editado[k]; });
       pintar();
     })),
     btnBorrar
@@ -1861,6 +1903,7 @@ function registrarGuardado(payload, data, okMsg){
     moneda: payload.moneda, monto: payload.monto, fecha: payload.fecha,
     categoria: esRetiro ? 'Retiro' : payload.categoria,
     paraQuien: esRetiro ? '' : payload.paraQuien,
+    subcategoria: esRetiro ? '' : payload.subcategoria,
     metodoPago: esRetiro ? 'Efectivo' : payload.metodoPago,
     descripcion: payload.descripcion
   });
@@ -1888,6 +1931,7 @@ form.addEventListener('submit', async (e) => {
   const payload = esRetiro
     ? { ...base, tipo: 'Retiro', persona: 'Nati', moneda: 'ARS' }
     : { ...base, moneda: monedaSeleccionada, categoria: selectCategoria.value,
+        subcategoria: selectSubcategoria.value || '',
         paraQuien: selectParaQuien.value || 'Familia',
         metodoPago: 'Efectivo', cuotas: 1 };
   if (!esRetiro) fotoMariano.adjuntarA(payload);
@@ -1898,6 +1942,7 @@ form.addEventListener('submit', async (e) => {
     const data = await api(payload);
     registrarGuardado(payload, data, esRetiro ? 'Retiro guardado (a nombre de Nati)' : 'Gasto guardado');
     form.reset();
+    llenarSubcats(selectCategoria, selectSubcategoria, '');
     selectCuotas.value = '1';
     inputFecha.valueAsDate = new Date();
     pintarFecha(inputFecha, fechaDisplay);
@@ -2013,7 +2058,7 @@ function renderMovimientos(movs, saldoPersonal){
                        : (m.descripcion ? (m.metodoPago + ' · ' + m.descripcion) : m.metodoPago);
     if (m.paraQuien) sub += '  ·  para ' + m.paraQuien;
     if (mostrarPersona && m.persona) sub += '  ·  ' + m.persona;
-    const fila = filaMovimiento(fmtFechaCorta(m.fecha), esRetiro ? 'Retiro de efectivo' : m.categoria,
+    const fila = filaMovimiento(fmtFechaCorta(m.fecha), esRetiro ? 'Retiro de efectivo' : (m.subcategoria ? m.categoria + ' · ' + m.subcategoria : m.categoria),
                                 sub, (esRetiro ? '+ ' : '') + fmtMoneda(m.monto, m.moneda));
     const acciones = el('div', 'acciones');
     acciones.append(
@@ -2154,6 +2199,8 @@ const eFecha = document.getElementById('eFecha');
 const eFechaDisplay = document.getElementById('eFechaDisplay');
 const eCategoria = document.getElementById('eCategoria');
 const eParaQuien = document.getElementById('eParaQuien');
+const eSubcategoria = document.getElementById('eSubcategoria');
+const eCampoSubcategoria = document.getElementById('eCampoSubcategoria');
 const eMetodo = document.getElementById('eMetodo');
 const eDescripcion = document.getElementById('eDescripcion');
 const eGuardar = document.getElementById('eGuardar');
@@ -2171,7 +2218,8 @@ let eOnGuardado = null;  // callback tras guardar OK (re-consultar o actualizar 
 eFecha.addEventListener('change', () => { eCampoFecha.classList.remove('error'); pintarFecha(eFecha, eFechaDisplay); });
 conectarMoneda(eMonedaToggle, m => { eMonedaSel = m; });
 eMonto.addEventListener('input', () => eCampoMonto.classList.remove('error'));
-eCategoria.addEventListener('change', () => eCampoCategoria.classList.remove('error'));
+eCategoria.addEventListener('change', () => { eCampoCategoria.classList.remove('error'); llenarSubcats(eCategoria, eSubcategoria, ''); });
+eSubcategoria.addEventListener('change', () => eCampoSubcategoria.classList.remove('error'));
 eMetodo.addEventListener('change', () => eCampoMetodo.classList.remove('error'));
 
 // Abre el editor cargado con los datos de un gasto. onGuardado se llama tras guardar OK.
@@ -2194,6 +2242,8 @@ function abrirEditor(gasto, onGuardado){
   eFecha.value = gasto.fecha || '';
   pintarFecha(eFecha, eFechaDisplay);
   eCategoria.value = gasto.categoria || '';
+  llenarSubcats(eCategoria, eSubcategoria, gasto.subcategoria || '');
+  eCampoSubcategoria.classList.remove('error');
   asegurarOpcion(eParaQuien, gasto.paraQuien);
   eParaQuien.value = gasto.paraQuien || eParaQuien.options[0]?.value || '';
   eMetodo.value = gasto.metodoPago || '';
@@ -2231,6 +2281,7 @@ formEditar.addEventListener('submit', async (e) => {
   // Los retiros no llevan categoría ni método (siempre Retiro / Efectivo)
   if (!eEsRetiro){
     if (!eCategoria.value){ eCampoCategoria.classList.add('error'); ok = false; }
+    else if (!eSubcategoria.disabled && !eSubcategoria.value){ eCampoSubcategoria.classList.add('error'); ok = false; }
 
   }
   if (!ok){ eEstado.textContent = 'Revisá los campos marcados.'; eEstado.className = 'estado err'; return; }
@@ -2243,6 +2294,7 @@ formEditar.addEventListener('submit', async (e) => {
     fecha: eFecha.value,
     categoria: eEsRetiro ? 'Retiro' : eCategoria.value,
     paraQuien: eEsRetiro ? '' : eParaQuien.value,
+    subcategoria: eEsRetiro ? '' : eSubcategoria.value,
     metodoPago: eEsRetiro ? 'Efectivo' : (eMetodo.value || 'Efectivo'),
     descripcion: eDescripcion.value.trim(),
   };
@@ -2278,6 +2330,8 @@ const nFechaDisplay = document.getElementById('nFechaDisplay');
 const nCampoFecha = document.getElementById('nCampoFecha');
 const nCategoria = document.getElementById('nCategoria');
 const nParaQuien = document.getElementById('nParaQuien');
+const nSubcategoria = document.getElementById('nSubcategoria');
+const nCampoSubcategoria = document.getElementById('nCampoSubcategoria');
 const nCampoCategoria = document.getElementById('nCampoCategoria');
 const nMonedaToggle = document.getElementById('nMonedaToggle');
 const nSignoMoneda = document.getElementById('nSignoMoneda');
@@ -2366,7 +2420,8 @@ const fotoNati = crearFoto({
 
 nFecha.addEventListener('change', () => { nCampoFecha.classList.remove('error'); pintarFecha(nFecha, nFechaDisplay); });
 nMonto.addEventListener('input', () => { nMontoHero.classList.remove('error'); nErrMonto.style.display = 'none'; });
-nCategoria.addEventListener('change', () => nCampoCategoria.classList.remove('error'));
+nCategoria.addEventListener('change', () => { nCampoCategoria.classList.remove('error'); llenarSubcats(nCategoria, nSubcategoria, ''); });
+nSubcategoria.addEventListener('change', () => nCampoSubcategoria.classList.remove('error'));
 
 formNati.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -2378,13 +2433,14 @@ formNati.addEventListener('submit', async (e) => {
   if (!nMonto.value || isNaN(monto) || monto <= 0){ nMontoHero.classList.add('error'); nErrMonto.style.display = 'block'; ok = false; }
   if (!nFecha.value){ nCampoFecha.classList.add('error'); ok = false; }
   if (tipoNati === 'gasto' && !nCategoria.value){ nCampoCategoria.classList.add('error'); ok = false; }
+  if (tipoNati === 'gasto' && nCategoria.value && !nSubcategoria.disabled && !nSubcategoria.value){ nCampoSubcategoria.classList.add('error'); ok = false; }
   if (!ok){ nEstado.textContent = 'Revisá los campos marcados.'; nEstado.className = 'estado err'; return; }
 
   const esRetiro = (tipoNati === 'retiro');
   const payload = esRetiro
     ? { tipo: 'Retiro', persona: 'Nati', monto: monto, moneda: 'ARS', fecha: nFecha.value, descripcion: nDesc.value.trim() }
     : { persona: 'Nati', monto: monto, moneda: nMonedaSeleccionada, fecha: nFecha.value,
-        categoria: nCategoria.value, paraQuien: nParaQuien.value || 'Familia',
+        categoria: nCategoria.value, subcategoria: nSubcategoria.value || '', paraQuien: nParaQuien.value || 'Familia',
         metodoPago: 'Efectivo', cuotas: 1, descripcion: nDesc.value.trim() };
   if (!esRetiro) fotoNati.adjuntarA(payload);
 
@@ -2394,6 +2450,7 @@ formNati.addEventListener('submit', async (e) => {
     const data = await api(payload);
     registrarGuardado(payload, data, esRetiro ? 'Retiro guardado' : 'Gasto guardado');
     formNati.reset();
+    llenarSubcats(nCategoria, nSubcategoria, '');
     nCuotas.value = '1';
     nMonedaSeleccionada = 'ARS';
     marcarMoneda(nMonedaToggle, 'ARS');
