@@ -151,10 +151,11 @@
   #nMontoHero{ padding: 12px 4px 12px; border-bottom:1px solid var(--line); margin-bottom:14px; }
   #nMontoHero .monto-fila{ display:flex; align-items:center; justify-content:center; gap:6px; }
   #nMontoHero .signo{ font-size:26px; font-weight:600; align-self:flex-start; margin-top:12px; }
-  /* En modo Retiro se oculta la categoría y la fecha ocupa toda la fila */
+  /* En modo Retiro se ocultan categoría, subcategoría y para quién; la fecha ocupa toda la fila */
   #formNati.modo-retiro #nMonedaToggle{ display:none; }
   #formNati.modo-retiro #nCampoCategoria{ display:none; }
   #formNati.modo-retiro #nFilaSubPara{ display:none; }
+  #formNati.modo-retiro #nCampoParaQuien{ display:none; }
   #formNati.modo-retiro #nCampoMetodoCuotas{ display:none; }
   #formNati.modo-retiro #nCampoComprobante{ display:none; }
   #nComprobante{ display:none; }
@@ -163,6 +164,7 @@
   #formGasto.modo-retiro #monedaToggle{ display:none; }
   #formGasto.modo-retiro #campoCategoria{ display:none; }
   #formGasto.modo-retiro #filaSubPara{ display:none; }
+  #formGasto.modo-retiro #campoParaQuien{ display:none; }
   /* Por ahora todo es efectivo y sin cuotas: se ocultan metodo de pago y cuotas */
   #filaMetodoCuotas, #nCampoMetodoCuotas, #eCampoMetodo, #campoFiltroMetodo{ display:none !important; }
   #formGasto.modo-retiro #filaMetodoCuotas{ display:none; }
@@ -805,6 +807,7 @@
   #modalEditar.modo-retiro #eCampoMoneda,
   #modalEditar.modo-retiro #eCampoCategoria,
   #modalEditar.modo-retiro #eFilaSubPara,
+  #modalEditar.modo-retiro #eCampoParaQuien,
   #modalEditar.modo-retiro #eCampoMetodo{ display: none; }
   #modalEditar.modo-retiro #eCampoFecha{ flex: 1 1 100% !important; }
 
@@ -952,6 +955,13 @@
           </div>
           <div class="msg-error">Elegí una fecha</div>
         </div>
+        <div class="campo select-wrap" id="campoParaQuien">
+          <label for="paraQuien">Para quién</label>
+          <select id="paraQuien"></select>
+        </div>
+      </div>
+
+      <div class="fila-2" id="filaSubPara">
         <div class="campo select-wrap" id="campoCategoria">
           <label for="categoria">Categoría</label>
           <select id="categoria" name="categoria" required>
@@ -959,17 +969,10 @@
           </select>
           <div class="msg-error">Elegí una categoría</div>
         </div>
-      </div>
-
-      <div class="fila-2" id="filaSubPara">
         <div class="campo select-wrap" id="campoSubcategoria">
           <label for="subcategoria">Subcategoría</label>
           <select id="subcategoria"></select>
           <div class="msg-error">Elegí una subcategoría</div>
-        </div>
-        <div class="campo select-wrap" id="campoParaQuien" style="flex:0 0 38%;">
-          <label for="paraQuien">Para quién</label>
-          <select id="paraQuien"></select>
         </div>
       </div>
 
@@ -1054,22 +1057,22 @@
           </div>
           <div class="msg-error">Elegí una fecha</div>
         </div>
+        <div class="campo select-wrap" id="nCampoParaQuien">
+          <label for="nParaQuien">Para quién</label>
+          <select id="nParaQuien"></select>
+        </div>
+      </div>
+
+      <div class="fila-2" id="nFilaSubPara">
         <div class="campo select-wrap" id="nCampoCategoria">
           <label for="nCategoria">Categoría</label>
           <select id="nCategoria"></select>
           <div class="msg-error">Elegí una categoría</div>
         </div>
-      </div>
-
-      <div class="fila-2" id="nFilaSubPara">
         <div class="campo select-wrap" id="nCampoSubcategoria">
           <label for="nSubcategoria">Subcategoría</label>
           <select id="nSubcategoria"></select>
           <div class="msg-error">Elegí una subcategoría</div>
-        </div>
-        <div class="campo select-wrap" id="nCampoParaQuien" style="flex:0 0 38%;">
-          <label for="nParaQuien">Para quién</label>
-          <select id="nParaQuien"></select>
         </div>
       </div>
 
@@ -1254,21 +1257,21 @@
           </div>
           <div class="msg-error">Elegí una fecha</div>
         </div>
+        <div class="campo select-wrap" id="eCampoParaQuien">
+          <label for="eParaQuien">Para quién</label>
+          <select id="eParaQuien"></select>
+        </div>
+      </div>
+      <div class="fila-2" id="eFilaSubPara">
         <div class="campo select-wrap" id="eCampoCategoria">
           <label for="eCategoria">Categoría</label>
           <select id="eCategoria"></select>
           <div class="msg-error">Elegí una categoría</div>
         </div>
-      </div>
-      <div class="fila-2" id="eFilaSubPara">
         <div class="campo select-wrap" id="eCampoSubcategoria">
           <label for="eSubcategoria">Subcategoría</label>
           <select id="eSubcategoria"></select>
           <div class="msg-error">Elegí una subcategoría</div>
-        </div>
-        <div class="campo select-wrap" id="eCampoParaQuien" style="flex:0 0 38%;">
-          <label for="eParaQuien">Para quién</label>
-          <select id="eParaQuien"></select>
         </div>
       </div>
       <div class="campo select-wrap" id="eCampoMetodo">
